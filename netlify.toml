@@ -1,0 +1,286 @@
+# ============================================================
+#  Universal Landscaping — Netlify Configuration
+# ============================================================
+#  This file tells Netlify how to serve your site and where
+#  the serverless functions live.
+# ============================================================
+
+[build]
+  # Everything at the site root is served as-is (static site)
+  publish = "."
+  # Netlify functions live in this folder
+  functions = "netlify/functions"
+
+# Functions have no dependencies — no bundler needed.
+# (Do not add node_bundler here: manual drag-and-drop deploys
+#  don't run a build, so bundler configs prevent registration.)
+
+# Cache static assets aggressively — makes the site load fast
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Security headers — makes the site safer
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# ============================================================
+#  REDIRECTS — added for SEO / URL consistency
+# ============================================================
+#  Canonical URL form: EXTENSIONLESS.
+#  NOTE: no "force" on the .html rules. Netlify serves pretty
+#  URLs from the .html files internally; forcing a redirect on
+#  .html would create an infinite loop (/services -> serve
+#  services.html -> force redirect -> /services ...). Without
+#  force, Netlify serves /services normally and only redirects
+#  when a visitor explicitly requests the .html or old URL.
+# ============================================================
+
+# ---------- 1. Old .html URLs -> extensionless canonical ----------
+[[redirects]]
+  from = "/retaining-walls.html"
+  to = "/retaining-walls"
+  status = 301
+
+[[redirects]]
+  from = "/paver-patio-walkways.html"
+  to = "/paver-patio-walkways"
+  status = 301
+
+[[redirects]]
+  from = "/concrete-services.html"
+  to = "/concrete-services"
+  status = 301
+
+[[redirects]]
+  from = "/sod-installation.html"
+  to = "/sod-installation"
+  status = 301
+
+[[redirects]]
+  from = "/complete-landscape-install.html"
+  to = "/complete-landscape-install"
+  status = 301
+
+[[redirects]]
+  from = "/snow-ice-management.html"
+  to = "/snow-ice-management"
+  status = 301
+
+[[redirects]]
+  from = "/carpentry.html"
+  to = "/carpentry"
+  status = 301
+
+[[redirects]]
+  from = "/driveways.html"
+  to = "/driveways"
+  status = 301
+
+[[redirects]]
+  from = "/services.html"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/reviews.html"
+  to = "/reviews"
+  status = 301
+
+[[redirects]]
+  from = "/gallery.html"
+  to = "/gallery"
+  status = 301
+
+[[redirects]]
+  from = "/blog.html"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/careers.html"
+  to = "/careers"
+  status = 301
+
+[[redirects]]
+  from = "/privacy-policy.html"
+  to = "/privacy-policy"
+  status = 301
+
+[[redirects]]
+  from = "/terms-conditions.html"
+  to = "/terms-conditions"
+  status = 301
+
+# ---------- 2. Old WordPress trailing-slash URLs ----------
+[[redirects]]
+  from = "/retaining-walls/"
+  to = "/retaining-walls"
+  status = 301
+
+[[redirects]]
+  from = "/paver-patio-walkways/"
+  to = "/paver-patio-walkways"
+  status = 301
+
+[[redirects]]
+  from = "/concrete-services/"
+  to = "/concrete-services"
+  status = 301
+
+[[redirects]]
+  from = "/sod-installation/"
+  to = "/sod-installation"
+  status = 301
+
+[[redirects]]
+  from = "/complete-landscape-install/"
+  to = "/complete-landscape-install"
+  status = 301
+
+[[redirects]]
+  from = "/snow-ice-management/"
+  to = "/snow-ice-management"
+  status = 301
+
+[[redirects]]
+  from = "/carpentry/"
+  to = "/carpentry"
+  status = 301
+
+[[redirects]]
+  from = "/driveways/"
+  to = "/driveways"
+  status = 301
+
+[[redirects]]
+  from = "/services/"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/about-us/"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/about-us"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/reviews/"
+  to = "/reviews"
+  status = 301
+
+[[redirects]]
+  from = "/gallery/"
+  to = "/gallery"
+  status = 301
+
+[[redirects]]
+  from = "/contact-us/"
+  to = "/#quote"
+  status = 301
+
+[[redirects]]
+  from = "/contact-us"
+  to = "/#quote"
+  status = 301
+
+# ---------- 3. Discontinued services -> nearest relevant page ----------
+[[redirects]]
+  from = "/lawn-mowing/"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/lawn-mowing"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/aeration/"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/aeration"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/dethatching/"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/dethatching"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/snow-removal/"
+  to = "/snow-ice-management"
+  status = 301
+
+[[redirects]]
+  from = "/snow-removal"
+  to = "/snow-ice-management"
+  status = 301
+
+[[redirects]]
+  from = "/custom-gazebo-pergola/"
+  to = "/carpentry"
+  status = 301
+
+[[redirects]]
+  from = "/custom-gazebo-pergola"
+  to = "/carpentry"
+  status = 301
+
+[[redirects]]
+  from = "/garden-landscaping-design/"
+  to = "/complete-landscape-install"
+  status = 301
+
+[[redirects]]
+  from = "/garden-landscaping-design"
+  to = "/complete-landscape-install"
+  status = 301
+
+# ---------- 4. Old WordPress system paths ----------
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wp-login.php"
+  to = "/"
+  status = 301

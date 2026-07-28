@@ -1,0 +1,3456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Universal Landscaping — Halifax, Nova Scotia</title>
+  <meta name="description" content="Top-tier landscaping services in Halifax, Nova Scotia. Retaining walls, paver patios, sod installation, fencing and full landscape installs across Bedford and HRM." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="theme.css" />
+  <link rel="stylesheet" href="layout.css" />
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    /* All color variables come from theme.css (linked in <head>).
+       Edit theme.css to change the entire site palette. */
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--soil);
+      color: var(--cream);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ============================================================
+       TYPOGRAPHY
+    ============================================================ */
+    .eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sand);
+    }
+    .display { font-family: var(--font-display); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; }
+    .section-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(32px, 5vw, 48px); letter-spacing: -0.02em; line-height: 1.1; color: var(--moss); }
+
+    /* ============================================================
+       SCROLL REVEAL — initial state
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        transition: opacity 0.7s var(--ease-spring), transform 0.7s var(--ease-spring);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ============================================================
+       NAV — black info bar + white(left)/green(right) split header
+    ============================================================ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- Solid black company-info bar --- */
+    .top-bar {
+      background: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 48px;
+      height: 40px;
+      font-size: 13px;
+      overflow: hidden;
+      transition: height 0.4s ease;
+    }
+    .top-bar-info { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; list-style: none; }
+    .top-bar-info a, .top-bar-info span { color: #fff; font-weight: 500; }
+    .top-bar-info a:hover { color: var(--lime); }
+    .top-bar-social { display: flex; align-items: center; gap: 18px; }
+    .top-bar-social a { color: #fff; font-weight: 500; }
+    .top-bar-social a:hover { color: var(--lime); }
+
+    /* --- Main header: solid green, white block hugs the logo --- */
+    .nav-main {
+      --green: #41842a;
+      background: var(--green);
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      padding: 0 48px 0 0;
+      height: 148px;
+      transition: height 0.4s var(--ease-spring);
+    }
+    #nav.scrolled .nav-main { height: 96px; }
+    #nav.scrolled .top-bar { height: 34px; }
+
+    /* White block wraps only the logo, with a diagonal right edge */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 0 58px 0 48px;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
+    }
+    .logo-img {
+      height: 124px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      transition: height 0.4s var(--ease-spring);
+    }
+    #nav.scrolled .logo-img { height: 80px; }
+
+    .nav-right { display: flex; align-items: center; gap: 30px; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: #fff;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease-spring);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* Quote button sits on green — white outline pill */
+    .nav-cta {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      border: 1.5px solid #fff;
+      padding: 12px 24px;
+      border-radius: 100px;
+      transition: background 0.25s var(--ease-spring), color 0.25s, transform 0.25s var(--ease-bounce);
+      letter-spacing: 0.02em;
+    }
+    .nav-cta:hover { background: #fff; color: #2c5e1c; transform: scale(1.04); }
+
+    /* Promotional AI button — white pill with green text so it pops on green */
+    .nav-promo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #2c5e1c;
+      background: #fff;
+      padding: 12px 20px;
+      border-radius: 100px;
+      letter-spacing: 0.02em;
+      box-shadow: 0 0 0 0 rgba(255,255,255,0.55);
+      transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s ease, filter 0.2s;
+      animation: nav-promo-pulse 2.6s ease-in-out infinite;
+    }
+    .nav-promo:hover { transform: scale(1.04); filter: brightness(0.97); }
+    .nav-promo .promo-spark { font-size: 15px; line-height: 1; color: #41842a; }
+    @keyframes nav-promo-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); }
+      50%      { box-shadow: 0 0 0 8px rgba(255,255,255,0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .nav-promo { animation: none; }
+    }
+
+    /* Mobile hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+      margin-right: 22px;
+      z-index: 200;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px; height: 2px;
+      background: #fff;
+      transition: transform 0.3s var(--ease-spring), opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile overlay */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #41842a;
+      z-index: 150;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 700;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s var(--ease-spring), transform 0.4s var(--ease-spring), color 0.2s;
+    }
+    #mobile-menu.open a { opacity: 1; transform: translateY(0); }
+    #mobile-menu a:hover { color: var(--lime); }
+    #mobile-menu.open a:nth-child(1) { transition-delay: 0.05s; }
+    #mobile-menu.open a:nth-child(2) { transition-delay: 0.10s; }
+    #mobile-menu.open a:nth-child(3) { transition-delay: 0.15s; }
+    #mobile-menu.open a:nth-child(4) { transition-delay: 0.20s; }
+    #mobile-menu.open a:nth-child(5) { transition-delay: 0.25s; }
+    #mobile-menu.open a:nth-child(6) { transition-delay: 0.30s; }
+
+    @media (max-width: 768px) {
+      .top-bar { padding: 0 18px; font-size: 12px; gap: 12px; }
+      .top-bar-info { gap: 14px; }
+      .top-bar-info .hide-mobile { display: none; }
+      .top-bar-social { gap: 14px; }
+      .nav-main { padding-right: 0; height: 100px; }
+      #nav.scrolled .nav-main { height: 82px; }
+      .nav-logo { padding: 0 34px 0 18px; }
+      .logo-img { height: 72px; }
+      #nav.scrolled .logo-img { height: 60px; }
+      .nav-links, .nav-cta, .nav-promo { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-image-side {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .hero-img-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--hero-grad-a) 0%, var(--hero-grad-b) 40%, var(--hero-grad-c) 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 40px;
+    }
+    /* Replace this div with an <img> tag pointing to your real project photo */
+    .hero-img-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(var(--moss-rgb),0.04) 0px,
+        rgba(var(--moss-rgb),0.04) 1px,
+        transparent 1px,
+        transparent 40px
+      );
+    }
+    .hero-img-label {
+      position: relative;
+      font-size: 11px;
+      color: rgba(var(--border-rgb),0.3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px dashed rgba(var(--border-rgb),0.15);
+      padding: 8px 14px;
+      border-radius: 4px;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.42) 45%, rgba(0,0,0,0.62) 100%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+      color: #fff;
+    }
+    .hero-eyebrow {
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .hero-eyebrow span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(20px, 2.6vw, 34px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--moss);
+      margin-bottom: 20px;
+    }
+    .hero-headline .word {
+      display: inline-block;
+      overflow: hidden;
+      margin-right: 0.18em;
+    }
+    .hero-headline .word span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--cream);
+      line-height: 1.6;
+      max-width: 400px;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    /* Text sits over the video → keep small text light; slogan stays brand green */
+    #hero .hero-eyebrow, #hero .hero-eyebrow span { color: var(--sage); text-shadow: 0 1px 8px rgba(0,0,0,0.55); }
+    #hero .hero-headline { color: #ffffff !important; text-shadow: 0 2px 20px rgba(0,0,0,0.55); }
+    #hero .hero-sub { color: var(--sage); text-shadow: 0 1px 10px rgba(0,0,0,0.6); margin-left: auto; margin-right: auto; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--lime);
+      color: var(--soil);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 100px;
+      transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s;
+    }
+    .btn-primary:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(var(--lime-rgb),0.3); }
+    .btn-primary .arrow {
+      transition: transform 0.25s var(--ease-spring);
+    }
+    .btn-primary:hover .arrow { transform: translateX(4px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--sand);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 14px 4px;
+      border-bottom: 1px solid rgba(var(--sand-rgb),0.3);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--cream); border-color: var(--cream); }
+
+    @media (max-width: 900px) {
+      #hero { min-height: 90vh; }
+      .hero-content { padding: 324px 20px 90px; }
+      .hero-sub { max-width: 100%; }
+    }
+    @media (max-width: 768px) {
+      #hero { min-height: 86vh; }
+      .hero-content { padding: 226px 18px 80px; }
+    }
+
+    /* ============================================================
+       STATS STRIP
+    ============================================================ */
+    #stats {
+      background: var(--stone);
+      padding: 64px 40px;
+      border-top: 1px solid rgba(var(--border-rgb),0.05);
+      border-bottom: 1px solid rgba(var(--border-rgb),0.05);
+    }
+    .stats-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(40px, 5vw, 64px);
+      color: var(--cream);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .stat-number .suffix { color: var(--lime); }
+    .stat-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-top: 8px;
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      #stats { padding: 48px 24px; }
+    }
+
+    /* ============================================================
+       SERVICES
+    ============================================================ */
+    #services {
+      padding: 100px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      margin-bottom: 60px;
+    }
+    .section-header .eyebrow { margin-bottom: 16px; display: block; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    /* ===== SERVICE CARDS — flip on click (2 clicks: flip, then navigate) ===== */
+    .service-card {
+      position: relative;
+      display: block;
+      aspect-ratio: 4 / 3;
+      border-radius: 18px;
+      text-decoration: none;
+      cursor: pointer;
+      perspective: 1400px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      transition: box-shadow 0.4s ease;
+    }
+    .service-card:hover { box-shadow: 0 18px 44px rgba(0,0,0,0.28); }
+    .service-flip {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      transition: transform 0.7s var(--ease-spring);
+    }
+    .service-card.flipped .service-flip { transform: rotateY(180deg); }
+    .service-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .service-back { transform: rotateY(180deg); }
+    /* Robust anti-bleed: hide the non-facing side; swaps at the flip midpoint (edge-on) */
+    .service-front, .service-back { transition: opacity 0s linear 0.35s; }
+    .service-back { opacity: 0; }
+    .service-card.flipped .service-front { opacity: 0; }
+    .service-card.flipped .service-back { opacity: 1; }
+    .service-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      border-radius: 18px;
+      z-index: 0;
+    }
+    .service-bg-flip { transform: scaleX(-1); }
+    .service-front-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: 18px;
+      background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.14) 44%, rgba(0,0,0,0) 70%);
+    }
+    .service-back-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: 18px;
+      background: linear-gradient(to top, rgba(0,0,0,0.84) 0%, rgba(0,0,0,0.64) 55%, rgba(0,0,0,0.48) 100%);
+    }
+    .service-front-content, .service-back-content {
+      position: relative; z-index: 2; padding: 24px 26px; color: #fff;
+    }
+    .service-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #fff;
+      margin: 0;
+    }
+    /* Card titles black — overrides the global green-title rule; soft light
+       glow keeps them legible over the photos */
+    .service-card .service-name {
+      color: #000 !important;
+      text-shadow: 0 1px 10px rgba(255,255,255,0.65), 0 0 2px rgba(255,255,255,0.8);
+    }
+    .service-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.55;
+      margin: 10px 0 4px;
+    }
+    .service-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--sage);
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .service-link .arrow { transition: transform 0.25s var(--ease-spring); }
+    .service-card:hover .service-link .arrow { transform: translateX(4px); }
+    .service-flip-hint {
+      position: absolute; top: 14px; right: 14px; z-index: 3;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.92); color: var(--moss);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; line-height: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.28);
+    }
+    @media (max-width: 768px) {
+      .services-grid { grid-template-columns: 1fr; gap: 16px; }
+      #services { padding: 64px 24px; }
+      .service-card { aspect-ratio: 4 / 3; }
+    }
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ============================================================
+       WHY CHOOSE US
+    ============================================================ */
+    #why {
+      background: var(--stone);
+      padding: 100px 40px;
+      border-top: 1px solid rgba(var(--border-rgb),0.05);
+    }
+    .why-inner { max-width: 1100px; margin: 0 auto; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 48px 60px;
+      margin-top: 56px;
+    }
+    .why-item {}
+    .why-icon {
+      width: 40px; height: 40px;
+      color: var(--lime);
+      margin-bottom: 16px;
+    }
+    .why-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--cream);
+      margin-bottom: 10px;
+    }
+    .why-body { font-size: 15px; color: var(--sand); line-height: 1.65; }
+    /* Option 1 — filled icons, animated continuously */
+    .why-icon { overflow: visible; }
+    .wa-heart-svg path { transform-box: fill-box; transform-origin: center; animation: wa-beat 1.5s ease-in-out infinite; }
+    @keyframes wa-beat { 0%,100%{transform:scale(1)} 12%{transform:scale(1.18)} 24%{transform:scale(1)} 36%{transform:scale(1.12)} 48%{transform:scale(1)} }
+    .wa-phone { transform-box: fill-box; transform-origin: 32% 68%; animation: wa-ring 1.7s ease-in-out infinite; }
+    @keyframes wa-ring { 0%,55%,100%{transform:rotate(0)} 62%{transform:rotate(-9deg)} 70%{transform:rotate(9deg)} 78%{transform:rotate(-6deg)} 86%{transform:rotate(4deg)} 94%{transform:rotate(0)} }
+    .wa-wave { opacity:0; animation: wa-wavepulse 1.7s ease-out infinite; }
+    .wa-wave.wave2 { animation-delay: .12s; }
+    @keyframes wa-wavepulse { 0%,55%{opacity:0} 62%{opacity:1} 92%{opacity:1} 100%{opacity:0} }
+    .wa-check { stroke-dasharray:1; stroke-dashoffset:1; animation: wa-checkdraw 2.6s ease-in-out infinite; }
+    @keyframes wa-checkdraw { 0%{stroke-dashoffset:1;opacity:0} 8%{opacity:1} 30%{stroke-dashoffset:0} 82%{stroke-dashoffset:0;opacity:1} 94%{opacity:0} 100%{stroke-dashoffset:1;opacity:0} }
+    .wa-pin { transform-box: fill-box; transform-origin: 50% 100%; animation: wa-drop 2.1s ease-in-out infinite; }
+    @keyframes wa-drop { 0%{transform:translateY(-6px)} 18%{transform:translateY(0)} 28%{transform:translateY(-3px)} 38%{transform:translateY(0)} 100%{transform:translateY(0)} }
+    .wa-ripple { transform-box: fill-box; transform-origin: center; animation: wa-ripplepulse 2.1s ease-out infinite; }
+    @keyframes wa-ripplepulse { 0%,12%{transform:scale(.4);opacity:0} 24%{opacity:.55} 52%{transform:scale(1.35);opacity:0} 100%{opacity:0} }
+    .wa-umbrella-svg { animation: wa-sway 3s ease-in-out infinite; transform-origin: 50% 24%; }
+    @keyframes wa-sway { 0%,100%{transform:rotate(0)} 30%{transform:rotate(-7deg)} 70%{transform:rotate(7deg)} }
+    .wa-medal-svg { animation: wa-medalpulse 2.4s ease-in-out infinite; transform-origin: 50% 62%; }
+    @keyframes wa-medalpulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+    @media (prefers-reduced-motion: reduce) {
+      .wa-heart-svg path, .wa-phone, .wa-wave, .wa-check, .wa-pin, .wa-ripple, .wa-umbrella-svg, .wa-medal-svg { animation: none !important; }
+      .wa-check { stroke-dashoffset: 0; opacity: 1; }
+      .wa-wave { opacity: 1; }
+    }
+    @media (max-width: 768px) {
+      .why-grid { grid-template-columns: 1fr; gap: 36px; }
+      #why { padding: 64px 24px; }
+    }
+
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    #testimonials {
+      padding: 100px 0;
+      overflow: hidden;
+    }
+    .testimonials-header {
+      padding: 0 40px;
+      margin-bottom: 48px;
+    }
+    .testimonials-track {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 8px 40px 24px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .testimonials-track::-webkit-scrollbar { display: none; }
+    .review-card {
+      flex: 0 0 360px;
+      scroll-snap-align: start;
+      background: var(--stone);
+      border: 1px solid rgba(var(--border-rgb),0.06);
+      border-radius: 4px;
+      padding: 36px 32px;
+    }
+    .stars {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+    .star {
+      color: var(--lime);
+      font-size: 16px;
+    }
+    .review-text {
+      font-size: 15px;
+      color: var(--sand);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .reviewer-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--moss);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--cream);
+      flex-shrink: 0;
+    }
+    .reviewer-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--cream);
+    }
+    .reviewer-source {
+      font-size: 12px;
+      color: var(--sand);
+    }
+    .track-fade {
+      position: relative;
+    }
+    .track-fade::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 120px; height: 100%;
+      background: linear-gradient(to left, var(--soil), transparent);
+      pointer-events: none;
+    }
+    @media (max-width: 600px) {
+      .review-card { flex: 0 0 300px; }
+      .testimonials-header, .testimonials-track { padding-left: 24px; padding-right: 24px; }
+    }
+
+    /* ============================================================
+       GALLERY STRIP
+    ============================================================ */
+    #gallery {
+      padding: 88px 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(var(--border-rgb),0.06);
+    }
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 44px;
+      padding: 0 24px;
+    }
+    .gallery-header .eyebrow { display: block; margin-bottom: 14px; }
+    .gallery-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(26px, 3.8vw, 38px);
+      letter-spacing: -0.02em;
+      color: var(--cream);
+    }
+    .gallery-belt {
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-belt::before,
+    .gallery-belt::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .gallery-belt::before {
+      left: 0;
+      background: linear-gradient(to right, var(--soil), transparent);
+    }
+    .gallery-belt::after {
+      right: 0;
+      background: linear-gradient(to left, var(--soil), transparent);
+    }
+    .gallery-track {
+      display: flex;
+      width: max-content;
+      animation: gallery-scroll 55s linear infinite;
+    }
+    .gallery-belt:hover .gallery-track {
+      animation-play-state: paused;
+    }
+    @keyframes gallery-scroll {
+      to { transform: translateX(-50%); }
+    }
+    .gallery-item {
+      flex-shrink: 0;
+      width: 340px;
+      height: 260px;
+      margin-right: 20px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s var(--ease-spring);
+    }
+    .gallery-item:hover img { transform: scale(1.07); }
+    @media (prefers-reduced-motion: reduce) {
+      .gallery-track { animation: none; }
+      .gallery-belt { overflow-x: auto; }
+    }
+    @media (max-width: 600px) {
+      #gallery { padding: 56px 0; }
+      .gallery-item { width: 240px; height: 190px; margin-right: 14px; }
+      .gallery-belt::before, .gallery-belt::after { width: 60px; }
+    }
+
+    /* ============================================================
+       QUOTE FORM
+    ============================================================ */
+    #quote {
+      padding: 100px 40px;
+      background: var(--stone);
+      border-top: 1px solid rgba(var(--border-rgb),0.05);
+    }
+    .quote-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 80px;
+      align-items: start;
+    }
+    .quote-inner > div { min-width: 0; }
+    .form-title { margin-bottom: 8px; }
+    .form-subtitle { color: var(--sand); font-size: 16px; margin-bottom: 40px; margin-top: 12px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(var(--border-rgb),0.04);
+      border: 1px solid rgba(var(--border-rgb),0.1);
+      border-radius: 4px;
+      color: var(--cream);
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(var(--sand-rgb),0.4); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--moss);
+      box-shadow: 0 0 0 3px rgba(var(--moss-rgb),0.2);
+    }
+    .form-group select { cursor: pointer; }
+    .form-group select option { background: var(--stone); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--lime);
+      color: var(--soil);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 16px 36px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s;
+      font-family: var(--font-body);
+    }
+    .btn-submit:hover { transform: scale(1.03); box-shadow: 0 8px 28px rgba(var(--lime-rgb),0.3); }
+    .btn-submit.loading { opacity: 0.7; pointer-events: none; }
+    .spinner {
+      display: none;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(var(--soil-rgb),0.3);
+      border-top-color: var(--soil);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    .btn-submit.loading .spinner { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Contact info sidebar */
+    .contact-info {
+      padding-top: 80px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: rgba(var(--moss-rgb),0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--lime);
+    }
+    .contact-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sand); margin-bottom: 4px; }
+    .contact-value { font-size: 16px; color: var(--cream); font-weight: 500; }
+    .contact-value a { color: var(--cream); transition: color 0.2s; }
+    .contact-value a:hover { color: var(--lime); }
+
+    @media (max-width: 900px) {
+      .quote-inner { grid-template-columns: 1fr; gap: 48px; }
+      .contact-info { padding-top: 0; }
+      #quote { padding: 64px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--footer-bg);
+      border-top: 1px solid rgba(var(--border-rgb),0.06);
+      padding: 72px 40px 40px;
+    }
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(var(--border-rgb),0.06);
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--cream);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .footer-logo span { color: var(--lime); }
+    .footer-tagline { font-size: 14px; color: var(--sand); margin-bottom: 24px; line-height: 1.6; }
+    .social-links { display: flex; gap: 12px; }
+    .social-link {
+      width: 38px; height: 38px;
+      border: 1px solid rgba(var(--border-rgb),0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--sand);
+      font-size: 16px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .social-link:hover { border-color: var(--lime); color: var(--lime); background: rgba(var(--lime-rgb),0.08); }
+    .footer-col-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 20px;
+    }
+    .hours-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; }
+    .hours-row .day { color: var(--sand); }
+    .hours-row .time { color: var(--cream); }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a { font-size: 14px; color: var(--sand); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--lime); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 32px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: rgba(var(--sand-rgb),0.4);
+    }
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      footer { padding: 56px 24px 32px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    /* ============================================================
+       HERO ANIMATION KEYFRAMES
+    ============================================================ */
+    @keyframes wordIn {
+      from { opacity: 0; transform: translateY(100%); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       FORM SUCCESS STATE
+    ============================================================ */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 48px 0;
+    }
+    .form-success.visible { display: block; }
+    .form-success-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(var(--moss-rgb),0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--lime);
+      font-size: 28px;
+    }
+
+    /* ============================================================
+       PROCESS / HOW IT WORKS
+    ============================================================ */
+    #process {
+      padding: 100px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+      counter-reset: step;
+    }
+    .process-step {
+      position: relative;
+      padding-top: 24px;
+    }
+    .process-step::before {
+      counter-increment: step;
+      content: "0" counter(step);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 48px;
+      color: var(--stone2);
+      line-height: 1;
+      display: block;
+      margin-bottom: 20px;
+      transition: color 0.3s var(--ease-spring);
+    }
+    .process-step:hover::before { color: var(--moss); }
+    .process-connector {
+      position: absolute;
+      top: 44px;
+      left: 70px;
+      right: -12px;
+      height: 1px;
+      background: linear-gradient(to right, var(--stone2), transparent);
+    }
+    .process-step:last-child .process-connector { display: none; }
+    .process-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--cream);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .process-body {
+      font-size: 15px;
+      color: var(--sand);
+      line-height: 1.6;
+    }
+    @media (max-width: 900px) {
+      .process-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
+      .process-connector { display: none; }
+    }
+    @media (max-width: 560px) {
+      .process-grid { grid-template-columns: 1fr; gap: 32px; }
+      #process { padding: 64px 24px; }
+    }
+
+    /* ============================================================
+       SERVICE AREAS
+    ============================================================ */
+    #areas {
+      background: var(--stone);
+      padding: 100px 40px;
+      border-top: 1px solid rgba(var(--border-rgb),0.05);
+    }
+    .areas-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .areas-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 24px;
+      margin-top: 32px;
+    }
+    .area-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      color: var(--cream);
+    }
+    .area-item .pin {
+      color: var(--lime);
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+    }
+    .areas-map {
+      background: linear-gradient(135deg, var(--hero-grad-a) 0%, var(--hero-grad-c) 100%);
+      border: 1px solid rgba(var(--border-rgb),0.06);
+      border-radius: 16px;
+      padding: 48px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .areas-map::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(var(--moss-rgb),0.04) 0px, rgba(var(--moss-rgb),0.04) 1px, transparent 1px, transparent 30px),
+                  repeating-linear-gradient(90deg, rgba(var(--moss-rgb),0.04) 0px, rgba(var(--moss-rgb),0.04) 1px, transparent 1px, transparent 30px);
+    }
+    .areas-map-icon {
+      position: relative;
+      width: 56px; height: 56px;
+      margin: 0 auto 20px;
+      color: var(--lime);
+    }
+    .areas-map-title {
+      position: relative;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .areas-map-text {
+      position: relative;
+      font-size: 15px;
+      color: var(--sand);
+      line-height: 1.6;
+    }
+    @media (max-width: 800px) {
+      .areas-inner { grid-template-columns: 1fr; gap: 40px; }
+      #areas { padding: 64px 24px; }
+      .areas-map { order: -1; }
+    }
+
+    /* ============================================================
+       FAQ
+    ============================================================ */
+    #faq {
+      padding: 100px 40px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .faq-list { margin-top: 48px; }
+    .faq-item {
+      border-bottom: 1px solid rgba(var(--border-rgb),0.08);
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px 0;
+      text-align: left;
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 19px;
+      color: var(--cream);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--lime); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      position: relative;
+      transition: transform 0.3s var(--ease-spring);
+    }
+    .faq-icon::before,
+    .faq-icon::after {
+      content: '';
+      position: absolute;
+      background: currentColor;
+      transition: opacity 0.3s;
+    }
+    .faq-icon::before { top: 10px; left: 0; width: 22px; height: 2px; }
+    .faq-icon::after { top: 0; left: 10px; width: 2px; height: 22px; }
+    .faq-item.open .faq-icon::after { opacity: 0; }
+    .faq-item.open .faq-icon { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease-spring);
+    }
+    .faq-answer-inner {
+      padding: 0 0 24px;
+      font-size: 16px;
+      color: var(--sand);
+      line-height: 1.7;
+      max-width: 92%;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .faq-answer { transition: none; }
+    }
+    @media (max-width: 600px) {
+      #faq { padding: 64px 24px; }
+      .faq-question { font-size: 17px; }
+    }
+
+    /* ============================================================
+       CTA BANNER
+    ============================================================ */
+    #cta-banner {
+      padding: 40px 40px 100px;
+    }
+    .cta-banner-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--moss) 0%, var(--moss-dark) 100%);
+      border-radius: 20px;
+      padding: 64px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner-inner::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -10%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(var(--lime-rgb),0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-banner-text { position: relative; }
+    .cta-banner-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 40px);
+      color: var(--cta-text);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .cta-banner-sub {
+      font-size: 17px;
+      color: rgba(var(--cta-text-rgb),0.85);
+      max-width: 460px;
+    }
+    .cta-banner-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--lime);
+      color: var(--soil);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 18px 36px;
+      border-radius: 100px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s;
+    }
+    .cta-banner-btn:hover { transform: scale(1.04); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+    .cta-banner-btn .arrow { transition: transform 0.25s var(--ease-spring); }
+    .cta-banner-btn:hover .arrow { transform: translateX(4px); }
+    @media (max-width: 800px) {
+      .cta-banner-inner { flex-direction: column; align-items: flex-start; text-align: left; padding: 48px 32px; }
+      #cta-banner { padding: 40px 24px 64px; }
+    }
+
+    /* ============================================================
+       GOOGLE MAP
+    ============================================================ */
+    .map-wrap {
+      margin-top: 40px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(var(--border-rgb),0.07);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+      position: relative;
+    }
+    .map-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 360px;
+      filter: none;
+      transition: filter 0.4s ease;
+    }
+    .map-wrap:hover iframe { filter: none; }
+    .map-label {
+      position: absolute;
+      top: auto; bottom: 16px; left: auto; right: 16px;
+      background: var(--soil);
+      border: 1px solid rgba(var(--border-rgb),0.1);
+      border-radius: 8px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cream);
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+    .map-label .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--lime);
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.4); }
+    }
+    .map-directions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--sage);
+      transition: color 0.2s;
+      width: fit-content;
+    }
+    .map-directions:hover { color: var(--lime); }
+    .map-directions svg { transition: transform 0.25s var(--ease-spring); }
+    .map-directions:hover svg { transform: translateX(4px); }
+
+    /* ============================================================
+       AI QUOTE ESTIMATOR
+    ============================================================ */
+    #estimator-trigger {
+      text-align: center;
+      padding: 0 40px 80px;
+    }
+    .estimator-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: transparent;
+      border: 2px solid var(--lime);
+      color: var(--lime);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 17px;
+      padding: 18px 40px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.3s var(--ease-spring), color 0.3s, transform 0.25s var(--ease-bounce), box-shadow 0.3s;
+      letter-spacing: -0.01em;
+    }
+    .estimator-trigger-btn:hover {
+      background: var(--lime);
+      color: var(--soil);
+      transform: scale(1.04);
+      box-shadow: 0 8px 32px rgba(var(--lime-rgb),0.35);
+    }
+    .estimator-trigger-btn .ai-icon {
+      width: 24px; height: 24px;
+      animation: ai-spin 3s linear infinite;
+    }
+    @keyframes ai-spin {
+      0%,100% { transform: rotate(0deg) scale(1); }
+      50%      { transform: rotate(180deg) scale(1.1); }
+    }
+
+    /* Overlay */
+    #estimator-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(var(--soil-rgb),0.88);
+      backdrop-filter: blur(8px);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #estimator-overlay.open { display: flex; }
+
+    /* Modal */
+    .estimator-modal {
+      background: var(--stone);
+      border: 1px solid rgba(var(--border-rgb),0.08);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 90vh;
+      overflow-y: auto;
+      scrollbar-width: none;
+      position: relative;
+      animation: modal-in 0.45s var(--ease-spring) both;
+    }
+    .estimator-modal::-webkit-scrollbar { display: none; }
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(32px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Modal header */
+    .est-header {
+      padding: 28px 32px 20px;
+      border-bottom: 1px solid rgba(var(--border-rgb),0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      background: var(--stone);
+      z-index: 10;
+      border-radius: 20px 20px 0 0;
+    }
+    .est-header-left { display: flex; align-items: center; gap: 14px; }
+    .est-header-icon {
+      width: 44px; height: 44px;
+      background: rgba(var(--lime-rgb),0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--lime);
+      flex-shrink: 0;
+    }
+    .est-title {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 18px;
+      color: var(--cream); line-height: 1.2;
+    }
+    .est-subtitle { font-size: 13px; color: var(--sand); margin-top: 2px; }
+    .est-close {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(var(--border-rgb),0.06);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--sand); font-size: 18px; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+      border: none;
+      font-family: inherit;
+    }
+    .est-close:hover { background: rgba(var(--border-rgb),0.12); color: var(--cream); }
+
+    /* Progress bar */
+    .est-progress {
+      padding: 16px 32px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .est-progress-bar {
+      flex: 1; height: 4px;
+      background: rgba(var(--border-rgb),0.08);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .est-progress-fill {
+      height: 100%;
+      background: var(--lime);
+      border-radius: 100px;
+      transition: width 0.5s var(--ease-spring);
+    }
+    .est-progress-label {
+      font-size: 12px;
+      color: var(--sand);
+      white-space: nowrap;
+    }
+
+    /* Steps */
+    .est-body { padding: 24px 32px 32px; }
+    .est-step { display: none; }
+    .est-step.active { display: block; animation: step-in 0.4s var(--ease-spring) both; }
+    @keyframes step-in {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .est-step-q {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 22px;
+      color: var(--cream); line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .est-step-hint { font-size: 14px; color: var(--sand); margin-bottom: 24px; }
+
+    /* Option buttons */
+    .est-options { display: grid; gap: 10px; }
+    .est-options.cols-2 { grid-template-columns: 1fr 1fr; }
+    .est-opt {
+      display: flex; align-items: center; gap: 14px;
+      background: rgba(var(--border-rgb),0.04);
+      border: 1.5px solid rgba(var(--border-rgb),0.08);
+      border-radius: 12px; padding: 16px 18px;
+      cursor: pointer; text-align: left;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s var(--ease-bounce);
+      color: var(--cream); font-family: var(--font-body); font-size: 15px; font-weight: 500;
+    }
+    .est-opt:hover { border-color: var(--moss); background: rgba(var(--moss-rgb),0.12); transform: translateY(-2px); }
+    .est-opt.selected { border-color: var(--lime); background: rgba(var(--lime-rgb),0.1); color: var(--lime); }
+    .est-opt-icon { font-size: 22px; flex-shrink: 0; }
+    .est-opt-text { display: flex; flex-direction: column; }
+    .est-opt-label { font-weight: 600; }
+    .est-opt-sub { font-size: 12px; color: var(--sand); margin-top: 2px; font-weight: 400; }
+    .est-opt.selected .est-opt-sub { color: rgba(var(--lime-rgb),0.7); }
+
+    /* Navigation */
+    .est-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 28px; gap: 12px;
+    }
+    .est-btn-back {
+      font-size: 14px; color: var(--sand); background: none; border: none;
+      cursor: pointer; font-family: inherit; padding: 10px 0;
+      transition: color 0.2s;
+    }
+    .est-btn-back:hover { color: var(--cream); }
+    .est-btn-next {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--lime); color: var(--soil);
+      font-family: var(--font-display); font-weight: 700; font-size: 15px;
+      padding: 14px 28px; border-radius: 100px; border: none; cursor: pointer;
+      transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s, opacity 0.2s;
+    }
+    .est-btn-next:hover { transform: scale(1.04); box-shadow: 0 6px 20px rgba(var(--lime-rgb),0.3); }
+    .est-btn-next:disabled { opacity: 0.35; pointer-events: none; }
+
+    /* Result */
+    .est-result { display: none; padding: 24px 32px 32px; }
+    .est-result.active { display: block; animation: step-in 0.4s var(--ease-spring) both; }
+    .est-result-loading {
+      text-align: center; padding: 40px 0;
+    }
+    .est-spinner {
+      width: 48px; height: 48px;
+      border: 3px solid rgba(var(--lime-rgb),0.2);
+      border-top-color: var(--lime);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .est-loading-text { color: var(--sand); font-size: 15px; }
+    .est-loading-sub { color: var(--stone2); font-size: 13px; margin-top: 6px; }
+    .est-result-content { display: none; }
+    .est-result-content.active { display: block; }
+    .est-result-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(var(--lime-rgb),0.12);
+      border: 1px solid rgba(var(--lime-rgb),0.25);
+      color: var(--lime); font-size: 12px; font-weight: 600;
+      padding: 6px 14px; border-radius: 100px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .est-result-text {
+      font-size: 16px; color: var(--sand); line-height: 1.75;
+      background: rgba(var(--border-rgb),0.03);
+      border: 1px solid rgba(var(--border-rgb),0.06);
+      border-radius: 12px; padding: 20px 22px;
+      margin-bottom: 24px;
+      white-space: pre-wrap;
+    }
+    .est-result-text strong { color: var(--cream); }
+    .est-contact-prompt {
+      background: linear-gradient(135deg, rgba(var(--moss-rgb),0.2), rgba(var(--moss-rgb),0.05));
+      border: 1px solid rgba(var(--moss-rgb),0.3);
+      border-radius: 12px; padding: 20px 22px; margin-bottom: 20px;
+    }
+    .est-contact-prompt h4 {
+      font-family: var(--font-display); font-weight: 700; font-size: 17px;
+      color: var(--cream); margin-bottom: 6px;
+    }
+    .est-contact-prompt p { font-size: 14px; color: var(--sand); margin-bottom: 16px; }
+    .est-contact-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .est-contact-input {
+      flex: 1; min-width: 140px;
+      background: rgba(var(--border-rgb),0.05);
+      border: 1px solid rgba(var(--border-rgb),0.1);
+      border-radius: 8px; color: var(--cream);
+      font-family: var(--font-body); font-size: 14px;
+      padding: 11px 14px; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .est-contact-input::placeholder { color: rgba(var(--sand-rgb),0.4); }
+    .est-contact-input:focus { border-color: var(--moss); box-shadow: 0 0 0 3px rgba(var(--moss-rgb),0.2); }
+    .est-submit-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--lime); color: var(--soil);
+      font-family: var(--font-display); font-weight: 700; font-size: 15px;
+      padding: 12px 24px; border-radius: 100px; border: none; cursor: pointer;
+      transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s; white-space: nowrap;
+    }
+    .est-submit-btn:hover { transform: scale(1.04); box-shadow: 0 6px 20px rgba(var(--lime-rgb),0.3); }
+    .est-restart {
+      text-align: center; margin-top: 12px;
+    }
+    .est-restart button {
+      font-size: 13px; color: var(--sand); background: none; border: none;
+      cursor: pointer; font-family: inherit; transition: color 0.2s;
+    }
+    .est-restart button:hover { color: var(--lime); }
+    .est-error {
+      text-align: center; padding: 32px 0;
+      color: var(--sand); font-size: 15px; display: none;
+    }
+    .est-error a { color: var(--lime); }
+    @media (max-width: 600px) {
+      .estimator-modal { border-radius: 16px; }
+      .est-header, .est-body, .est-result { padding-left: 20px; padding-right: 20px; }
+      .est-options.cols-2 { grid-template-columns: 1fr; }
+      .est-step-q { font-size: 19px; }
+      #estimator-trigger { padding: 0 24px 64px; }
+    }
+  
+    /* ============================================================
+       PARTNERS BELT
+    ============================================================ */
+    #partners {
+      padding: 72px 0 84px;
+      border-top: 1px solid rgba(var(--border-rgb),0.06);
+      overflow: hidden;
+    }
+    .partners-header {
+      text-align: center;
+      margin-bottom: 44px;
+      padding: 0 24px;
+    }
+    .partners-header .eyebrow { display: block; margin-bottom: 14px; }
+    .partners-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(24px, 3.5vw, 34px);
+      letter-spacing: -0.02em;
+      color: var(--cream);
+    }
+    .partners-belt {
+      position: relative;
+      overflow: hidden;
+    }
+    /* Soft fade on both edges so logos glide in/out elegantly */
+    .partners-belt::before,
+    .partners-belt::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .partners-belt::before {
+      left: 0;
+      background: linear-gradient(to right, var(--soil), transparent);
+    }
+    .partners-belt::after {
+      right: 0;
+      background: linear-gradient(to left, var(--soil), transparent);
+    }
+    .partners-track {
+      display: flex;
+      width: max-content;
+      animation: belt-scroll 40s linear infinite;
+    }
+    /* Pause when the visitor hovers to inspect a logo */
+    .partners-belt:hover .partners-track {
+      animation-play-state: paused;
+    }
+    @keyframes belt-scroll {
+      to { transform: translateX(-50%); }
+    }
+    .partner-chip {
+      flex-shrink: 0;
+      width: 260px;
+      height: 130px;
+      margin-right: 24px;
+      background: #FFFFFF;
+      border: 1px solid rgba(var(--border-rgb),0.08);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px 32px;
+    }
+    .partner-chip img {
+      max-height: 84px;
+      max-width: 200px;
+      width: auto;
+      object-fit: contain;
+      filter: grayscale(55%);
+      opacity: 0.9;
+      transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s var(--ease-spring);
+    }
+    .partner-chip:hover img {
+      filter: grayscale(0%);
+      opacity: 1;
+      transform: scale(1.06);
+    }
+    /* Accessibility: no motion for users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .partners-track { animation: none; }
+      .partners-belt { overflow-x: auto; }
+    }
+    @media (max-width: 600px) {
+      #partners { padding: 56px 0 64px; }
+      .partner-chip { width: 200px; height: 104px; margin-right: 16px; padding: 16px 24px; }
+      .partner-chip img { max-height: 64px; max-width: 152px; }
+      .partners-belt::before, .partners-belt::after { width: 60px; }
+    }
+  
+    /* ============================================================
+       HERO VIDEO — infinite loop with restart animation
+    ============================================================ */
+    .hero-image-side video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-video-fade {
+      position: absolute;
+      inset: 0;
+      background: var(--soil);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: 2;
+    }
+    .hero-video-fade.active { opacity: 1; }
+    .hero-loop-badge {
+      position: absolute;
+      bottom: 32px;
+      right: 32px;
+      z-index: 3;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-loop-badge svg.ring-svg {
+      position: absolute;
+      inset: 0;
+      transform: rotate(-90deg);
+    }
+    .hero-loop-badge .ring-bg {
+      fill: rgba(var(--soil-rgb), 0.55);
+      stroke: rgba(255,255,255,0.25);
+      stroke-width: 2;
+    }
+    .hero-loop-badge .ring-progress {
+      fill: none;
+      stroke: var(--lime);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 126;
+      stroke-dashoffset: 126;
+    }
+    .hero-loop-badge .loop-icon {
+      position: relative;
+      width: 18px; height: 18px;
+      color: #fff;
+      transition: transform 0.6s var(--ease-spring);
+    }
+    .hero-loop-badge.spinning .loop-icon { transform: rotate(360deg); }
+    .hero-video-caption {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(var(--soil-rgb), 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      padding: 9px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .hero-video-caption .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--lime);
+      animation: hero-pulse-dot 1.8s ease-in-out infinite;
+    }
+    @keyframes hero-pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.35); }
+    }
+    @media (max-width: 900px) {
+      .hero-loop-badge, .hero-video-caption { bottom: 20px; }
+      .hero-loop-badge { right: 20px; width: 40px; height: 40px; }
+      .hero-video-caption { left: 20px; padding: 7px 14px; font-size: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-video-caption .live-dot { animation: none; }
+    }
+    /* ===== "We accept" payment logo belt ===== */
+    .pay-belt-wrap { margin: 4px 0 30px; min-width: 0; max-width: 100%; }
+    .pay-belt-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--moss);
+      margin-bottom: 14px;
+    }
+    .pay-belt {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+              mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    }
+    .pay-track {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: max-content;
+      animation: pay-scroll 34s linear infinite;
+    }
+    .pay-belt:hover .pay-track { animation-play-state: paused; }
+    .pay-chip {
+      flex: 0 0 auto;
+      height: 56px;
+      min-width: 92px;
+      padding: 10px 18px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .pay-chip img {
+      max-height: 30px;
+      max-width: 104px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+    @keyframes pay-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pay-track { animation: none; flex-wrap: wrap; }
+      .pay-track .pay-dupe { display: none; }
+    }
+
+    /* File upload field */
+    .form-group input[type="file"] {
+      padding: 12px 14px;
+      border: 1px dashed rgba(var(--border-rgb),0.28);
+      background: rgba(var(--border-rgb),0.03);
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--sand);
+    }
+    .form-group input[type="file"]::file-selector-button {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 13px;
+      color: #fff;
+      background: var(--moss);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-right: 14px;
+      cursor: pointer;
+      transition: filter 0.2s;
+    }
+    .form-group input[type="file"]::file-selector-button:hover { filter: brightness(1.08); }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <div id="site-header"></div>
+
+  <!-- Mobile menu -->
+
+  <main>
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section id="hero" aria-label="Hero">
+      <div class="hero-image-side">
+        <video id="hero-video" autoplay muted playsinline preload="auto"
+               aria-label="Universal Landscaping promotional video">
+          <source src="Universal Lanscape Promo 2.mp4" type="video/mp4" />
+        </video>
+
+        <div class="hero-video-fade" id="hero-video-fade" aria-hidden="true"></div>
+
+        <div class="hero-video-caption" aria-hidden="true">
+          <span class="live-dot"></span>
+          Universal Landscaping · Promo
+        </div>
+
+        <div class="hero-loop-badge" id="hero-loop-badge" aria-hidden="true">
+          <svg class="ring-svg" viewBox="0 0 46 46">
+            <circle class="ring-bg" cx="23" cy="23" r="20"></circle>
+            <circle class="ring-progress" id="hero-ring-progress" cx="23" cy="23" r="20"></circle>
+          </svg>
+          <svg class="loop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+            <path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+          </svg>
+        </div>
+
+        <div class="hero-overlay" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero-content">
+        <p class="hero-eyebrow eyebrow">
+          <span id="eyebrow-text">Halifax's Outdoor Construction Specialists</span>
+        </p>
+
+        <h1 class="hero-headline" aria-label="Our Crew, Your Vision, Phenomenal Results">
+          <span class="word"><span>Our</span></span>
+          <span class="word"><span>Crew,</span></span>
+          <span class="word"><span>Your</span></span>
+          <span class="word"><span>Vision,</span></span>
+          <br>
+          <span class="word"><span>Phenomenal</span></span>
+          <span class="word"><span>Results</span></span>
+        </h1>
+
+        <p class="hero-sub" id="hero-sub">
+          Book now for Summer and Fall.
+        </p>
+
+        <div class="hero-buttons" id="hero-buttons">
+          <a href="#quote" class="btn-primary">
+            Get a Free Quote
+            <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#estimator-trigger" class="btn-primary">
+            <span aria-hidden="true">✨</span>
+            Try Our New AI Tool
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SERVICES
+    ============================================================ -->
+    <section id="services" aria-labelledby="services-title">
+      <div class="section-header reveal">
+        <span class="eyebrow">What We Do</span>
+        <h2 class="section-title" id="services-title">
+          Every outdoor project,<br>handled end to end.
+        </h2>
+      </div>
+
+      <div class="services-grid">
+
+        <a href="complete-landscape-install.html" class="service-card reveal flip-card" aria-label="Complete Landscape Install — aerial view of a completed new-home landscape">
+          <div class="service-flip">
+            <div class="service-face service-front">
+              <div class="service-card-bg" style="background-image:url('IMG_5258.png')"></div>
+              <div class="service-front-overlay" aria-hidden="true"></div>
+              <div class="service-flip-hint" aria-hidden="true">⟳</div>
+              <div class="service-front-content">
+                <h3 class="service-name">Complete Landscape Install</h3>
+                <span class="service-link">Learn more <span class="arrow">→</span></span>
+              </div>
+            </div>
+            <div class="service-face service-back">
+              <div class="service-card-bg service-bg-flip" style="background-image:url('IMG_5258.png')"></div>
+              <div class="service-back-overlay" aria-hidden="true"></div>
+              <div class="service-back-content">
+                <h3 class="service-name">Complete Landscape Install</h3>
+                <p class="service-desc">Full-property design and construction for new homes across Bedford, Halifax, Hammonds Plains, Larry Uteck, and the HRM. Your vision from the ground up.</p>
+                <span class="service-link">Visit page <span class="arrow">→</span></span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="retaining-walls.html" class="service-card reveal flip-card" aria-label="Retaining Walls — finished retaining wall installation">
+          <div class="service-flip">
+            <div class="service-face service-front">
+              <div class="service-card-bg" style="background-image:url('IMG_0756.jpg')"></div>
+              <div class="service-front-overlay" aria-hidden="true"></div>
+              <div class="service-flip-hint" aria-hidden="true">⟳</div>
+              <div class="service-front-content">
+                <h3 class="service-name">Retaining Walls</h3>
+                <span class="service-link">Learn more <span class="arrow">→</span></span>
+              </div>
+            </div>
+            <div class="service-face service-back">
+              <div class="service-card-bg service-bg-flip" style="background-image:url('IMG_0756.jpg')"></div>
+              <div class="service-back-overlay" aria-hidden="true"></div>
+              <div class="service-back-content">
+                <h3 class="service-name">Retaining Walls</h3>
+                <p class="service-desc">Structural and decorative walls built to last. Strength, style, and stability — engineered for Halifax's terrain and climate extremes.</p>
+                <span class="service-link">Visit page <span class="arrow">→</span></span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="paver-patio-walkways.html" class="service-card reveal flip-card" aria-label="Paver Patio &amp; Walkways — custom paver patio installation">
+          <div class="service-flip">
+            <div class="service-face service-front">
+              <div class="service-card-bg" style="background-image:url('IMG_1284.png')"></div>
+              <div class="service-front-overlay" aria-hidden="true"></div>
+              <div class="service-flip-hint" aria-hidden="true">⟳</div>
+              <div class="service-front-content">
+                <h3 class="service-name">Paver Patio &amp; Walkways</h3>
+                <span class="service-link">Learn more <span class="arrow">→</span></span>
+              </div>
+            </div>
+            <div class="service-face service-back">
+              <div class="service-card-bg service-bg-flip" style="background-image:url('IMG_1284.png')"></div>
+              <div class="service-back-overlay" aria-hidden="true"></div>
+              <div class="service-back-content">
+                <h3 class="service-name">Paver Patio &amp; Walkways</h3>
+                <p class="service-desc">Durable, stylish hardscapes that enhance curb appeal and property value. Patios, walkways, and driveways crafted to precision.</p>
+                <span class="service-link">Visit page <span class="arrow">→</span></span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="concrete-services.html" class="service-card reveal flip-card" aria-label="Concrete — finished concrete installation">
+          <div class="service-flip">
+            <div class="service-face service-front">
+              <div class="service-card-bg" style="background-image:url('IMG_CONCRETE.jpg')"></div>
+              <div class="service-front-overlay" aria-hidden="true"></div>
+              <div class="service-flip-hint" aria-hidden="true">⟳</div>
+              <div class="service-front-content">
+                <h3 class="service-name">Concrete</h3>
+                <span class="service-link">Learn more <span class="arrow">→</span></span>
+              </div>
+            </div>
+            <div class="service-face service-back">
+              <div class="service-card-bg service-bg-flip" style="background-image:url('IMG_CONCRETE.jpg')"></div>
+              <div class="service-back-overlay" aria-hidden="true"></div>
+              <div class="service-back-content">
+                <h3 class="service-name">Concrete</h3>
+                <p class="service-desc">Poured concrete for driveways, patios, walkways, and steps — plus stamped and decorative finishes, built to withstand Nova Scotia winters.</p>
+                <span class="service-link">Visit page <span class="arrow">→</span></span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="sod-installation.html" class="service-card reveal flip-card" aria-label="Sod Installation — freshly installed sod lawn">
+          <div class="service-flip">
+            <div class="service-face service-front">
+              <div class="service-card-bg" style="background-image:url('IMG_4077.png')"></div>
+              <div class="service-front-overlay" aria-hidden="true"></div>
+              <div class="service-flip-hint" aria-hidden="true">⟳</div>
+              <div class="service-front-content">
+                <h3 class="service-name">Sod Installation</h3>
+                <span class="service-link">Learn more <span class="arrow">→</span></span>
+              </div>
+            </div>
+            <div class="service-face service-back">
+              <div class="service-card-bg service-bg-flip" style="background-image:url('IMG_4077.png')"></div>
+              <div class="service-back-overlay" aria-hidden="true"></div>
+              <div class="service-back-content">
+                <h3 class="service-name">Sod Installation</h3>
+                <p class="service-desc">Achieve a lush, green lawn instantly. We prepare the ground with grading, soil conditioning, and leveling to ensure strong root growth and lasting results.</p>
+                <span class="service-link">Visit page <span class="arrow">→</span></span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="driveways.html" class="service-card reveal flip-card" aria-label="Driveways — finished driveway installation">
+          <div class="service-flip">
+            <div class="service-face service-front">
+              <div class="service-card-bg" style="background-image:url('Driveways.webp')"></div>
+              <div class="service-front-overlay" aria-hidden="true"></div>
+              <div class="service-flip-hint" aria-hidden="true">⟳</div>
+              <div class="service-front-content">
+                <h3 class="service-name">Driveways</h3>
+                <span class="service-link">Learn more <span class="arrow">→</span></span>
+              </div>
+            </div>
+            <div class="service-face service-back">
+              <div class="service-card-bg service-bg-flip" style="background-image:url('Driveways.webp')"></div>
+              <div class="service-back-overlay" aria-hidden="true"></div>
+              <div class="service-back-content">
+                <h3 class="service-name">Driveways</h3>
+                <p class="service-desc">Interlocking pavers, poured concrete, or gravel — durable, great-looking driveways built for Nova Scotia's climate.</p>
+                <span class="service-link">Visit page <span class="arrow">→</span></span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <div style="text-align:center; margin-top: 48px;" class="reveal">
+        <a href="services.html" class="btn-primary" style="display:inline-flex;">
+          See All Services
+          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         WHY CHOOSE US
+    ============================================================ -->
+    <section id="why" aria-labelledby="why-title">
+      <div class="why-inner">
+        <div class="reveal">
+          <span class="eyebrow">Why Universal</span>
+          <h2 class="section-title" id="why-title" style="margin-top:16px;">
+            Built on trust.<br>Proven by results.
+          </h2>
+        </div>
+
+        <div class="why-grid">
+          <div class="why-item reveal">
+            <svg class="why-icon wa-heart-svg" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34S6.5 25.5 6.5 16A6.5 6.5 0 0 1 20 11.5A6.5 6.5 0 0 1 33.5 16C33.5 25.5 20 34 20 34z" fill="var(--moss)"/></svg>
+            <h3 class="why-title">Caring staff, superior workmanship</h3>
+            <p class="why-body">Our foremen are professionally trained and highly approachable. They work with you to create the perfect landscape — we love what we do, and it shows in every project.</p>
+          </div>
+
+          <div class="why-item reveal">
+            <svg class="why-icon wa-phone-svg" viewBox="0 0 40 40" aria-hidden="true"><path class="wa-phone" d="M13 5l4.6.5 1.5 5.6-3 1.9a14 14 0 0 0 6.9 6.9l1.9-3 5.6 1.5.5 4.6a2 2 0 0 1-2.2 2A23 23 0 0 1 11 7.2 2 2 0 0 1 13 5z" fill="var(--moss)"/><path class="wa-wave wave1" d="M25 9a7 7 0 0 1 5.6 5.6" fill="none" stroke="var(--moss)" stroke-width="2" stroke-linecap="round"/><path class="wa-wave wave2" d="M24 4.5a12 12 0 0 1 10.6 10.6" fill="none" stroke="var(--moss)" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3 class="why-title">One call for all your landscaping needs</h3>
+            <p class="why-body">From planning to implementation, we do it all. No need to coordinate multiple contractors — Universal handles every aspect of your Halifax landscaping project.</p>
+          </div>
+
+          <div class="why-item reveal">
+            <svg class="why-icon wa-shield-svg" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4l13 3.8v7.7c0 7.8-5.6 12.6-13 15.5-7.4-2.9-13-7.7-13-15.5V7.8z" fill="var(--moss)"/><path class="wa-check" d="M13.5 20.5l4.5 4.5 8.5-8.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg>
+            <h3 class="why-title">No deposit required under $10K</h3>
+            <p class="why-body">We operate on trust and transparency. Projects under $10K require no upfront deposit, and for larger projects only a 50% deposit initiates the work — never full payment upfront.</p>
+          </div>
+
+          <div class="why-item reveal">
+            <svg class="why-icon wa-pin-svg" viewBox="0 0 40 40" aria-hidden="true"><ellipse class="wa-ripple" cx="20" cy="35" rx="7" ry="2" fill="var(--moss)"/><g class="wa-pin"><path d="M20 5.5a9 9 0 0 0-9 9c0 6.3 9 16.5 9 16.5s9-10.2 9-16.5a9 9 0 0 0-9-9z" fill="var(--moss)"/><circle cx="20" cy="14.5" r="3.2" fill="#fff"/></g></svg>
+            <h3 class="why-title">Local Halifax knowledge and experience</h3>
+            <p class="why-body">We know the local climate, soil conditions, and how to build landscapes that withstand Halifax's ever-changing seasons. Established since 2022, deeply rooted in the community.</p>
+          </div>
+
+          <div class="why-item reveal">
+            <svg class="why-icon wa-umbrella-svg" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 7C11.5 7 6 13.5 5 19h30C34 13.5 28.5 7 20 7z" fill="var(--moss)"/><path d="M20 19v10a3 3 0 0 1-5.6 1.6" fill="none" stroke="var(--moss)" stroke-width="2.4" stroke-linecap="round"/></svg>
+            <h3 class="why-title">Fully insured for your peace of mind</h3>
+            <p class="why-body">We carry full liability insurance, so your property is protected on every job — from small cleanups to major hardscape builds.</p>
+          </div>
+
+          <div class="why-item reveal">
+            <svg class="why-icon wa-medal-svg" viewBox="0 0 40 40" aria-hidden="true"><path d="M14 6l-3.5 9M26 6l3.5 9" stroke="var(--moss)" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="20" cy="25" r="9" fill="var(--moss)"/><path d="M16.4 25l2.5 2.5 5-5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3 class="why-title">Five-year workmanship warranty</h3>
+            <p class="why-body">Every eligible hardscape installation is backed by our five-year workmanship warranty, giving you complete confidence in your investment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         HOW IT WORKS / PROCESS
+    ============================================================ -->
+    <section id="process" aria-labelledby="process-title">
+      <div class="section-header reveal">
+        <span class="eyebrow">How It Works</span>
+        <h2 class="section-title" id="process-title">
+          From first call to<br>finished project.
+        </h2>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step reveal">
+          <div class="process-connector" aria-hidden="true"></div>
+          <h3 class="process-title">Get in touch</h3>
+          <p class="process-body">Reach out for a free estimate. Tell us about your property and what you have in mind — no deposit needed to start the conversation.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-connector" aria-hidden="true"></div>
+          <h3 class="process-title">On-site consult</h3>
+          <p class="process-body">We visit your property to assess the site, discuss options, and provide a clear, detailed quote tailored to your goals and budget.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-connector" aria-hidden="true"></div>
+          <h3 class="process-title">We build it</h3>
+          <p class="process-body">Our trained crew gets to work with quality materials and precision. We keep you updated at every stage and respect your property.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-connector" aria-hidden="true"></div>
+          <h3 class="process-title">Enjoy the result</h3>
+          <p class="process-body">Walk your finished space with us. We do a final review to make sure every detail meets our standard — and yours.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         AI QUOTE ESTIMATOR TRIGGER
+    ============================================================ -->
+    <section id="estimator-trigger" aria-label="Instant estimate tool">
+      <span class="eyebrow reveal" style="display:block;margin-bottom:16px;">Powered by AI</span>
+      <h2 class="section-title reveal" style="margin-bottom:16px;">Not sure what your project costs?</h2>
+      <p class="reveal" style="color:var(--sand);font-size:17px;max-width:52ch;margin:0 auto 32px;">Answer 5 quick questions and get an instant ballpark estimate — no obligation, no contact info required.</p>
+      <button class="estimator-trigger-btn reveal" id="open-estimator" aria-haspopup="dialog">
+        <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M12 2a5 5 0 0 1 5 5v1h1a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-7a3 3 0 0 1 3-3h1V7a5 5 0 0 1 5-5z"/>
+          <circle cx="9" cy="14" r="1" fill="currentColor" stroke="none"/>
+          <circle cx="15" cy="14" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Get My Instant AI Estimate
+      </button>
+    </section>
+
+
+    <!-- ============================================================
+         TESTIMONIALS
+    ============================================================ -->
+    <section id="testimonials" aria-labelledby="testimonials-title">
+      <div class="testimonials-header reveal">
+        <span class="eyebrow">Client Reviews</span>
+        <h2 class="section-title" id="testimonials-title" style="margin-top:16px;">
+          What our clients say.
+        </h2>
+      </div>
+
+      <div class="track-fade">
+        <div class="testimonials-track" role="list" aria-label="Customer reviews">
+
+          <article class="review-card" role="listitem">
+            <div class="stars" aria-label="5 out of 5 stars">
+              <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+            </div>
+            <p class="review-text">"Universal Landscaping completely transformed our backyard. The paver patio they installed is absolutely stunning — perfect craftsmanship and they finished ahead of schedule."</p>
+            <div class="review-author">
+              <div class="reviewer-avatar" aria-hidden="true">SL</div>
+              <div>
+                <div class="reviewer-name">Sarah L.</div>
+                <div class="reviewer-source">Google Review · Bedford, NS</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card" role="listitem">
+            <div class="stars" aria-label="5 out of 5 stars">
+              <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+            </div>
+            <p class="review-text">"Had a retaining wall built along our sloped property. The team was professional, communicated clearly throughout, and the final result exceeded our expectations. Highly recommend."</p>
+            <div class="review-author">
+              <div class="reviewer-avatar" aria-hidden="true">MP</div>
+              <div>
+                <div class="reviewer-name">Mike P.</div>
+                <div class="reviewer-source">Google Review · Halifax, NS</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card" role="listitem">
+            <div class="stars" aria-label="5 out of 5 stars">
+              <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+            </div>
+            <p class="review-text">"New home, complete yard from scratch. Universal handled sod, walkways, planting beds — the whole thing. It looks like a magazine cover. Worth every penny."</p>
+            <div class="review-author">
+              <div class="reviewer-avatar" aria-hidden="true">JT</div>
+              <div>
+                <div class="reviewer-name">Jennifer T.</div>
+                <div class="reviewer-source">Google Review · Hammonds Plains, NS</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card" role="listitem">
+            <div class="stars" aria-label="5 out of 5 stars">
+              <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+            </div>
+            <p class="review-text">"Fast, friendly, and fair. They removed snow reliably all winter without me having to follow up once. Booked them for landscaping this spring without hesitation."</p>
+            <div class="review-author">
+              <div class="reviewer-avatar" aria-hidden="true">RK</div>
+              <div>
+                <div class="reviewer-name">Robert K.</div>
+                <div class="reviewer-source">Google Review · Larry Uteck, NS</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card" role="listitem">
+            <div class="stars" aria-label="5 out of 5 stars">
+              <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+            </div>
+            <p class="review-text">"The vinyl fence they installed looks amazing and the price was very reasonable. No deposit needed for our project size — that level of trust makes all the difference."</p>
+            <div class="review-author">
+              <div class="reviewer-avatar" aria-hidden="true">AC</div>
+              <div>
+                <div class="reviewer-name">Amanda C.</div>
+                <div class="reviewer-source">Google Review · Bedford, NS</div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:32px; padding: 0 40px;" class="reveal">
+        <a href="reviews.html" class="btn-ghost" target="_blank" rel="noopener">
+          Read all Google reviews →
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GALLERY STRIP
+    ============================================================ -->
+    <section id="gallery" aria-label="Project gallery">
+      <div class="gallery-header reveal">
+        <span class="eyebrow">Recent Work</span>
+        <h2 class="gallery-title">A look at what we've built.</h2>
+      </div>
+      <div class="gallery-belt">
+        <div class="gallery-track">
+          <div class="gallery-item"><img src="IMG_2612.png" alt="Paver patio installation" loading="lazy" /></div>
+          <div class="gallery-item"><img src="IMG_2598.png" alt="Retaining wall construction" loading="lazy" /></div>
+          <div class="gallery-item"><img src="IMG_2636.png" alt="Sod installation" loading="lazy" /></div>
+          <div class="gallery-item"><img src="IMG_4082.png" alt="Landscape design project" loading="lazy" /></div>
+          <div class="gallery-item"><img src="IMG_1138.png" alt="Fencing installation" loading="lazy" /></div>
+          <div class="gallery-item"><img src="IMG_1289.png" alt="Universal Landscaping project" loading="lazy" /></div>
+          <div class="gallery-item"><img src="IMG_1284.png" alt="Universal Landscaping project" loading="lazy" /></div>
+          <div class="gallery-item"><img src="IMG_0919.jpg" alt="Universal Landscaping project" loading="lazy" /></div>
+          <div class="gallery-item"><img src="IMG_3395.png" alt="Universal Landscaping project" loading="lazy" /></div>
+          <div class="gallery-item" aria-hidden="true"><img src="IMG_2612.png" alt="" loading="lazy" /></div>
+          <div class="gallery-item" aria-hidden="true"><img src="IMG_2598.png" alt="" loading="lazy" /></div>
+          <div class="gallery-item" aria-hidden="true"><img src="IMG_2636.png" alt="" loading="lazy" /></div>
+          <div class="gallery-item" aria-hidden="true"><img src="IMG_4082.png" alt="" loading="lazy" /></div>
+          <div class="gallery-item" aria-hidden="true"><img src="IMG_1138.png" alt="" loading="lazy" /></div>
+          <div class="gallery-item" aria-hidden="true"><img src="IMG_1289.png" alt="" loading="lazy" /></div>
+          <div class="gallery-item" aria-hidden="true"><img src="IMG_1284.png" alt="" loading="lazy" /></div>
+          <div class="gallery-item" aria-hidden="true"><img src="IMG_0919.jpg" alt="" loading="lazy" /></div>
+          <div class="gallery-item" aria-hidden="true"><img src="IMG_3395.png" alt="" loading="lazy" /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ
+    ============================================================ -->
+    <section id="faq" aria-labelledby="faq-title">
+      <div class="section-header reveal">
+        <span class="eyebrow">Common Questions</span>
+        <h2 class="section-title" id="faq-title">
+          Good to know.
+        </h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            Do you require a deposit to start a project?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              For projects under $10,000, no upfront deposit is required. For larger projects, we ask for a 50% deposit to initiate the work — never full payment upfront. It's part of our commitment to financial transparency and building trust with every client.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            How soon can you start my project?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Timing depends on the season and our current schedule, but we book up quickly for spring and summer. We recommend reaching out early to secure your spot. After your free on-site consultation, we'll give you a clear timeline.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            Do you offer free estimates?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes — every estimate is completely free with no obligation. Fill out our quote form or give us a call, and we'll arrange a time to visit your property, discuss your goals, and provide a detailed quote.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            What areas do you serve?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              We serve Bedford, Halifax, Dartmouth, Hammonds Plains, Larry Uteck, Sackville, Fall River, Timberlea, and surrounding communities throughout the Halifax Regional Municipality. Not sure if you're in our range? Just ask.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            Do you handle both residential and commercial work?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Absolutely. From residential backyards and new-home landscaping to commercial snow clearing and parking lot maintenance, our crew handles projects of all sizes for both homeowners and businesses.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            Do you offer year-round services?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes. In the warmer months we focus on landscaping, hardscaping, sod, and fencing. Through winter, we provide reliable snow and ice management for driveways, walkways, and commercial properties — so we're your one call all year long.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SERVICE AREAS
+    ============================================================ -->
+    <section id="areas" aria-labelledby="areas-title">
+      <div class="areas-inner">
+        <div>
+          <span class="eyebrow reveal">Where We Work</span>
+          <h2 class="section-title reveal" id="areas-title" style="margin-top:16px;">
+            Serving Halifax<br>and the HRM.
+          </h2>
+          <div class="areas-list reveal">
+            <div class="area-item">
+              <svg class="pin" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M10 18s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg>
+              Bedford
+            </div>
+            <div class="area-item">
+              <svg class="pin" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M10 18s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg>
+              Halifax
+            </div>
+            <div class="area-item">
+              <svg class="pin" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M10 18s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg>
+              Dartmouth
+            </div>
+            <div class="area-item">
+              <svg class="pin" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M10 18s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg>
+              Hammonds Plains
+            </div>
+            <div class="area-item">
+              <svg class="pin" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M10 18s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg>
+              Larry Uteck
+            </div>
+            <div class="area-item">
+              <svg class="pin" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M10 18s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg>
+              Sackville
+            </div>
+            <div class="area-item">
+              <svg class="pin" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M10 18s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg>
+              Fall River
+            </div>
+            <div class="area-item">
+              <svg class="pin" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M10 18s6-5.5 6-10a6 6 0 0 0-12 0c0 4.5 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg>
+              Timberlea
+            </div>
+          </div>
+        </div>
+
+        <div class="areas-map reveal">
+          <svg class="areas-map-icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M28 50s16-14 16-26a16 16 0 0 0-32 0c0 12 16 26 16 26z"/><circle cx="28" cy="24" r="6"/>
+          </svg>
+          <h3 class="areas-map-title">Not sure if we cover you?</h3>
+          <p class="areas-map-text">We serve properties across the Halifax Regional Municipality and surrounding areas. Give us a call at 902 441 8755 and we'll let you know.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         QUOTE FORM
+    ============================================================ -->
+    <section id="quote" aria-labelledby="quote-title">
+      <div class="quote-inner">
+        <div>
+          <span class="eyebrow">Free Estimate</span>
+          <h2 class="section-title form-title reveal" id="quote-title" style="margin-top:16px;">
+            Let's build something<br>great together.
+          </h2>
+          <p class="form-subtitle reveal">Fill out the form and a member of our team will reach out within one business day.</p>
+
+          <div class="pay-belt-wrap reveal">
+            <h3 class="pay-belt-title">Payment Methods</h3>
+            <div class="pay-belt" aria-label="Accepted payment methods">
+              <div class="pay-track">
+              <span class="pay-chip"><img src="IMG_1311.PNG" alt="Visa" /></span>
+              <span class="pay-chip"><img src="IMG_1309.PNG" alt="Mastercard" /></span>
+              <span class="pay-chip"><img src="IMG_1317.PNG" alt="American Express" /></span>
+              <span class="pay-chip"><img src="IMG_1310.PNG" alt="Apple Pay" /></span>
+              <span class="pay-chip"><img src="IMG_1316.PNG" alt="Google Pay" /></span>
+              <span class="pay-chip"><img src="IMG_1318.PNG" alt="PayPal" /></span>
+              <span class="pay-chip"><img src="IMG_1312.PNG" alt="Interac e-Transfer" /></span>
+              <span class="pay-chip"><img src="IMG_1313.PNG" alt="Wire Transfer" /></span>
+              <span class="pay-chip"><img src="IMG_1315.JPG" alt="Contactless payment" /></span>
+              <span class="pay-chip"><img src="IMG_1314.jpg" alt="Cheque" /></span>
+              <span class="pay-chip"><img src="IMG_1319.jpg" alt="Cheque payment" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1311.PNG" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1309.PNG" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1317.PNG" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1310.PNG" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1316.PNG" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1318.PNG" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1312.PNG" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1313.PNG" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1315.JPG" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1314.jpg" /></span>
+              <span class="pay-chip pay-dupe" aria-hidden="true"><img src="IMG_1319.jpg" /></span>
+              </div>
+            </div>
+          </div>
+
+          <form id="quote-form" name="quote" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
+            <!-- Netlify Form: submissions are captured automatically and emailed to you -->
+            <input type="hidden" name="form-name" value="quote" />
+            <input type="hidden" name="subject" value="🌿 New Quote Request — Universal Landscaping Website" />
+            <!-- Honeypot field: hidden from users, catches spam bots -->
+            <p style="display:none;">
+              <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+            </p>
+            <!-- REPLACE: swap YOUR_FORM_ID with your Formspree endpoint after signing up at formspree.io -->
+            <div class="form-row">
+              <div class="form-group reveal">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="first_name" required />
+              </div>
+              <div class="form-group reveal">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="last_name" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group reveal">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="form-group reveal">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" />
+              </div>
+            </div>
+            <div class="form-group reveal">
+              <label for="service">Service Needed</label>
+              <select id="service" name="service">
+                <option value="" disabled selected>Select a service…</option>
+                <option>Complete Landscape Install</option>
+                <option>Driveways</option>
+                <option>Paver Patio &amp; Walkways</option>
+                <option>Concrete</option>
+                <option>Retaining Walls</option>
+                <option>Sod Installation</option>
+                <option>Carpentry (Fencing, Decks &amp; more)</option>
+                <option>Snow &amp; Ice Management</option>
+                <option>Mulching</option>
+                <option>Edging &amp; Trimming</option>
+                <option>Paver Sealing</option>
+                <option>Seasonal Cleanups</option>
+                <option>Pressure Washing</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group reveal">
+              <label for="address">Property Address</label>
+              <input type="text" id="address" name="address" />
+            </div>
+            <div class="form-group reveal">
+              <label for="message">Tell us about your project</label>
+              <textarea id="message" name="message"></textarea>
+            </div>
+            <div class="form-group reveal">
+              <label for="photos">Add photos of your project <span style="color:var(--sand);font-weight:400;">(optional)</span></label>
+              <input type="file" id="photos" name="photos" accept="image/*" multiple />
+            </div>
+            <div class="reveal">
+              <button type="submit" class="btn-submit" id="submit-btn">
+                <span class="btn-text">Send Request</span>
+                <div class="spinner" aria-hidden="true"></div>
+              </button>
+            </div>
+          </form>
+
+          <div class="form-success" id="form-success" role="status" aria-live="polite">
+            <div class="form-success-icon" aria-hidden="true">✓</div>
+            <h3 style="font-family:var(--font-display);font-size:24px;margin-bottom:8px;">Request sent!</h3>
+            <p style="color:var(--sand);">We'll be in touch within one business day. Talk soon.</p>
+          </div>
+        </div>
+
+        <!-- Contact Info Sidebar -->
+        <aside class="contact-info reveal" aria-label="Contact information">
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L13 13l5 2v4a2 2 0 0 1-2 2C6.5 19 1 13.5 1 6a2 2 0 0 1 2-2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Phone</div>
+              <div class="contact-value"><a href="tel:9024418755">902 441 8755</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 4h16v12H2z"/><path d="M2 4l8 8 8-8"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-value"><a href="mailto:info@universal-landscaping.net">info@universal-landscaping.net</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10" cy="8" r="4"/><path d="M3 18c0-4 3-6 7-6s7 2 7 6"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Location</div>
+              <div class="contact-value">Bedford, Nova Scotia</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10" cy="10" r="8"/><path d="M10 5v5l3 3"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Hours</div>
+              <div class="contact-value" style="font-size:14px; line-height:1.8;">
+                Mon – Fri: 7:30 AM – 7:00 PM<br>
+                Saturday: 8:30 AM – 5:00 PM<br>
+                Sunday: 9:00 AM – 5:00 PM
+              </div>
+            </div>
+          </div>
+
+          <!-- Google Map -->
+          <div class="map-wrap reveal">
+            <iframe
+              src="https://www.google.com/maps/d/embed?mid=1AiEk7HBntmiqBFMoIbQRtiBFIqQ0f7k&ehbc=2E312F"
+              title="Universal Landscaping service areas across the Halifax Regional Municipality"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+            <div class="map-label" aria-hidden="true">
+              <span class="dot"></span>
+              Our service area
+            </div>
+          </div>
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=Universal+Landscaping+8+Shaughnessy+Place+Bedford+NS"
+            class="map-directions"
+            target="_blank"
+            rel="noopener"
+            aria-label="Get directions to Universal Landscaping">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M10 2l8 8-8 8M2 10h16"/>
+            </svg>
+            Get directions on Google Maps
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         AI QUOTE ESTIMATOR MODAL
+    ============================================================ -->
+    <div id="estimator-overlay" role="dialog" aria-modal="true" aria-labelledby="est-modal-title">
+      <div class="estimator-modal">
+
+        <!-- Header -->
+        <div class="est-header">
+          <div class="est-header-left">
+            <div class="est-header-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
+            </div>
+            <div>
+              <div class="est-title" id="est-modal-title">Instant Project Estimate</div>
+              <div class="est-subtitle">Powered by Claude AI · Takes ~60 seconds</div>
+            </div>
+          </div>
+          <button class="est-close" id="close-estimator" aria-label="Close estimator">✕</button>
+        </div>
+
+        <!-- Progress -->
+        <div class="est-progress">
+          <div class="est-progress-bar"><div class="est-progress-fill" id="est-progress-fill" style="width:20%"></div></div>
+          <span class="est-progress-label" id="est-progress-label">Step 1 of 5</span>
+        </div>
+
+        <!-- Steps -->
+        <div class="est-body">
+
+          <!-- Step 1: Service -->
+          <div class="est-step active" data-step="1">
+            <h3 class="est-step-q">What service are you looking for?</h3>
+            <p class="est-step-hint">Select the primary service — you can mention extras in a moment.</p>
+            <div class="est-options">
+              <button class="est-opt" data-value="Sod Installation">
+                <span class="est-opt-icon">🌱</span>
+                <span class="est-opt-text"><span class="est-opt-label">Sod Installation</span><span class="est-opt-sub">New lawn or replacement</span></span>
+              </button>
+              <button class="est-opt" data-value="Paver Patio or Walkway">
+                <span class="est-opt-icon">🧱</span>
+                <span class="est-opt-text"><span class="est-opt-label">Paver Patio / Walkway</span><span class="est-opt-sub">Interlocking stone surfaces</span></span>
+              </button>
+              <button class="est-opt" data-value="Retaining Wall">
+                <span class="est-opt-icon">🪨</span>
+                <span class="est-opt-text"><span class="est-opt-label">Retaining Wall</span><span class="est-opt-sub">Structural or decorative</span></span>
+              </button>
+              <button class="est-opt" data-value="Driveway">
+                <span class="est-opt-icon">🚗</span>
+                <span class="est-opt-text"><span class="est-opt-label">Driveway</span><span class="est-opt-sub">Pavers, concrete, or gravel</span></span>
+              </button>
+              <button class="est-opt" data-value="Concrete">
+                <span class="est-opt-icon">🏗️</span>
+                <span class="est-opt-text"><span class="est-opt-label">Concrete</span><span class="est-opt-sub">Driveways, patios, walkways</span></span>
+              </button>
+              <button class="est-opt" data-value="Complete Landscape Install">
+                <span class="est-opt-icon">🏡</span>
+                <span class="est-opt-text"><span class="est-opt-label">Full Landscape Install</span><span class="est-opt-sub">New home or full property</span></span>
+              </button>
+              <button class="est-opt" data-value="Carpentry">
+                <span class="est-opt-icon">🪵</span>
+                <span class="est-opt-text"><span class="est-opt-label">Carpentry</span><span class="est-opt-sub">Fencing, decks, gazebos</span></span>
+              </button>
+              <button class="est-opt" data-value="Snow Removal">
+                <span class="est-opt-icon">❄️</span>
+                <span class="est-opt-text"><span class="est-opt-label">Snow & Ice Management</span><span class="est-opt-sub">Residential or commercial</span></span>
+              </button>
+              <button class="est-opt" data-value="Lawn Maintenance or Cleanup">
+                <span class="est-opt-icon">✂️</span>
+                <span class="est-opt-text"><span class="est-opt-label">Maintenance &amp; Cleanup</span><span class="est-opt-sub">Mulching, edging, seasonal cleanups</span></span>
+              </button>
+              <button class="est-opt" data-value="Other landscaping service">
+                <span class="est-opt-icon">🌿</span>
+                <span class="est-opt-text"><span class="est-opt-label">Something Else</span><span class="est-opt-sub">Pressure washing, sealing…</span></span>
+              </button>
+            </div>
+            <div class="est-nav">
+              <span></span>
+              <button class="est-btn-next" id="next-1" disabled>Next <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+            </div>
+          </div>
+
+          <!-- Step 2: Size -->
+          <div class="est-step" data-step="2">
+            <h3 class="est-step-q">How large is the area?</h3>
+            <p class="est-step-hint">Approximate is fine — we refine this during your free on-site visit.</p>
+            <div class="est-options cols-2">
+              <button class="est-opt" data-value="Small (under 200 sq ft or under 50 linear ft)">
+                <span class="est-opt-icon">📐</span>
+                <span class="est-opt-text"><span class="est-opt-label">Small</span><span class="est-opt-sub">Under 200 sq ft</span></span>
+              </button>
+              <button class="est-opt" data-value="Medium (200–500 sq ft or 50–100 linear ft)">
+                <span class="est-opt-icon">📏</span>
+                <span class="est-opt-text"><span class="est-opt-label">Medium</span><span class="est-opt-sub">200–500 sq ft</span></span>
+              </button>
+              <button class="est-opt" data-value="Large (500–1000 sq ft or 100–200 linear ft)">
+                <span class="est-opt-icon">🗺️</span>
+                <span class="est-opt-text"><span class="est-opt-label">Large</span><span class="est-opt-sub">500–1,000 sq ft</span></span>
+              </button>
+              <button class="est-opt" data-value="Very large (over 1000 sq ft or full property)">
+                <span class="est-opt-icon">🏘️</span>
+                <span class="est-opt-text"><span class="est-opt-label">Very Large</span><span class="est-opt-sub">Over 1,000 sq ft</span></span>
+              </button>
+            </div>
+            <div class="est-nav">
+              <button class="est-btn-back" data-back="1">← Back</button>
+              <button class="est-btn-next" id="next-2" disabled>Next <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+            </div>
+          </div>
+
+          <!-- Step 3: Finish level -->
+          <div class="est-step" data-step="3">
+            <h3 class="est-step-q">What level of finish are you looking for?</h3>
+            <p class="est-step-hint">This helps us estimate material and labour costs more accurately.</p>
+            <div class="est-options">
+              <button class="est-opt" data-value="Basic / functional (standard materials, clean result)">
+                <span class="est-opt-icon">👍</span>
+                <span class="est-opt-text"><span class="est-opt-label">Basic / Functional</span><span class="est-opt-sub">Standard materials, clean and solid</span></span>
+              </button>
+              <button class="est-opt" data-value="Standard (good quality materials and finish)">
+                <span class="est-opt-icon">⭐</span>
+                <span class="est-opt-text"><span class="est-opt-label">Standard</span><span class="est-opt-sub">Quality materials, attractive result</span></span>
+              </button>
+              <button class="est-opt" data-value="Premium (high-end materials, detailed design, luxury finish)">
+                <span class="est-opt-icon">💎</span>
+                <span class="est-opt-text"><span class="est-opt-label">Premium / Luxury</span><span class="est-opt-sub">High-end materials, detailed design</span></span>
+              </button>
+            </div>
+            <div class="est-nav">
+              <button class="est-btn-back" data-back="2">← Back</button>
+              <button class="est-btn-next" id="next-3" disabled>Next <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+            </div>
+          </div>
+
+          <!-- Step 4: Location -->
+          <div class="est-step" data-step="4">
+            <h3 class="est-step-q">Where is your property located?</h3>
+            <p class="est-step-hint">We serve all communities across the Halifax Regional Municipality.</p>
+            <div class="est-options cols-2">
+              <button class="est-opt" data-value="Bedford">
+                <span class="est-opt-icon">📍</span>
+                <span class="est-opt-text"><span class="est-opt-label">Bedford</span></span>
+              </button>
+              <button class="est-opt" data-value="Halifax">
+                <span class="est-opt-icon">📍</span>
+                <span class="est-opt-text"><span class="est-opt-label">Halifax</span></span>
+              </button>
+              <button class="est-opt" data-value="Dartmouth">
+                <span class="est-opt-icon">📍</span>
+                <span class="est-opt-text"><span class="est-opt-label">Dartmouth</span></span>
+              </button>
+              <button class="est-opt" data-value="Hammonds Plains">
+                <span class="est-opt-icon">📍</span>
+                <span class="est-opt-text"><span class="est-opt-label">Hammonds Plains</span></span>
+              </button>
+              <button class="est-opt" data-value="Sackville or Fall River">
+                <span class="est-opt-icon">📍</span>
+                <span class="est-opt-text"><span class="est-opt-label">Sackville / Fall River</span></span>
+              </button>
+              <button class="est-opt" data-value="Another HRM community">
+                <span class="est-opt-icon">📍</span>
+                <span class="est-opt-text"><span class="est-opt-label">Other HRM Area</span></span>
+              </button>
+            </div>
+            <div class="est-nav">
+              <button class="est-btn-back" data-back="3">← Back</button>
+              <button class="est-btn-next" id="next-4" disabled>Next <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+            </div>
+          </div>
+
+          <!-- Step 5: Extras -->
+          <div class="est-step" data-step="5">
+            <h3 class="est-step-q">Any extras or special considerations?</h3>
+            <p class="est-step-hint">Select all that apply — or skip if none.</p>
+            <div class="est-options cols-2" id="extras-options">
+              <button class="est-opt est-multi" data-value="grading or regrading needed">
+                <span class="est-opt-icon">⛏️</span>
+                <span class="est-opt-text"><span class="est-opt-label">Grading needed</span></span>
+              </button>
+              <button class="est-opt est-multi" data-value="drainage issues to address">
+                <span class="est-opt-icon">💧</span>
+                <span class="est-opt-text"><span class="est-opt-label">Drainage issues</span></span>
+              </button>
+              <button class="est-opt est-multi" data-value="existing structures to remove">
+                <span class="est-opt-icon">🔨</span>
+                <span class="est-opt-text"><span class="est-opt-label">Demolition / removal</span></span>
+              </button>
+              <button class="est-opt est-multi" data-value="limited or difficult site access">
+                <span class="est-opt-icon">🚧</span>
+                <span class="est-opt-text"><span class="est-opt-label">Difficult access</span></span>
+              </button>
+              <button class="est-opt est-multi" data-value="sloped or uneven terrain">
+                <span class="est-opt-icon">⛰️</span>
+                <span class="est-opt-text"><span class="est-opt-label">Sloped terrain</span></span>
+              </button>
+              <button class="est-opt est-multi" data-value="no extras, straightforward project">
+                <span class="est-opt-icon">✅</span>
+                <span class="est-opt-text"><span class="est-opt-label">No extras</span></span>
+              </button>
+            </div>
+            <div class="est-nav">
+              <button class="est-btn-back" data-back="4">← Back</button>
+              <button class="est-btn-next" id="next-5" disabled>Get My Estimate ✨</button>
+            </div>
+          </div>
+
+        </div><!-- /est-body -->
+
+        <!-- Result panel -->
+        <div class="est-result" id="est-result-panel">
+          <!-- Loading state -->
+          <div class="est-result-loading" id="est-loading">
+            <div class="est-spinner"></div>
+            <div class="est-loading-text">Claude AI is calculating your estimate…</div>
+            <div class="est-loading-sub">Analysing project scope and local pricing data</div>
+          </div>
+          <!-- Error state -->
+          <div class="est-error" id="est-error">
+            <p>Something went wrong generating your estimate.<br>Please <a href="#quote">fill out our quote form</a> and we'll get back to you shortly.</p>
+          </div>
+          <!-- Result content -->
+          <div class="est-result-content" id="est-result-content">
+            <div class="est-result-badge">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg>
+              AI Estimate · For Reference Only
+            </div>
+            <div class="est-result-text" id="est-result-text"></div>
+            <div class="est-contact-prompt">
+              <h4>Ready for your precise quote?</h4>
+              <p>Leave your name and phone number and our team will reach out within one business day to schedule your free on-site consultation.</p>
+              <div class="est-contact-row">
+                <input type="text" class="est-contact-input" id="est-name" placeholder="Your name" />
+                <input type="tel" class="est-contact-input" id="est-phone" placeholder="Phone number" />
+                <button class="est-submit-btn" id="est-submit">
+                  Book My Free Visit
+                </button>
+              </div>
+            </div>
+            <div class="est-restart">
+              <button id="est-restart-btn">← Start a new estimate</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /estimator-modal -->
+    </div><!-- /estimator-overlay -->
+    <!-- ============================================================
+         CTA BANNER
+    ============================================================ -->
+    <section id="cta-banner" aria-label="Get started">
+      <div class="cta-banner-inner reveal">
+        <div class="cta-banner-text">
+          <h2 class="cta-banner-title">Ready to transform your outdoor space?</h2>
+          <p class="cta-banner-sub">Book now for spring and summer construction. Get a free, no-obligation estimate today.</p>
+        </div>
+        <a href="#quote" class="cta-banner-btn">
+          Get a Free Estimate
+          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PARTNERS / SUPPLIERS BELT
+    ============================================================ -->
+    <div id="site-partners"></div>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <div id="site-footer"></div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    // ── HERO ANIMATION ────────────────────────────────────────
+    (function heroAnimate() {
+      const mq = window.matchMedia('(prefers-reduced-motion: no-preference)');
+      if (!mq.matches) {
+        // Skip animation — make everything visible immediately
+        document.querySelectorAll('.hero-headline .word span, #eyebrow-text, #hero-sub, #hero-buttons')
+          .forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
+        return;
+      }
+
+      const spring = 'cubic-bezier(0.22, 1, 0.36, 1)';
+      const words = document.querySelectorAll('.hero-headline .word span');
+      const eyebrow = document.getElementById('eyebrow-text');
+      const sub = document.getElementById('hero-sub');
+      const buttons = document.getElementById('hero-buttons');
+
+      // Eyebrow
+      setTimeout(() => {
+        eyebrow.style.transition = `opacity 0.6s ${spring}, transform 0.6s ${spring}`;
+        eyebrow.style.opacity = 1;
+        eyebrow.style.transform = 'translateY(0)';
+      }, 100);
+
+      // Words with stagger
+      words.forEach((word, i) => {
+        setTimeout(() => {
+          word.style.transition = `opacity 0.7s ${spring}, transform 0.7s ${spring}`;
+          word.style.opacity = 1;
+          word.style.transform = 'translateY(0)';
+        }, 250 + i * 80);
+      });
+
+      // Subhead
+      setTimeout(() => {
+        sub.style.transition = `opacity 0.7s ${spring}, transform 0.7s ${spring}`;
+        sub.style.opacity = 1;
+        sub.style.transform = 'translateY(0)';
+      }, 650);
+
+      // Buttons
+      setTimeout(() => {
+        buttons.style.transition = `opacity 0.7s ${spring}, transform 0.7s ${spring}`;
+        buttons.style.opacity = 1;
+        buttons.style.transform = 'translateY(0)';
+      }, 780);
+    })();
+
+    // ── SCROLL REVEAL ─────────────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger siblings in same parent
+          const siblings = [...entry.target.parentElement.querySelectorAll('.reveal:not(.visible)')];
+          const idx = siblings.indexOf(entry.target);
+          const delay = Math.min(idx * 60, 300);
+          setTimeout(() => entry.target.classList.add('visible'), delay);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ── COUNTER ANIMATION ─────────────────────────────────────
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const isYear = el.dataset.type === 'year';
+      const duration = 1800;
+      const start = isYear ? 2014 : 0;
+      const startTime = performance.now();
+
+      function update(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(start + (target - start) * eased);
+        el.textContent = current.toLocaleString();
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = target.toLocaleString();
+      }
+      requestAnimationFrame(update);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+    // ── SERVICE CARD STAGGER ──────────────────────────────────
+    // Override stagger delay specifically for service cards
+    const serviceCards = document.querySelectorAll('.service-card.reveal');
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const cards = [...document.querySelectorAll('.service-card.reveal:not(.visible)')];
+          cards.forEach((card, i) => {
+            setTimeout(() => card.classList.add('visible'), i * 70);
+          });
+          cardObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.08 });
+    if (serviceCards.length) cardObserver.observe(serviceCards[0]);
+
+    // ── FORM HANDLING ─────────────────────────────────────────
+    const form = document.getElementById('quote-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const formSuccess = document.getElementById('form-success');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.classList.add('loading');
+      btnText.textContent = 'Sending…';
+
+      try {
+        // Netlify Forms: encode as URL-encoded and POST to root
+        const data = new FormData(form);
+        const encoded = new URLSearchParams(data).toString();
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encoded
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          formSuccess.classList.add('visible');
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        btnText.textContent = 'Error — try again';
+        submitBtn.classList.remove('loading');
+        submitBtn.style.background = '#e55';
+        setTimeout(() => {
+          btnText.textContent = 'Send Request';
+          submitBtn.style.background = '';
+        }, 3000);
+      }
+    });
+
+    // ── TESTIMONIALS AUTO-SCROLL ──────────────────────────────
+    const track = document.querySelector('.testimonials-track');
+    let autoScroll;
+    function startAutoScroll() {
+      autoScroll = setInterval(() => {
+        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: 380, behavior: 'smooth' });
+        }
+      }, 4000);
+    }
+    startAutoScroll();
+    track.addEventListener('mouseenter', () => clearInterval(autoScroll));
+    track.addEventListener('mouseleave', startAutoScroll);
+    track.addEventListener('touchstart', () => clearInterval(autoScroll), { passive: true });
+
+    // ── FAQ ACCORDION ─────────────────────────────────────────
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        // Close all others for a clean single-open accordion
+        faqItems.forEach(other => {
+          other.classList.remove('open');
+          other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          other.querySelector('.faq-answer').style.maxHeight = null;
+        });
+        // Open this one if it was closed
+        if (!isOpen) {
+          item.classList.add('open');
+          question.setAttribute('aria-expanded', 'true');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // ── AI QUOTE ESTIMATOR ─────────────────────────────────────
+    // ============================================================
+    // Anthropic API key is NEVER exposed on the client.
+    // The call is routed through /.netlify/functions/estimate
+    // where the key is stored securely as an environment variable
+    // on Netlify. To set it: Netlify dashboard → Site settings →
+    // Environment variables → Add "ANTHROPIC_API_KEY" with your key.
+    // ============================================================
+
+    const overlay   = document.getElementById('estimator-overlay');
+    const openBtn   = document.getElementById('open-estimator');
+    const closeBtn  = document.getElementById('close-estimator');
+    const progressFill  = document.getElementById('est-progress-fill');
+    const progressLabel = document.getElementById('est-progress-label');
+    const resultPanel   = document.getElementById('est-result-panel');
+    const loadingEl     = document.getElementById('est-loading');
+    const errorEl       = document.getElementById('est-error');
+    const resultContent = document.getElementById('est-result-content');
+    const resultText    = document.getElementById('est-result-text');
+    const restartBtn    = document.getElementById('est-restart-btn');
+    const estSubmitBtn     = document.getElementById('est-submit');
+
+    const TOTAL_STEPS = 5;
+    let currentStep = 1;
+    let answers = { service:'', size:'', finish:'', location:'', extras:[] };
+
+    function openEstimator() {
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      resetEstimator();
+    }
+    function closeEstimator() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openEstimator);
+    closeBtn.addEventListener('click', closeEstimator);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeEstimator(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEstimator(); });
+
+    function setProgress(step) {
+      const pct = (step / TOTAL_STEPS) * 100;
+      progressFill.style.width = pct + '%';
+      progressLabel.textContent = step <= TOTAL_STEPS
+        ? `Step ${step} of ${TOTAL_STEPS}`
+        : 'Complete';
+    }
+
+    function showStep(n) {
+      document.querySelectorAll('.est-step').forEach(s => s.classList.remove('active'));
+      const target = document.querySelector(`.est-step[data-step="${n}"]`);
+      if (target) target.classList.add('active');
+      resultPanel.classList.remove('active');
+      document.querySelector('.est-body').style.display = 'block';
+      document.querySelector('.est-progress').style.display = 'flex';
+      currentStep = n;
+      setProgress(n);
+    }
+
+    function showResult() {
+      document.querySelectorAll('.est-step').forEach(s => s.classList.remove('active'));
+      document.querySelector('.est-body').style.display = 'none';
+      document.querySelector('.est-progress').style.display = 'none';
+      resultPanel.classList.add('active');
+      loadingEl.style.display = 'block';
+      errorEl.style.display   = 'none';
+      resultContent.classList.remove('active');
+      getEstimate();
+    }
+
+    // Single-select options (steps 1–4)
+    document.querySelectorAll('.est-opt:not(.est-multi)').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const step = this.closest('.est-step');
+        step.querySelectorAll('.est-opt:not(.est-multi)').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        const stepNum = parseInt(step.dataset.step);
+        const nextBtn = document.getElementById(`next-${stepNum}`);
+        if (nextBtn) nextBtn.disabled = false;
+        // Save answer
+        const val = this.dataset.value;
+        if (stepNum === 1) answers.service  = val;
+        if (stepNum === 2) answers.size     = val;
+        if (stepNum === 3) answers.finish   = val;
+        if (stepNum === 4) answers.location = val;
+      });
+    });
+
+    // Multi-select (step 5)
+    document.querySelectorAll('.est-multi').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // "No extras" deselects all others
+        if (this.dataset.value === 'no extras, straightforward project') {
+          document.querySelectorAll('.est-multi').forEach(b => b.classList.remove('selected'));
+          this.classList.add('selected');
+          answers.extras = [this.dataset.value];
+        } else {
+          const noExtra = document.querySelector('.est-multi[data-value="no extras, straightforward project"]');
+          if (noExtra) noExtra.classList.remove('selected');
+          this.classList.toggle('selected');
+          answers.extras = [...document.querySelectorAll('.est-multi.selected')].map(b => b.dataset.value);
+        }
+        document.getElementById('next-5').disabled = answers.extras.length === 0;
+      });
+    });
+
+    // Next buttons
+    for (let i = 1; i <= 4; i++) {
+      const btn = document.getElementById(`next-${i}`);
+      if (btn) btn.addEventListener('click', () => showStep(i + 1));
+    }
+    document.getElementById('next-5').addEventListener('click', showResult);
+
+    // Back buttons
+    document.querySelectorAll('.est-btn-back').forEach(btn => {
+      btn.addEventListener('click', () => showStep(parseInt(btn.dataset.back)));
+    });
+
+    restartBtn.addEventListener('click', resetEstimator);
+
+    function resetEstimator() {
+      answers = { service:'', size:'', finish:'', location:'', extras:[] };
+      document.querySelectorAll('.est-opt').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('.est-btn-next').forEach(b => { if (!b.id.includes('5')) b.disabled = true; });
+      document.getElementById('next-5').disabled = true;
+      resultPanel.classList.remove('active');
+      document.querySelector('.est-body').style.display = 'block';
+      document.querySelector('.est-progress').style.display = 'flex';
+      showStep(1);
+      document.getElementById('est-name').value = '';
+      document.getElementById('est-phone').value = '';
+    }
+
+    async function getEstimate() {
+      const extrasText = answers.extras.length
+        ? answers.extras.join(', ')
+        : 'no special extras';
+
+      const prompt = `You are a friendly estimator for Universal Landscaping, a top-rated landscaping company in Bedford, Nova Scotia, Canada. A potential client has answered 5 questions about their project. Give them a helpful, honest ballpark estimate in Canadian dollars.
+
+Client's project details:
+- Service needed: ${answers.service}
+- Area size: ${answers.size}
+- Finish level: ${answers.finish}
+- Location: ${answers.location}
+- Special considerations: ${extrasText}
+
+Write a warm, professional 3–4 sentence response that:
+1. Acknowledges their specific project
+2. Gives a realistic price RANGE in CAD (e.g. "$4,500–$8,000 CAD") based on typical Nova Scotia market rates for this type of work
+3. Briefly explains what's included in that range
+4. Ends by noting that a free on-site visit will give them a precise quote and that no deposit is required for projects under $10,000
+
+Important: Use realistic Canadian landscaping prices. Be encouraging but honest. Format any price ranges in bold using **like this**. Do not use bullet points — write in flowing paragraph form.`;
+
+      try {
+        // Call our secure Netlify function — the API key never touches the browser
+        const res = await fetch('/.netlify/functions/estimate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: prompt })
+        });
+
+        if (!res.ok) throw new Error('API error ' + res.status);
+        const data = await res.json();
+        let text = data.text;
+
+        // Convert **bold** markdown to <strong> tags
+        text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+        loadingEl.style.display = 'none';
+        resultText.innerHTML = text;
+        resultContent.classList.add('active');
+
+      } catch (err) {
+        console.error('Estimator error:', err);
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+      }
+    }
+
+    // Contact submit inside estimator
+    estSubmitBtn.addEventListener('click', () => {
+      const name  = document.getElementById('est-name').value.trim();
+      const phone = document.getElementById('est-phone').value.trim();
+      if (!name || !phone) {
+        document.getElementById('est-name').style.borderColor  = name  ? '' : '#e55';
+        document.getElementById('est-phone').style.borderColor = phone ? '' : '#e55';
+        return;
+      }
+      // Pre-fill the main quote form and scroll there
+      closeEstimator();
+      const firstNameEl = document.getElementById('first-name');
+      const phoneEl     = document.getElementById('phone');
+      if (firstNameEl) firstNameEl.value = name.split(' ')[0];
+      const lastNameEl = document.getElementById('last-name');
+      if (lastNameEl && name.split(' ').length > 1) lastNameEl.value = name.split(' ').slice(1).join(' ');
+      if (phoneEl) phoneEl.value = phone;
+      // Pre-select service in the quote form dropdown
+      const serviceEl = document.getElementById('service');
+      if (serviceEl && answers.service) {
+        const opt = [...serviceEl.options].find(o => o.text.toLowerCase().includes(answers.service.split(' ')[0].toLowerCase()));
+        if (opt) serviceEl.value = opt.value;
+      }
+      document.getElementById('quote').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      estSubmitBtn.textContent = '✓ Details transferred to quote form!';
+      setTimeout(() => { estSubmitBtn.textContent = 'Book My Free Visit'; }, 3000);
+    });
+
+  
+    // ── HERO VIDEO INFINITE LOOP ───────────────────────────────
+    (function() {
+      const video = document.getElementById('hero-video');
+      const fade  = document.getElementById('hero-video-fade');
+      const badge = document.getElementById('hero-loop-badge');
+      const ring  = document.getElementById('hero-ring-progress');
+      if (!video) return;
+
+      const CIRC = 126;
+
+      video.addEventListener('timeupdate', () => {
+        if (!video.duration) return;
+        const progress = video.currentTime / video.duration;
+        ring.style.strokeDashoffset = CIRC * (1 - progress);
+      });
+
+      let restarting = false;
+      video.addEventListener('timeupdate', () => {
+        if (!video.duration || restarting) return;
+        if (video.duration - video.currentTime <= 0.5) {
+          restarting = true;
+          fade.classList.add('active');
+          badge.classList.add('spinning');
+          setTimeout(() => {
+            video.currentTime = 0;
+            video.play().catch(() => {});
+            fade.classList.remove('active');
+            setTimeout(() => {
+              badge.classList.remove('spinning');
+              restarting = false;
+            }, 650);
+          }, 500);
+        }
+      });
+
+      video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+        fade.classList.remove('active');
+        restarting = false;
+      });
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) video.play().catch(() => {});
+          else video.pause();
+        });
+      }, { threshold: 0.15 });
+      io.observe(video);
+    })();
+
+  </script>
+
+  <script src="layout.js" defer></script>
+  <script>
+    (function () {
+      var cards = document.querySelectorAll('.service-card.flip-card');
+      cards.forEach(function (card) {
+        card.addEventListener('click', function (e) {
+          if (!card.classList.contains('flipped')) {
+            e.preventDefault();
+            cards.forEach(function (c) { if (c !== card) c.classList.remove('flipped'); });
+            card.classList.add('flipped');
+          }
+          // already flipped -> allow the link to navigate normally
+        });
+      });
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.service-card.flip-card')) {
+          cards.forEach(function (c) { c.classList.remove('flipped'); });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

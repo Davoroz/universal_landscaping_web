@@ -1,0 +1,451 @@
+=<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Universal Landscaping</title>
+  <meta name="description" content="Universal Landscaping crafts exceptional outdoor spaces across Bedford, Halifax and the HRM. Top-rated in 2023, 2024 & 2025. Skilled craftsmanship, transparent pricing, 5-year warranty." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />  <link rel="stylesheet" href="theme.css" />
+  <link rel="stylesheet" href="layout.css" />
+  <style>
+    /* All color variables come from theme.css (linked in <head>).
+       Edit theme.css to change the entire site palette. */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{background:var(--soil);color:var(--cream);font-family:var(--font-body);line-height:1.6;overflow-x:hidden}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+    button{cursor:pointer;border:none;background:none;font-family:inherit}
+    .eyebrow{font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--sand)}
+    .section-title{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4.5vw,44px);letter-spacing:-0.02em;line-height:1.1}
+    .reveal{opacity:0;transform:translateY(28px)}
+    @media (prefers-reduced-motion:no-preference){
+      .reveal{transition:opacity 0.7s var(--ease-spring),transform 0.7s var(--ease-spring)}
+      .reveal.visible{opacity:1;transform:translateY(0)}
+    }
+    @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+    #nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:188px;display:flex;align-items:center;justify-content:space-between;transition:background 0.4s ease,backdrop-filter 0.4s ease,height 0.4s ease}
+    #nav.scrolled{background:rgba(var(--soil-rgb),0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(var(--border-rgb),0.08);height:124px;box-shadow:0 8px 32px rgba(0,0,0,0.12)}
+    .nav-logo{display:flex;align-items:center}
+    .nav-logo img{height:176px;width:auto;object-fit:contain;display:block;transition:height 0.4s var(--ease-spring)}
+    #nav.scrolled .nav-logo img{height:108px}
+    .nav-links{display:flex;gap:32px;align-items:center}
+    .nav-links a{font-size:16px;font-weight:600;color:var(--sand);position:relative;padding-bottom:3px;transition:color 0.2s}
+    .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform 0.3s var(--ease-spring)}
+    .nav-links a:hover{color:var(--cream)}
+    .nav-links a:hover::after{transform:scaleX(1)}
+    .nav-links a.active{color:var(--cream)}
+    .nav-links a.active::after{transform:scaleX(1)}
+    .nav-cta{font-size:15px;font-weight:700;color:var(--lime);border:1.5px solid var(--lime);padding:13px 28px;border-radius:100px;transition:background 0.25s var(--ease-spring),color 0.25s,transform 0.25s var(--ease-bounce);letter-spacing:0.02em}
+    .nav-cta:hover{background:var(--lime);color:var(--soil)}
+    .hamburger{display:none;flex-direction:column;gap:5px;padding:6px;z-index:200}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--cream);transition:transform 0.3s var(--ease-spring),opacity 0.3s}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    #mobile-menu{display:none;position:fixed;inset:0;background:var(--soil);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+    #mobile-menu.open{display:flex}
+    #mobile-menu a{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--cream);opacity:0;transform:translateY(20px);transition:opacity 0.4s var(--ease-spring),transform 0.4s var(--ease-spring),color 0.2s}
+    #mobile-menu.open a{opacity:1;transform:translateY(0)}
+    #mobile-menu a:hover{color:var(--lime)}
+    #mobile-menu.open a:nth-child(1){transition-delay:.05s}
+    #mobile-menu.open a:nth-child(2){transition-delay:.10s}
+    #mobile-menu.open a:nth-child(3){transition-delay:.15s}
+    #mobile-menu.open a:nth-child(4){transition-delay:.20s}
+    #mobile-menu.open a:nth-child(5){transition-delay:.25s}
+    @media (max-width:860px){
+      #nav{padding:0 22px;height:128px}
+      #nav.scrolled{height:96px}
+      .nav-links,.nav-cta{display:none}
+      .hamburger{display:flex}
+      .nav-logo img{height:96px}
+      #nav.scrolled .nav-logo img{height:74px}
+    }
+    .breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sand);margin-bottom:28px}
+    .breadcrumb a{color:var(--sand);transition:color 0.2s}
+    .breadcrumb a:hover{color:var(--lime)}
+    .breadcrumb span{color:var(--stone2)}
+    .breadcrumb .current{color:var(--cream)}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:var(--soil);font-weight:600;font-size:15px;padding:14px 28px;border-radius:100px;transition:transform 0.25s var(--ease-bounce),box-shadow 0.25s}
+    .btn-primary:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(var(--lime-rgb),0.3)}
+    .btn-primary .arrow{transition:transform 0.25s var(--ease-spring)}
+    .btn-primary:hover .arrow{transform:translateX(4px)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:8px;color:var(--cream);font-size:15px;font-weight:500;padding:14px 24px;border:1px solid rgba(var(--cream-rgb),0.2);border-radius:100px;transition:border-color 0.2s,background 0.2s}
+    .btn-ghost:hover{border-color:var(--lime);background:rgba(var(--lime-rgb),0.06)}
+    #cta-banner{padding:40px 40px 96px}
+    .cta-banner-inner{max-width:1100px;margin:0 auto;background:linear-gradient(135deg,var(--moss) 0%,var(--moss-dark) 100%);border-radius:20px;padding:60px 52px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden}
+    .cta-banner-inner::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(var(--lime-rgb),0.15) 0%,transparent 70%)}
+    .cta-banner-text{position:relative}
+    .cta-banner-title{font-family:var(--font-display);font-weight:800;font-size:clamp(26px,4vw,38px);color:var(--cta-text);letter-spacing:-0.02em;line-height:1.1;margin-bottom:12px}
+    .cta-banner-sub{font-size:17px;color:rgba(var(--cta-text-rgb),0.85);max-width:460px}
+    .cta-banner-btn{position:relative;display:inline-flex;align-items:center;gap:10px;background:var(--lime);color:var(--soil);font-weight:700;font-size:16px;padding:18px 36px;border-radius:100px;white-space:nowrap;flex-shrink:0;transition:transform 0.25s var(--ease-bounce),box-shadow 0.25s}
+    .cta-banner-btn:hover{transform:scale(1.04);box-shadow:0 10px 30px rgba(0,0,0,0.25)}
+    .cta-banner-btn .arrow{transition:transform 0.25s var(--ease-spring)}
+    .cta-banner-btn:hover .arrow{transform:translateX(4px)}
+    @media (max-width:820px){.cta-banner-inner{flex-direction:column;align-items:flex-start;padding:44px 30px}#cta-banner{padding:40px 24px 64px}}
+    footer{background:var(--footer-bg);border-top:1px solid rgba(var(--border-rgb),0.06);padding:64px 40px 36px}
+    .footer-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:60px;padding-bottom:44px;border-bottom:1px solid rgba(var(--border-rgb),0.06)}
+    .footer-logo img{height:224px;width:auto;object-fit:contain;margin-bottom:12px}
+    .footer-tagline{font-size:14px;color:var(--sand);margin-bottom:20px;line-height:1.6}
+    .social-links{display:flex;gap:12px}
+    .social-link{width:38px;height:38px;border:1px solid rgba(var(--border-rgb),0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--sand);transition:border-color 0.2s,color 0.2s,background 0.2s}
+    .social-link:hover{border-color:var(--lime);color:var(--lime);background:rgba(var(--lime-rgb),0.08)}
+    .footer-col-title{font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--cream);margin-bottom:18px}
+    .hours-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px}
+    .hours-row .day{color:var(--sand)}
+    .hours-row .time{color:var(--cream)}
+    .footer-links li{margin-bottom:10px}
+    .footer-links a{font-size:14px;color:var(--sand);transition:color 0.2s}
+    .footer-links a:hover{color:var(--lime)}
+    .footer-bottom{max-width:1100px;margin:28px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(var(--sand-rgb),0.4)}
+    @media (max-width:768px){.footer-grid{grid-template-columns:1fr;gap:36px}footer{padding:48px 24px 28px}.footer-bottom{flex-direction:column;gap:8px;text-align:center}}
+    #about-hero{padding:210px 40px 60px;max-width:1000px;margin:0 auto;text-align:center}
+    .about-hero-title{font-family:var(--font-display);font-weight:800;font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-0.03em;color:var(--cream);margin:18px 0 24px}
+    .about-hero-lead{font-size:20px;color:var(--sand);line-height:1.6;max-width:60ch;margin:0 auto}
+    @media (max-width:860px){#about-hero{padding:150px 24px 48px}}
+
+    .about-stats{background:var(--stone);border-top:1px solid rgba(var(--border-rgb),0.05);border-bottom:1px solid rgba(var(--border-rgb),0.05);padding:56px 40px}
+    .about-stats-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+    .about-stat-num{font-family:var(--font-display);font-weight:800;font-size:clamp(36px,5vw,56px);color:var(--cream);letter-spacing:-0.03em;line-height:1}
+    .about-stat-num .suffix{color:var(--lime)}
+    .about-stat-label{font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--sand);margin-top:8px}
+    @media (max-width:600px){.about-stats-grid{grid-template-columns:repeat(2,1fr);gap:36px}.about-stats{padding:44px 24px}}
+
+    .about-body{max-width:820px;margin:0 auto;padding:80px 40px 20px}
+    .about-body h2{font-family:var(--font-display);font-weight:700;font-size:28px;color:var(--cream);letter-spacing:-0.01em;margin:0 0 16px}
+    .about-body p{font-size:17px;color:var(--sand);line-height:1.75;margin-bottom:18px}
+    .about-body p strong{color:var(--cream);font-weight:500}
+    .about-block{margin-bottom:56px}
+
+    .badge-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(var(--lime-rgb),0.1);border:1px solid rgba(var(--lime-rgb),0.25);color:var(--lime);font-size:13px;font-weight:600;padding:8px 16px;border-radius:100px}
+
+    .spec-list{margin:24px 0 8px;display:grid;gap:18px}
+    .spec-list li{display:flex;align-items:flex-start;gap:14px;font-size:16px;line-height:1.55}
+    .spec-list li strong{color:var(--cream);font-weight:600}
+    .spec-list .check{flex-shrink:0;width:22px;height:22px;margin-top:2px;border-radius:50%;background:rgba(var(--lime-rgb),0.15);display:flex;align-items:center;justify-content:center;color:var(--lime)}
+    .spec-list .check svg{width:13px;height:13px}
+
+    .apart-section{background:var(--stone);border-top:1px solid rgba(var(--border-rgb),0.05);padding:80px 40px}
+    .apart-inner{max-width:1100px;margin:0 auto}
+    .apart-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:44px}
+    .apart-card{background:var(--stone2);border:1px solid rgba(var(--border-rgb),0.05);border-radius:14px;padding:32px 28px;transition:border-color 0.25s,transform 0.25s var(--ease-spring)}
+    .apart-card:hover{border-color:var(--moss);transform:translateY(-4px)}
+    .apart-icon{width:44px;height:44px;color:var(--lime);margin-bottom:18px}
+    .apart-card h3{font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--cream);margin-bottom:10px}
+    .apart-card p{font-size:15px;color:var(--sand);line-height:1.6}
+    @media (max-width:760px){.apart-grid{grid-template-columns:1fr}.apart-section{padding:56px 24px}.about-body{padding:56px 24px 20px}}
+
+    .feature-band{height:320px;margin:0;background:linear-gradient(135deg,var(--hero-grad-a) 0%,var(--hero-grad-b) 45%,var(--hero-grad-c) 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .feature-band::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(var(--moss-rgb),0.05) 0px,rgba(var(--moss-rgb),0.05) 1px,transparent 1px,transparent 42px)}
+    .feature-band-label{position:relative;font-size:12px;color:rgba(var(--border-rgb),0.35);letter-spacing:0.1em;text-transform:uppercase;text-align:center;border:1px dashed rgba(var(--border-rgb),0.18);padding:10px 18px;border-radius:6px}
+    @media (max-width:600px){.feature-band{height:220px}}
+    /* ============================================================
+       PARTNERS BELT
+    ============================================================ */
+    #partners {
+      padding: 72px 0 84px;
+      border-top: 1px solid rgba(var(--border-rgb),0.06);
+      overflow: hidden;
+    }
+    .partners-header {
+      text-align: center;
+      margin-bottom: 44px;
+      padding: 0 24px;
+    }
+    .partners-header .eyebrow { display: block; margin-bottom: 14px; }
+    .partners-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(24px, 3.5vw, 34px);
+      letter-spacing: -0.02em;
+      color: var(--cream);
+    }
+    .partners-belt {
+      position: relative;
+      overflow: hidden;
+    }
+    /* Soft fade on both edges so logos glide in/out elegantly */
+    .partners-belt::before,
+    .partners-belt::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .partners-belt::before {
+      left: 0;
+      background: linear-gradient(to right, var(--soil), transparent);
+    }
+    .partners-belt::after {
+      right: 0;
+      background: linear-gradient(to left, var(--soil), transparent);
+    }
+    .partners-track {
+      display: flex;
+      width: max-content;
+      animation: belt-scroll 40s linear infinite;
+    }
+    /* Pause when the visitor hovers to inspect a logo */
+    .partners-belt:hover .partners-track {
+      animation-play-state: paused;
+    }
+    @keyframes belt-scroll {
+      to { transform: translateX(-50%); }
+    }
+    .partner-chip {
+      flex-shrink: 0;
+      width: 260px;
+      height: 130px;
+      margin-right: 24px;
+      background: #FFFFFF;
+      border: 1px solid rgba(var(--border-rgb),0.08);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px 32px;
+    }
+    .partner-chip img {
+      max-height: 84px;
+      max-width: 200px;
+      width: auto;
+      object-fit: contain;
+      filter: grayscale(55%);
+      opacity: 0.9;
+      transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s var(--ease-spring);
+    }
+    .partner-chip:hover img {
+      filter: grayscale(0%);
+      opacity: 1;
+      transform: scale(1.06);
+    }
+    /* Accessibility: no motion for users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .partners-track { animation: none; }
+      .partners-belt { overflow-x: auto; }
+    }
+    @media (max-width: 600px) {
+      #partners { padding: 56px 0 64px; }
+      .partner-chip { width: 200px; height: 104px; margin-right: 16px; padding: 16px 24px; }
+      .partner-chip img { max-height: 64px; max-width: 152px; }
+      .partners-belt::before, .partners-belt::after { width: 60px; }
+    }
+  
+    /* ============================================================
+       AWARDS SHOWCASE
+    ============================================================ */
+    #awards{padding:88px 40px;background:var(--stone);border-top:1px solid rgba(var(--border-rgb),0.06);border-bottom:1px solid rgba(var(--border-rgb),0.06)}
+    .awards-inner{max-width:1100px;margin:0 auto;text-align:center}
+    .awards-inner .eyebrow{display:block;margin-bottom:14px}
+    .awards-title{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,4vw,40px);letter-spacing:-0.02em;color:var(--cream);margin-bottom:12px}
+    .awards-sub{font-size:16px;color:var(--sand);max-width:56ch;margin:0 auto 52px;line-height:1.6}
+    .awards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .award-card{background:#FFFFFF;border:1px solid rgba(var(--border-rgb),0.08);border-radius:18px;padding:32px 24px 26px;display:flex;flex-direction:column;align-items:center;transition:transform .3s var(--ease-spring),box-shadow .3s ease}
+    .award-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.18)}
+    .award-badge{height:150px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+    .award-badge img{max-height:150px;max-width:100%;width:auto;object-fit:contain;transition:transform .3s var(--ease-spring)}
+    .award-card:hover .award-badge img{transform:scale(1.05)}
+    .award-name{font-family:var(--font-display);font-weight:700;font-size:15px;color:#1A1F14;line-height:1.3;margin-bottom:4px}
+    .award-source{font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#6E6A57}
+    @media (max-width:760px){.awards-grid{grid-template-columns:1fr}}
+    @media (max-width:520px){.awards-grid{grid-template-columns:1fr;gap:18px}#awards{padding:64px 24px}.award-badge{height:130px}.award-badge img{max-height:130px}}
+  </style>
+</head>
+<body>  <div id="site-header"></div>
+  <main>
+    <section id="about-hero">
+      <nav class="breadcrumb" aria-label="Breadcrumb" style="justify-content:center">
+        <a href="index.html">Home</a><span>/</span><span class="current">About</span>
+      </nav>
+      <span class="eyebrow reveal">Universal Landscaping</span>
+      <h1 class="about-hero-title reveal">Crafting exceptional outdoor spaces.</h1>
+      <p class="about-hero-lead reveal">We're more than a landscaping company — we're dedicated artisans of outdoor living, creating landscapes that enrich lifestyles, add value, and strengthen communities across Nova Scotia.</p>
+      <div class="badge-row reveal">
+        <span class="badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 .5-5.5 4.5 2 7L12 17l-6.5 4 2-7L2 9.5 9 9z"/></svg> Top-Rated 2023, 2024 &amp; 2025</span>
+        <span class="badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 .5-5.5 4.5 2 7L12 17l-6.5 4 2-7L2 9.5 9 9z"/></svg> 4.8 ★ on Google</span>
+        <span class="badge">🍁 Locally Owned &amp; Operated</span>
+      </div>
+    </section>
+
+    <section class="about-stats" aria-label="Company statistics">
+      <div class="about-stats-grid">
+        <div class="stat reveal"><div class="about-stat-num"><span class="counter" data-target="2022">2022</span></div><div class="about-stat-label">Established</div></div>
+        <div class="stat reveal"><div class="about-stat-num"><span class="counter" data-target="900">0</span><span class="suffix">+</span></div><div class="about-stat-label">Jobs Completed</div></div>
+        <div class="stat reveal"><div class="about-stat-num"><span class="counter" data-target="15">0</span></div><div class="about-stat-label">Crew Members</div></div>
+        <div class="stat reveal"><div class="about-stat-num"><span class="counter" data-target="800">0</span><span class="suffix">+</span></div><div class="about-stat-label">Happy Clients</div></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         AWARDS SHOWCASE
+    ============================================================ -->
+    <section id="awards" aria-labelledby="awards-title">
+      <div class="awards-inner">
+        <span class="eyebrow reveal">Recognition</span>
+        <h2 class="awards-title reveal" id="awards-title">Award-winning service,<br>three years running.</h2>
+        <p class="awards-sub reveal">Our commitment to quality hasn't gone unnoticed. We're proud to be recognized as a top-rated landscaping company by ThreeBest Rated® — three years running.</p>
+
+        <div class="awards-grid">
+          <div class="award-card reveal">
+            <div class="award-badge">
+              <img src="Best_rated_2023.jpeg" alt="Top 3 Landscaping Companies in Halifax 2023 — Three Best Rated" loading="lazy" />
+            </div>
+            <div class="award-name">Top 3 Landscaping Companies in Halifax</div>
+            <div class="award-source">ThreeBest Rated® · 2023</div>
+          </div>
+
+          <div class="award-card reveal">
+            <div class="award-badge">
+              <img src="Best_rated_2024.jpeg" alt="ThreeBest Rated Business Excellence Award 2024" loading="lazy" />
+            </div>
+            <div class="award-name">Business Excellence Award</div>
+            <div class="award-source">ThreeBest Rated® · 2024</div>
+          </div>
+
+          <div class="award-card reveal">
+            <div class="award-badge">
+              <img src="Best_rated_2025.jpeg" alt="ThreeBest Rated Business Excellence Award 2025" loading="lazy" />
+            </div>
+            <div class="award-name">Business Excellence Award</div>
+            <div class="award-source">ThreeBest Rated® · 2025</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-body">
+      <div class="about-block reveal">
+        <h2>Our story</h2>
+        <p>Universal Landscaping began in <strong>2022</strong> as a small, hard-working crew in Bedford, Nova Scotia, with a simple belief: that quality work and honest relationships would speak for themselves. Word spread quickly, and what started with a few local yards has grown into a full-service landscaping, hardscaping, and construction company serving properties across the entire Halifax Regional Municipality.</p>
+        <p>Today our experienced team handles everything from complete landscape installs and driveways to concrete, carpentry, and winter snow &amp; ice management — all in-house. But no matter how much we’ve grown, our founding principle hasn’t changed: treat every property like it’s our own, and every client like a neighbour.</p>
+      </div>
+
+      <div class="about-block reveal">
+        <h2>Our mission</h2>
+        <p>From the moment we break ground to the final finishing touches, our mission is simple: to transform ordinary properties into <strong>functional, beautiful, and long-lasting outdoor sanctuaries</strong>. We work with both residential and commercial clients across Bedford, Halifax, Hammonds Plains, Larry Uteck, and the surrounding HRM.</p>
+        <p>Whether it's a seasonal cleanup or a large-scale construction project, we offer full-service landscaping solutions designed to meet every need.</p>
+      </div>
+
+      <div class="about-block reveal">
+        <h2>Our specialties</h2>
+        <p>Our reputation is built on <strong>precision, creativity, and craftsmanship</strong>. Here's what we do best:</p>
+        <ul class="spec-list">
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Paver installation</strong><br><span style="color:var(--sand)">Custom patios, walkways, and driveways built with premium interlocking pavers, designed for both beauty and durability.</span></div></li>
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Driveways</strong><br><span style="color:var(--sand)">Interlocking pavers, poured concrete, or gravel driveways — durable and built for our freeze-thaw climate.</span></div></li>
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Concrete</strong><br><span style="color:var(--sand)">Poured concrete driveways, patios, walkways, and steps, with stamped and decorative finishes.</span></div></li>
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Retaining walls</strong><br><span style="color:var(--sand)">Structural and decorative walls using Allan Block, Highland Stone, or Versa-Lok — engineered for stability, drainage, and style.</span></div></li>
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Sod installation & lawn replacement</strong><br><span style="color:var(--sand)">Complete site preparation, grading, and premium sod for an instant, lush, green lawn.</span></div></li>
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Grading & regrading</strong><br><span style="color:var(--sand)">Correcting slope, drainage, and soil levels to protect your property and ensure long-term landscape health.</span></div></li>
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Mulching & garden bed redesign</strong><br><span style="color:var(--sand)">Clean, polished beds with mulch, stone, or planting for year-round curb appeal.</span></div></li>
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Carpentry &amp; fencing</strong><br><span style="color:var(--sand)">Chain-link, PVC, composite, and wood fencing — plus custom decks, gazebos, and pergolas.</span></div></li>
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Seasonal property maintenance</strong><br><span style="color:var(--sand)">Spring and fall cleanups, leaf removal, edging, pruning, and garden care.</span></div></li>
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Pressure washing</strong><br><span style="color:var(--sand)">Restoring the look of driveways, patios, decks, siding, and walkways.</span></div></li>
+          <li><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l3.5 3.5L13 4"/></svg></span><div><strong>Snow removal & ice control</strong><br><span style="color:var(--sand)">Reliable winter property care for both residential and commercial clients.</span></div></li>
+        </ul>
+      </div>
+
+      <div class="about-block reveal">
+        <h2>A collaborative approach</h2>
+        <p>We believe the best landscapes are born from <strong>partnerships</strong>. That's why we work closely with every client to understand their unique goals, vision, and budget. Whether you need expert design guidance, accurate cost estimates, or a trusted crew to bring your dream project to life, our team ensures the process is smooth from start to finish.</p>
+        <p>Scheduling a consultation with us means more than booking a service — it's the first step toward a custom outdoor plan tailored to your property. From concept to completion, we deliver results that surpass expectations.</p>
+      </div>
+
+      <div class="about-block reveal">
+        <h2>Insured, warrantied &amp; transparent</h2>
+        <p>Peace of mind matters. Universal Landscaping is a <strong>fully insured</strong> company, so your property is protected on every job. Every eligible hardscape installation is backed by our <strong>five-year workmanship warranty</strong>, and we operate on trust and transparency — with honest estimates, no full payment upfront, and clean, professional work from the first call to the final walkthrough.</p>
+      </div>
+
+      <div class="about-block reveal">
+        <h2>Serving HRM &amp; beyond</h2>
+        <p>Based in <strong>Bedford, Nova Scotia</strong>, we proudly serve homeowners, businesses, and developers across the Halifax Regional Municipality and surrounding areas. Our growing reputation as a trusted partner in landscape design, construction, and property maintenance has made us the go-to choice for projects big and small.</p>
+        <p>At Universal Landscaping, we don't just build landscapes — we build lasting impressions. Let us help you create an outdoor space that reflects your style, enhances your property's value, and improves your quality of life.</p>
+      </div>
+    </section>
+
+    <section class="apart-section">
+      <div class="apart-inner">
+        <span class="eyebrow reveal">What Sets Us Apart</span>
+        <h2 class="section-title reveal" style="margin-top:14px">Why clients choose Universal.</h2>
+        <div class="apart-grid">
+          <div class="apart-card reveal">
+            <svg class="apart-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="22" cy="22" r="15"/><path d="M22 13v9l6 4"/></svg>
+            <h3>Rapid response times</h3>
+            <p>We value your time and are known for quick, reliable communication and scheduling.</p>
+          </div>
+          <div class="apart-card reveal">
+            <svg class="apart-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l6 6-4 4-6-6a5 5 0 0 1 4-4z"/><path d="M28 20l8 8a3 3 0 0 1-4 4l-8-8"/></svg>
+            <h3>Skilled craftsmanship</h3>
+            <p>Every project is led by experienced professionals who take genuine pride in their work.</p>
+          </div>
+          <div class="apart-card reveal">
+            <svg class="apart-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="12" width="30" height="22" rx="3"/><path d="M7 18h30"/><circle cx="30" cy="26" r="2"/></svg>
+            <h3>Transparent pricing</h3>
+            <p>No surprises. We provide clear, competitive, detailed estimates so you can decide with confidence.</p>
+          </div>
+          <div class="apart-card reveal">
+            <svg class="apart-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 5l13 4v9c0 8-6 15-13 18-7-3-13-10-13-18V9z"/><path d="M16 22l4 4 8-9"/></svg>
+            <h3>5-year hardscape warranty</h3>
+            <p>Peace of mind knowing your patios, walkways, and retaining walls are backed by our guarantee.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta-banner">
+      <div class="cta-banner-inner reveal">
+        <div class="cta-banner-text">
+          <h2 class="cta-banner-title">Let's build something lasting.</h2>
+          <p class="cta-banner-sub">Schedule a consultation and take the first step toward your custom outdoor space.</p>
+        </div>
+        <a href="index.html#quote" class="cta-banner-btn">
+          Get a Free Estimate
+          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PARTNERS / SUPPLIERS BELT
+    ============================================================ -->
+    <div id="site-partners"></div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    const revealObserver=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const sibs=[...entry.target.parentElement.querySelectorAll('.reveal:not(.visible)')];
+          const idx=sibs.indexOf(entry.target);
+          setTimeout(()=>entry.target.classList.add('visible'),Math.min(idx*50,400));
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+    // Counter animation
+    function animateCounter(el){
+      const target=parseInt(el.dataset.target,10);
+      const isYear=target>1900;
+      const dur=1800, start=isYear?target-6:0, t0=performance.now();
+      function upd(now){
+        const p=Math.min((now-t0)/dur,1), e=1-Math.pow(1-p,3);
+        el.textContent=Math.round(start+(target-start)*e).toLocaleString();
+        if(p<1)requestAnimationFrame(upd); else el.textContent=target.toLocaleString();
+      }
+      requestAnimationFrame(upd);
+    }
+    const co=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){animateCounter(e.target);co.unobserve(e.target);}})},{threshold:0.5});
+    document.querySelectorAll('.counter').forEach(el=>co.observe(el));
+  </script>
+  <script src="layout.js" defer></script>
+</body>
+</html>

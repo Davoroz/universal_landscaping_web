@@ -1,0 +1,381 @@
+/* ================================================================
+   UNIVERSAL LANDSCAPING — SHARED LAYOUT (header + footer)
+   ================================================================
+   These styles power the top header and bottom footer on EVERY
+   page. Edit this one file (plus layout.js for the markup) and the
+   change appears site-wide. Colours still come from theme.css.
+
+   Class prefixes:  ulh- = header,  ulf- = footer
+   ================================================================ */
+
+/* ---------- HEADER : black info bar + white/green split ---------- */
+.ulh-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+}
+
+/* Solid black company-info bar */
+.ulh-topbar {
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 48px;
+  height: 40px;
+  font-size: 13px;
+  overflow: hidden;
+  transition: height 0.4s ease;
+}
+.ulh-topbar-info { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
+.ulh-topbar-info a, .ulh-topbar-info span { color: #fff; font-weight: 500; text-decoration: none; }
+.ulh-topbar-info a:hover { color: var(--sage); }
+.ulh-topbar-social { display: flex; align-items: center; gap: 16px; }
+.ulh-topbar-social a { color: #fff; display: inline-flex; align-items: center; text-decoration: none; transition: color 0.2s, transform 0.2s; }
+.ulh-topbar-social a svg { width: 19px; height: 19px; display: block; }
+.ulh-topbar-social a:hover { color: var(--sage); transform: translateY(-1px); }
+
+/* Main header row: solid green, white block hugs the logo */
+.ulh-main {
+  --ulh-green: #41842a;
+  background: var(--ulh-green);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 0 48px 0 0;
+  height: 262px;
+  transition: height 0.4s var(--ease-spring);
+}
+.ulh-nav.scrolled .ulh-main { height: 176px; }
+.ulh-nav.scrolled .ulh-topbar { height: 34px; }
+
+/* White block wraps only the logo, with a diagonal right edge */
+.ulh-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 40%;
+  width: 40%;
+  background: #fff;
+  padding: 0 40px;
+  text-decoration: none;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
+}
+.ulh-logo img {
+  height: 248px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  transform: translateX(-10%);
+  transition: height 0.4s var(--ease-spring);
+}
+.ulh-nav.scrolled .ulh-logo img { height: 162px; }
+
+.ulh-right { display: flex; align-items: center; gap: 22px; }
+.ulh-links { display: flex; gap: 24px; align-items: center; list-style: none; margin: 0; padding: 0; }
+.ulh-links a {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.2s;
+}
+.ulh-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-spring);
+}
+.ulh-links a:hover::after,
+.ulh-links a.active::after { transform: scaleX(1); }
+
+/* Quote button on green — white outline pill */
+.ulh-cta {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  border: 1.5px solid #fff;
+  padding: 12px 24px;
+  border-radius: 100px;
+  transition: background 0.25s var(--ease-spring), color 0.25s, transform 0.25s var(--ease-bounce);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.ulh-cta:hover { background: #fff; color: #2c5e1c; transform: scale(1.04); }
+
+/* Promotional AI button — white pill with green text so it pops on green */
+.ulh-promo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2c5e1c;
+  text-decoration: none;
+  background: #fff;
+  padding: 12px 20px;
+  border-radius: 100px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: 0 0 0 0 rgba(255,255,255,0.55);
+  transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s ease, filter 0.2s;
+  animation: ulh-promo-pulse 2.6s ease-in-out infinite;
+}
+.ulh-promo:hover { transform: scale(1.04); filter: brightness(0.97); }
+.ulh-spark { font-size: 15px; line-height: 1; color: #41842a; }
+@keyframes ulh-promo-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); }
+  50%      { box-shadow: 0 0 0 8px rgba(255,255,255,0); }
+}
+@media (prefers-reduced-motion: reduce) { .ulh-promo { animation: none; } }
+
+/* Hamburger (mobile only) */
+.ulh-hamburger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px;
+  margin-right: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 200;
+}
+.ulh-hamburger span {
+  display: block;
+  width: 26px; height: 2px;
+  background: #fff;
+  transition: transform 0.3s var(--ease-spring), opacity 0.3s;
+}
+.ulh-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ulh-hamburger.open span:nth-child(2) { opacity: 0; }
+.ulh-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile overlay menu */
+.ulh-mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #41842a;
+  z-index: 150;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 0 24px;
+}
+.ulh-mobile-menu.open { display: flex; }
+.ulh-mobile-menu a {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 6.4vw, 32px);
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  max-width: 100%;
+  line-height: 1.15;
+  overflow-wrap: break-word;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s var(--ease-spring), transform 0.4s var(--ease-spring), color 0.2s;
+}
+.ulh-mobile-menu.open a { opacity: 1; transform: translateY(0); }
+.ulh-mobile-menu a:hover { color: var(--sage); }
+.ulh-mobile-menu.open a:nth-child(1) { transition-delay: 0.05s; }
+.ulh-mobile-menu.open a:nth-child(2) { transition-delay: 0.10s; }
+.ulh-mobile-menu.open a:nth-child(3) { transition-delay: 0.15s; }
+.ulh-mobile-menu.open a:nth-child(4) { transition-delay: 0.20s; }
+.ulh-mobile-menu.open a:nth-child(5) { transition-delay: 0.25s; }
+.ulh-mobile-menu.open a:nth-child(6) { transition-delay: 0.30s; }
+
+@media (max-width: 768px) {
+  .ulh-topbar { padding: 0 16px; font-size: 12px; gap: 10px; }
+  .ulh-topbar-info { gap: 12px; min-width: 0; }
+  .ulh-topbar-info .ulh-hide-mobile { display: none; }
+  .ulh-topbar-social { gap: 14px; flex-shrink: 0; }
+  .ulh-main { padding-right: 0; height: 166px; }
+  .ulh-nav.scrolled .ulh-main { height: 138px; }
+  .ulh-logo { flex: none; width: auto; padding: 0 34px 0 18px; }
+  .ulh-logo img { height: 151px; }
+  .ulh-nav.scrolled .ulh-logo img { height: 122px; }
+  .ulh-links, .ulh-cta, .ulh-promo { display: none; }
+  .ulh-hamburger { display: flex; }
+}
+
+/* ---------- FOOTER ---------- */
+.ulf-footer {
+  background: var(--footer-bg);
+  color: var(--sand);
+  padding: 72px 48px 32px;
+  margin: 0;
+  font-family: var(--font-body);
+}
+.ulf-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 48px;
+}
+.ulf-logo img { height: 174px; width: auto; display: block; margin-bottom: 18px; }
+.ulf-tagline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--cream);
+  margin: 0 0 20px;
+}
+.ulf-social { display: flex; gap: 12px; }
+.ulf-social-link {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: var(--moss);
+  transition: transform 0.25s var(--ease-bounce), background 0.2s;
+}
+.ulf-social-link:hover { transform: translateY(-3px); background: var(--moss-dark); }
+.ulf-social-link svg, .ulf-social-link img { width: 16px; height: 16px; display: block; }
+.ulf-col-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+  margin-bottom: 18px;
+}
+.ulf-hours {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(var(--border-rgb), 0.08);
+}
+.ulf-hours span:first-child { color: var(--cream); font-weight: 500; }
+.ulf-links { list-style: none; margin: 0; padding: 0; }
+.ulf-links li { margin-bottom: 12px; }
+.ulf-links a {
+  color: var(--sand);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.ulf-links a:hover { color: var(--moss); }
+.ulf-bottom a { color: var(--sand); text-decoration: none; transition: color 0.2s; }
+.ulf-bottom a:hover { color: var(--moss); }
+.ulf-legal { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.ulf-bottom {
+  max-width: 1200px;
+  margin: 48px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(var(--border-rgb), 0.1);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--sand);
+}
+
+@media (max-width: 768px) {
+  .ulf-footer { padding: 56px 22px 28px; }
+  .ulf-grid { grid-template-columns: 1fr; gap: 36px; }
+  .ulf-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+/* ---------- CONTENT CLEARANCE UNDER THE FIXED HEADER ----------
+   Header total height:  desktop 258px (40 top bar + 218 main),
+   phones 178px (40 + 138). These keep each page's first section
+   below the header at every width. Uses the SAME 768px breakpoint
+   as the header so there is never a mismatch band. */
+#about-hero, #services-hero, #gal-hero, #rev-hero, #service-hero {
+  padding-top: 324px !important;
+}
+@media (max-width: 768px) {
+  #about-hero, #services-hero, #gal-hero, #rev-hero, #service-hero {
+    padding-top: 226px !important;
+  }
+}
+
+/* ---------- SECTION / HERO / CARD TITLES → BRAND GREEN ----------
+   One rule colours every content title across all pages. Excluded on
+   purpose: .cta-banner-title (sits on the green banner, stays white),
+   .gal-title (white captions over photos) and .est-step-q (form
+   questions) — those keep their own colour. */
+.section-title,
+.about-hero-title,
+.services-hero-title,
+.service-hero-title,
+.gal-hero-title,
+.rev-hero-title,
+.gallery-title,
+.areas-map-title,
+.partners-title,
+.process-title,
+.why-title,
+.awards-title,
+.form-title,
+.svc-name,
+.service-name,
+.hero-headline {
+  color: var(--moss) !important;
+}
+
+/* ---------- NARROW-PHONE SAFEGUARDS ---------- */
+/* Belt-and-suspenders: never allow sideways scroll/clipping */
+html { overflow-x: hidden; }
+
+/* On very small phones, drop the location text so the phone number and
+   the Facebook/Instagram icons on the right stay fully visible. */
+@media (max-width: 430px) {
+  .ulh-loc { display: none; }
+}
+
+/* Let long titles wrap instead of getting clipped at the screen edge */
+@media (max-width: 768px) {
+  .section-title, .about-hero-title, .services-hero-title, .service-hero-title,
+  .gal-hero-title, .rev-hero-title, .gallery-title, .areas-map-title,
+  .partners-title, .process-title, .why-title, .awards-title, .form-title,
+  .hero-headline, .svc-name, .service-name {
+    overflow-wrap: break-word;
+    hyphens: none;
+  }
+}
+
+
+/* ---------- TRUSTED SUPPLIERS BELT (centralized, edit here only) ---------- */
+.ulb-partners { padding: 72px 0 84px; border-top: 1px solid rgba(var(--border-rgb),0.06); overflow: hidden; }
+.ulb-header { text-align: center; margin-bottom: 44px; padding: 0 24px; }
+.ulb-eyebrow { display: inline-block; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.16em; font-size: 13px; font-weight: 600; color: var(--moss); }
+.ulb-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.5vw, 34px); letter-spacing: -0.02em; color: var(--moss); }
+.ulb-belt { position: relative; overflow: hidden; }
+.ulb-belt::before, .ulb-belt::after { content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none; }
+.ulb-belt::before { left: 0; background: linear-gradient(to right, var(--soil), transparent); }
+.ulb-belt::after { right: 0; background: linear-gradient(to left, var(--soil), transparent); }
+.ulb-track { display: flex; width: max-content; animation: ulb-scroll 40s linear infinite; }
+.ulb-belt:hover .ulb-track { animation-play-state: paused; }
+@keyframes ulb-scroll { to { transform: translateX(-50%); } }
+.ulb-chip { flex-shrink: 0; width: 260px; height: 130px; margin-right: 24px; background: #FFFFFF; border: 1px solid rgba(var(--border-rgb),0.08); border-radius: 14px; display: flex; align-items: center; justify-content: center; padding: 22px 32px; }
+.ulb-chip img { max-height: 84px; max-width: 200px; width: auto; object-fit: contain; filter: grayscale(55%); opacity: 0.9; transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s var(--ease-spring); }
+.ulb-chip:hover img { filter: grayscale(0%); opacity: 1; transform: scale(1.06); }
+@media (max-width: 768px) { .ulb-chip { width: 200px; height: 110px; padding: 18px 24px; } }
+@media (prefers-reduced-motion: reduce) { .ulb-track { animation: none; } .ulb-belt { overflow-x: auto; } }

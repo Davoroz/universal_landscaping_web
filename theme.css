@@ -1,0 +1,248 @@
+/* ================================================================
+   UNIVERSAL LANDSCAPING — THEME
+   ================================================================
+   This is the ONLY file you need to edit to change the site's
+   colour palette. Every page links to this file — one edit here
+   instantly updates the entire website (nav header included).
+
+   HOW TO SWITCH PALETTES:
+   Copy any palette block from the bottom of this file, paste it
+   over the active :root {} section below, save, and redeploy.
+   ================================================================ */
+
+/* ── Active palette: Original Dark ──────────────────────────── */
+:root {
+  --soil: #FFFFFF;  --stone: #F7F8F4;  --stone2: #EBEEE5;
+  --moss: #2E7A1F;  --sage: #7ED854;
+  --cream: #0F1712; --sand: #6B7A6F;   --lime: #2E7A1F;
+  --soil-rgb: 255,255,255; --moss-rgb: 46,122,31;
+  --lime-rgb: 46,122,31;   --sand-rgb: 107,122,111;
+  --cream-rgb: 15,23,18;   --border-rgb: 0,0,0;
+  --cta-text-rgb: 255,255,255;
+  --footer-bg: #F0F2EC;  --moss-dark: #1B4A11;
+  --hero-grad-a: #D8E2C8; --hero-grad-b: #C8D4B4; --hero-grad-c: #B8C4A0;
+  --cta-text: #ffffff;
+  --font-display: 'Syne', sans-serif;  --font-body: 'DM Sans', sans-serif;
+  --ease-spring: cubic-bezier(0.22,1,0.36,1);
+  --ease-bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+/*
+:root {
+
+  /* BACKGROUNDS */
+  --soil:   #1C1A14;   /* page background */
+  --stone:  #2A2820;   /* card / section background */
+  --stone2: #3A3830;   /* elevated card / hover state */
+
+  /* GREENS */
+  --moss:   #4A6741;   /* primary green accent */
+  --sage:   #8BA882;   /* secondary green / icons */
+
+  /* TEXT */
+  --cream:  #F5F0E6;   /* primary text */
+  --sand:   #C9BDA4;   /* muted / secondary text */
+
+  /* ACCENT */
+  --lime:   #B8E04A;   /* CTA buttons and highlights */
+
+  /* ── RGB CHANNEL TOKENS ──────────────────────────────────────
+     Used for rgba() transparency effects (nav header backdrop,
+     borders, glows, overlays). Keep in sync with hex above.
+     Format: R,G,B — no spaces, no rgba() wrapper.             */
+  --soil-rgb:     28,26,20;
+  --moss-rgb:     74,103,65;
+  --lime-rgb:     184,224,74;
+  --sand-rgb:     201,189,164;
+  --cream-rgb:    245,240,230;
+  --border-rgb:   255,255,255;  /* white for dark themes; 0,0,0 for light themes */
+  --cta-text-rgb: 255,255,255;  /* text on the green CTA banner */
+
+  /* ── DERIVED TOKENS ─────────────────────────────────────────*/
+  --footer-bg:    #141210;      /* footer background (darker than --soil) */
+  --moss-dark:    #3a5233;      /* CTA banner gradient midpoint */
+  --hero-grad-a:  #2a3a28;      /* decorative gradient tones */
+  --hero-grad-b:  #1a2a18;
+  --hero-grad-c:  #0e1a0c;
+  --cta-text:     #ffffff;      /* solid text on the green CTA banner */
+
+  /* ── TYPOGRAPHY ─────────────────────────────────────────────*/
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* ── EASING ─────────────────────────────────────────────────*/
+  --ease-spring:  cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/*
+/* ================================================================
+   READY-TO-USE PALETTE SWAPS
+   Copy any block below over the :root above. Every token is
+   included — nothing else to edit anywhere on the site.
+   ================================================================
+
+── PALETTE A: Bold Brand Match (dark, vivid) ──────────────────
+:root {
+  --soil: #0A0A0A;  --stone: #1A1A1A;  --stone2: #262626;
+  --moss: #2E7A1F;  --sage: #7ED854;
+  --cream: #F1EFEB; --sand: #B8B4AB;   --lime: #4ECC1F;
+  --soil-rgb: 10,10,10;    --moss-rgb: 46,122,31;
+  --lime-rgb: 78,204,31;   --sand-rgb: 184,180,171;
+  --cream-rgb: 241,239,235; --border-rgb: 255,255,255;
+  --cta-text-rgb: 255,255,255;
+  --footer-bg: #050505;  --moss-dark: #3B8A28;
+  --hero-grad-a: #2a3a28; --hero-grad-b: #1a2a18; --hero-grad-c: #0e1a0c;
+  --cta-text: #ffffff;
+  --font-display: 'Syne', sans-serif;  --font-body: 'DM Sans', sans-serif;
+  --ease-spring: cubic-bezier(0.22,1,0.36,1);
+  --ease-bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+── PALETTE B: Refined Brand Match (dark, recommended dark) ────
+:root {
+  --soil: #0F0F0D;  --stone: #1E1F1B;  --stone2: #2C2E27;
+  --moss: #2E5A1E;  --sage: #7ED854;
+  --cream: #F1EFEB; --sand: #C4C0B6;   --lime: #B8E04A;
+  --soil-rgb: 15,15,13;    --moss-rgb: 46,90,30;
+  --lime-rgb: 184,224,74;  --sand-rgb: 196,192,182;
+  --cream-rgb: 241,239,235; --border-rgb: 255,255,255;
+  --cta-text-rgb: 255,255,255;
+  --footer-bg: #0A0A08;  --moss-dark: #3B6E22;
+  --hero-grad-a: #2a3a28; --hero-grad-b: #1a2a18; --hero-grad-c: #0e1a0c;
+  --cta-text: #ffffff;
+  --font-display: 'Syne', sans-serif;  --font-body: 'DM Sans', sans-serif;
+  --ease-spring: cubic-bezier(0.22,1,0.36,1);
+  --ease-bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+── PALETTE C: Minimal Refinement (dark, safest) ───────────────
+:root {
+  --soil: #1C1A14;  --stone: #2A2820;  --stone2: #3A3830;
+  --moss: #4A6741;  --sage: #8BA882;
+  --cream: #F5F0E6; --sand: #C9BDA4;   --lime: #4ECC1F;
+  --soil-rgb: 28,26,20;    --moss-rgb: 74,103,65;
+  --lime-rgb: 78,204,31;   --sand-rgb: 201,189,164;
+  --cream-rgb: 245,240,230; --border-rgb: 255,255,255;
+  --cta-text-rgb: 255,255,255;
+  --footer-bg: #141210;  --moss-dark: #3a5233;
+  --hero-grad-a: #2a3a28; --hero-grad-b: #1a2a18; --hero-grad-c: #0e1a0c;
+  --cta-text: #ffffff;
+  --font-display: 'Syne', sans-serif;  --font-body: 'DM Sans', sans-serif;
+  --ease-spring: cubic-bezier(0.22,1,0.36,1);
+  --ease-bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+── PALETTE D: Clean & Airy (light, pure white) ────────────────
+:root {
+  --soil: #FFFFFF;  --stone: #F7F8F4;  --stone2: #EBEEE5;
+  --moss: #2E7A1F;  --sage: #7ED854;
+  --cream: #0F1712; --sand: #6B7A6F;   --lime: #2E7A1F;
+  --soil-rgb: 255,255,255; --moss-rgb: 46,122,31;
+  --lime-rgb: 46,122,31;   --sand-rgb: 107,122,111;
+  --cream-rgb: 15,23,18;   --border-rgb: 0,0,0;
+  --cta-text-rgb: 255,255,255;
+  --footer-bg: #F0F2EC;  --moss-dark: #1B4A11;
+  --hero-grad-a: #D8E2C8; --hero-grad-b: #C8D4B4; --hero-grad-c: #B8C4A0;
+  --cta-text: #ffffff;
+  --font-display: 'Syne', sans-serif;  --font-body: 'DM Sans', sans-serif;
+  --ease-spring: cubic-bezier(0.22,1,0.36,1);
+  --ease-bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+── PALETTE E: Warm & Natural (light cream, recommended light) ─
+:root {
+  --soil: #FAF7F0;  --stone: #F1EFEB;  --stone2: #E8E2D0;
+  --moss: #2E7A1F;  --sage: #3F5031;
+  --cream: #1A1F14; --sand: #6E6A57;   --lime: #B8E04A;
+  --soil-rgb: 250,247,240; --moss-rgb: 46,122,31;
+  --lime-rgb: 184,224,74;  --sand-rgb: 110,106,87;
+  --cream-rgb: 26,31,20;   --border-rgb: 0,0,0;
+  --cta-text-rgb: 255,255,255;
+  --footer-bg: #EEE9D8;  --moss-dark: #4A6741;
+  --hero-grad-a: #D8E2C8; --hero-grad-b: #C8D4B4; --hero-grad-c: #B8C4A0;
+  --cta-text: #ffffff;
+  --font-display: 'Syne', sans-serif;  --font-body: 'DM Sans', sans-serif;
+  --ease-spring: cubic-bezier(0.22,1,0.36,1);
+  --ease-bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+── PALETTE F: Fresh & Vibrant (sage backdrop) ─────────────────
+:root {
+  --soil: #F4F7F0;  --stone: #FFFFFF;  --stone2: #E8EFDF;
+  --moss: #2E5A1E;  --sage: #7ED854;
+  --cream: #142012; --sand: #5B6F5A;   --lime: #4ECC1F;
+  --soil-rgb: 244,247,240; --moss-rgb: 46,90,30;
+  --lime-rgb: 78,204,31;   --sand-rgb: 91,111,90;
+  --cream-rgb: 20,32,18;   --border-rgb: 0,0,0;
+  --cta-text-rgb: 255,255,255;
+  --footer-bg: #E8EFDF;  --moss-dark: #3B8A28;
+  --hero-grad-a: #D8E2C8; --hero-grad-b: #C8D4B4; --hero-grad-c: #B8C4A0;
+  --cta-text: #ffffff;
+  --font-display: 'Syne', sans-serif;  --font-body: 'DM Sans', sans-serif;
+  --ease-spring: cubic-bezier(0.22,1,0.36,1);
+  --ease-bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+── PALETTE G: Forest & Amber (dark evergreen, amber CTA) ──────
+:root {
+  --soil: #0B1F14;  --stone: #12291B;  --stone2: #1D3826;
+  --moss: #4A6741;  --sage: #9FB498;
+  --cream: #E8F0DA; --sand: #9FB498;   --lime: #E4A853;
+  --soil-rgb: 11,31,20;    --moss-rgb: 74,103,65;
+  --lime-rgb: 228,168,83;  --sand-rgb: 159,180,152;
+  --cream-rgb: 232,240,218; --border-rgb: 255,255,255;
+  --cta-text-rgb: 255,255,255;
+  --footer-bg: #061410;  --moss-dark: #8A6626;
+  --hero-grad-a: #122b1a; --hero-grad-b: #0d2014; --hero-grad-c: #08160e;
+  --cta-text: #ffffff;
+  --font-display: 'Syne', sans-serif;  --font-body: 'DM Sans', sans-serif;
+  --ease-spring: cubic-bezier(0.22,1,0.36,1);
+  --ease-bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+── PALETTE H: Terracotta & Sage (light cream, coral CTA) ──────
+:root {
+  --soil: #FDF6E9;  --stone: #F5EAD1;  --stone2: #EEDDBD;
+  --moss: #4A6741;  --sage: #7C8968;
+  --cream: #1A2E1A; --sand: #6B7259;   --lime: #FF6B35;
+  --soil-rgb: 253,246,233; --moss-rgb: 74,103,65;
+  --lime-rgb: 255,107,53;  --sand-rgb: 107,114,89;
+  --cream-rgb: 26,46,26;   --border-rgb: 0,0,0;
+  --cta-text-rgb: 255,255,255;
+  --footer-bg: #F0E5CD;  --moss-dark: #D14A1F;
+  --hero-grad-a: #D8E2C8; --hero-grad-b: #C8D4B4; --hero-grad-c: #B8C4A0;
+  --cta-text: #ffffff;
+  --font-display: 'Syne', sans-serif;  --font-body: 'DM Sans', sans-serif;
+  --ease-spring: cubic-bezier(0.22,1,0.36,1);
+  --ease-bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+── PALETTE I: Concrete & Chartreuse (stone grey, electric) ────
+:root {
+  --soil: #E8ECE4;  --stone: #DBE1D5;  --stone2: #CFD6C7;
+  --moss: #4A5548;  --sage: #7A8578;
+  --cream: #1F2320; --sand: #5A6558;   --lime: #C4E870;
+  --soil-rgb: 232,236,228; --moss-rgb: 74,85,72;
+  --lime-rgb: 196,232,112; --sand-rgb: 90,101,88;
+  --cream-rgb: 31,35,32;   --border-rgb: 0,0,0;
+  --cta-text-rgb: 255,255,255;
+  --footer-bg: #D5DBCE;  --moss-dark: #7A8578;
+  --hero-grad-a: #D8E2C8; --hero-grad-b: #C8D4B4; --hero-grad-c: #B8C4A0;
+  --cta-text: #1F2320;
+  --font-display: 'Syne', sans-serif;  --font-body: 'DM Sans', sans-serif;
+  --ease-spring: cubic-bezier(0.22,1,0.36,1);
+  --ease-bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+================================================================ */

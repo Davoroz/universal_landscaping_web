@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Services — Universal Landscaping</title>
+  <meta name="description" content="Explore the full range of landscaping services from Universal Landscaping in Halifax and the HRM — sod, hardscaping, retaining walls, fencing, snow removal, lawn care and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="theme.css" />
+  <link rel="stylesheet" href="layout.css" />
+  <style>
+    /* All color variables come from theme.css (linked in <head>).
+       Edit theme.css to change the entire site palette. */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{background:var(--soil);color:var(--cream);font-family:var(--font-body);line-height:1.6;overflow-x:hidden}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+    button{cursor:pointer;border:none;background:none;font-family:inherit}
+    .eyebrow{font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--sand)}
+    .section-title{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4.5vw,44px);letter-spacing:-0.02em;line-height:1.1}
+    .reveal{opacity:0;transform:translateY(28px)}
+    @media (prefers-reduced-motion:no-preference){
+      .reveal{transition:opacity 0.7s var(--ease-spring),transform 0.7s var(--ease-spring)}
+      .reveal.visible{opacity:1;transform:translateY(0)}
+    }
+    @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+    /* NAV */
+    #nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:188px;display:flex;align-items:center;justify-content:space-between;transition:background 0.4s ease,backdrop-filter 0.4s ease,height 0.4s ease}
+    #nav.scrolled{background:rgba(var(--soil-rgb),0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(var(--border-rgb),0.08);height:124px;box-shadow:0 8px 32px rgba(0,0,0,0.12)}
+    .nav-logo{display:flex;align-items:center}
+    .nav-logo img{height:176px;width:auto;object-fit:contain;display:block;transition:height 0.4s var(--ease-spring)}
+    #nav.scrolled .nav-logo img{height:108px}
+    .nav-links{display:flex;gap:32px;align-items:center}
+    .nav-links a{font-size:16px;font-weight:600;color:var(--sand);position:relative;padding-bottom:3px;transition:color 0.2s}
+    .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform 0.3s var(--ease-spring)}
+    .nav-links a:hover{color:var(--cream)}
+    .nav-links a:hover::after{transform:scaleX(1)}
+    .nav-links a.active{color:var(--cream)}
+    .nav-links a.active::after{transform:scaleX(1)}
+    .nav-cta{font-size:15px;font-weight:700;color:var(--lime);border:1.5px solid var(--lime);padding:13px 28px;border-radius:100px;transition:background 0.25s var(--ease-spring),color 0.25s,transform 0.25s var(--ease-bounce);letter-spacing:0.02em}
+    .nav-cta:hover{background:var(--lime);color:var(--soil)}
+    .hamburger{display:none;flex-direction:column;gap:5px;padding:6px;z-index:200}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--cream);transition:transform 0.3s var(--ease-spring),opacity 0.3s}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    #mobile-menu{display:none;position:fixed;inset:0;background:var(--soil);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+    #mobile-menu.open{display:flex}
+    #mobile-menu a{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--cream);opacity:0;transform:translateY(20px);transition:opacity 0.4s var(--ease-spring),transform 0.4s var(--ease-spring),color 0.2s}
+    #mobile-menu.open a{opacity:1;transform:translateY(0)}
+    #mobile-menu a:hover{color:var(--lime)}
+    #mobile-menu.open a:nth-child(1){transition-delay:.05s}
+    #mobile-menu.open a:nth-child(2){transition-delay:.10s}
+    #mobile-menu.open a:nth-child(3){transition-delay:.15s}
+    #mobile-menu.open a:nth-child(4){transition-delay:.20s}
+    #mobile-menu.open a:nth-child(5){transition-delay:.25s}
+    @media (max-width:860px){
+      #nav{padding:0 22px;height:128px}
+      #nav.scrolled{height:96px}
+      .nav-links,.nav-cta{display:none}
+      .hamburger{display:flex}
+      .nav-logo img{height:96px}
+      #nav.scrolled .nav-logo img{height:74px}
+    }
+
+    /* HERO */
+    #services-hero{padding:210px 40px 60px;max-width:1100px;margin:0 auto;text-align:center}
+    .breadcrumb{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--sand);margin-bottom:28px}
+    .breadcrumb a{color:var(--sand);transition:color 0.2s}
+    .breadcrumb a:hover{color:var(--lime)}
+    .breadcrumb span{color:var(--stone2)}
+    .breadcrumb .current{color:var(--cream)}
+    .services-hero-title{font-family:var(--font-display);font-weight:800;font-size:clamp(42px,6.5vw,72px);line-height:1.02;letter-spacing:-0.03em;color:var(--cream);margin:18px 0 24px}
+    .services-hero-lead{font-size:19px;color:var(--sand);line-height:1.6;max-width:60ch;margin:0 auto}
+    @media (max-width:860px){#services-hero{padding:150px 24px 48px}}
+
+    /* SERVICES GRID */
+    #services-grid-wrap{max-width:1200px;margin:0 auto;padding:40px 40px 80px}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .svc-card{display:flex;flex-direction:column;background:var(--stone);border:1px solid rgba(var(--border-rgb),0.05);border-radius:16px;padding:36px 30px;position:relative;overflow:hidden;transition:border-color 0.25s ease,background 0.25s ease,transform 0.25s var(--ease-spring)}
+    .svc-card::before{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--lime);transition:width 0.4s var(--ease-spring)}
+    .svc-card:hover{border-color:var(--moss);background:var(--stone2);transform:translateY(-4px)}
+    .svc-card:hover::before{width:100%}
+    .svc-icon{width:44px;height:44px;color:var(--sage);margin-bottom:20px;transition:color 0.2s}
+    .svc-card:hover .svc-icon{color:var(--lime)}
+    /* Option 2 — icons continuously draw themselves (always animated, no scroll needed) */
+    .svc-icon path,.svc-icon circle,.svc-icon rect,.svc-icon line,.svc-icon polyline{stroke-dasharray:1;stroke-dashoffset:1;animation:svc-draw 3.6s ease-in-out infinite}
+    @keyframes svc-draw{0%{stroke-dashoffset:1}45%{stroke-dashoffset:0}70%{stroke-dashoffset:0}100%{stroke-dashoffset:1}}
+    .svc-card:nth-child(3n+2) .svc-icon path,.svc-card:nth-child(3n+2) .svc-icon circle,.svc-card:nth-child(3n+2) .svc-icon rect,.svc-card:nth-child(3n+2) .svc-icon line,.svc-card:nth-child(3n+2) .svc-icon polyline{animation-delay:.45s}
+    .svc-card:nth-child(3n) .svc-icon path,.svc-card:nth-child(3n) .svc-icon circle,.svc-card:nth-child(3n) .svc-icon rect,.svc-card:nth-child(3n) .svc-icon line,.svc-card:nth-child(3n) .svc-icon polyline{animation-delay:.9s}
+    @media (prefers-reduced-motion:reduce){.svc-icon path,.svc-icon circle,.svc-icon rect,.svc-icon line,.svc-icon polyline{stroke-dashoffset:0!important;animation:none!important}}
+    .svc-name{font-family:var(--font-display);font-weight:700;font-size:21px;letter-spacing:-0.01em;color:var(--cream);margin-bottom:12px}
+    .svc-desc{font-size:15px;color:var(--sand);line-height:1.6;margin-bottom:24px;flex-grow:1}
+    .svc-link{font-size:13px;font-weight:600;color:var(--sage);letter-spacing:0.04em;display:inline-flex;align-items:center;gap:6px;transition:color 0.2s}
+    .svc-link .arrow{transition:transform 0.25s var(--ease-spring)}
+    .svc-card:hover .svc-link{color:var(--lime)}
+    .svc-card:hover .svc-link .arrow{transform:translateX(4px)}
+    @media (max-width:900px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:600px){.services-grid{grid-template-columns:1fr}#services-grid-wrap{padding:24px 24px 56px}}
+
+    /* CTA BANNER */
+    #cta-banner{padding:40px 40px 96px}
+    .cta-banner-inner{max-width:1100px;margin:0 auto;background:linear-gradient(135deg,var(--moss) 0%,var(--moss-dark) 100%);border-radius:20px;padding:60px 52px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden}
+    .cta-banner-inner::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(var(--lime-rgb),0.15) 0%,transparent 70%)}
+    .cta-banner-text{position:relative}
+    .cta-banner-title{font-family:var(--font-display);font-weight:800;font-size:clamp(26px,4vw,38px);color:var(--cta-text);letter-spacing:-0.02em;line-height:1.1;margin-bottom:12px}
+    .cta-banner-sub{font-size:17px;color:rgba(var(--cta-text-rgb),0.85);max-width:460px}
+    .cta-banner-btn{position:relative;display:inline-flex;align-items:center;gap:10px;background:var(--lime);color:var(--soil);font-weight:700;font-size:16px;padding:18px 36px;border-radius:100px;white-space:nowrap;flex-shrink:0;transition:transform 0.25s var(--ease-bounce),box-shadow 0.25s}
+    .cta-banner-btn:hover{transform:scale(1.04);box-shadow:0 10px 30px rgba(0,0,0,0.25)}
+    .cta-banner-btn .arrow{transition:transform 0.25s var(--ease-spring)}
+    .cta-banner-btn:hover .arrow{transform:translateX(4px)}
+    @media (max-width:820px){.cta-banner-inner{flex-direction:column;align-items:flex-start;padding:44px 30px}#cta-banner{padding:40px 24px 64px}}
+
+    /* FOOTER */
+    footer{background:var(--footer-bg);border-top:1px solid rgba(var(--border-rgb),0.06);padding:64px 40px 36px}
+    .footer-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:60px;padding-bottom:44px;border-bottom:1px solid rgba(var(--border-rgb),0.06)}
+    .footer-logo img{height:224px;width:auto;object-fit:contain;margin-bottom:12px}
+    .footer-tagline{font-size:14px;color:var(--sand);margin-bottom:20px;line-height:1.6}
+    .social-links{display:flex;gap:12px}
+    .social-link{width:38px;height:38px;border:1px solid rgba(var(--border-rgb),0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--sand);transition:border-color 0.2s,color 0.2s,background 0.2s}
+    .social-link:hover{border-color:var(--lime);color:var(--lime);background:rgba(var(--lime-rgb),0.08)}
+    .footer-col-title{font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--cream);margin-bottom:18px}
+    .hours-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px}
+    .hours-row .day{color:var(--sand)}
+    .hours-row .time{color:var(--cream)}
+    .footer-links li{margin-bottom:10px}
+    .footer-links a{font-size:14px;color:var(--sand);transition:color 0.2s}
+    .footer-links a:hover{color:var(--lime)}
+    .footer-bottom{max-width:1100px;margin:28px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(var(--sand-rgb),0.4)}
+    @media (max-width:768px){.footer-grid{grid-template-columns:1fr;gap:36px}footer{padding:48px 24px 28px}.footer-bottom{flex-direction:column;gap:8px;text-align:center}}
+    /* ============================================================
+       PARTNERS BELT
+    ============================================================ */
+    #partners {
+      padding: 72px 0 84px;
+      border-top: 1px solid rgba(var(--border-rgb),0.06);
+      overflow: hidden;
+    }
+    .partners-header {
+      text-align: center;
+      margin-bottom: 44px;
+      padding: 0 24px;
+    }
+    .partners-header .eyebrow { display: block; margin-bottom: 14px; }
+    .partners-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(24px, 3.5vw, 34px);
+      letter-spacing: -0.02em;
+      color: var(--cream);
+    }
+    .partners-belt {
+      position: relative;
+      overflow: hidden;
+    }
+    /* Soft fade on both edges so logos glide in/out elegantly */
+    .partners-belt::before,
+    .partners-belt::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .partners-belt::before {
+      left: 0;
+      background: linear-gradient(to right, var(--soil), transparent);
+    }
+    .partners-belt::after {
+      right: 0;
+      background: linear-gradient(to left, var(--soil), transparent);
+    }
+    .partners-track {
+      display: flex;
+      width: max-content;
+      animation: belt-scroll 40s linear infinite;
+    }
+    /* Pause when the visitor hovers to inspect a logo */
+    .partners-belt:hover .partners-track {
+      animation-play-state: paused;
+    }
+    @keyframes belt-scroll {
+      to { transform: translateX(-50%); }
+    }
+    .partner-chip {
+      flex-shrink: 0;
+      width: 260px;
+      height: 130px;
+      margin-right: 24px;
+      background: #FFFFFF;
+      border: 1px solid rgba(var(--border-rgb),0.08);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px 32px;
+    }
+    .partner-chip img {
+      max-height: 84px;
+      max-width: 200px;
+      width: auto;
+      object-fit: contain;
+      filter: grayscale(55%);
+      opacity: 0.9;
+      transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s var(--ease-spring);
+    }
+    .partner-chip:hover img {
+      filter: grayscale(0%);
+      opacity: 1;
+      transform: scale(1.06);
+    }
+    /* Accessibility: no motion for users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .partners-track { animation: none; }
+      .partners-belt { overflow-x: auto; }
+    }
+    @media (max-width: 600px) {
+      #partners { padding: 56px 0 64px; }
+      .partner-chip { width: 200px; height: 104px; margin-right: 16px; padding: 16px 24px; }
+      .partner-chip img { max-height: 64px; max-width: 152px; }
+      .partners-belt::before, .partners-belt::after { width: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main>
+    <section id="services-hero">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span class="current">Services</span>
+      </nav>
+      <span class="eyebrow reveal">What We Do</span>
+      <h1 class="services-hero-title reveal">Everything your<br>property needs.</h1>
+      <p class="services-hero-lead reveal">From full landscape builds to seasonal upkeep, Universal Landscaping is your one call for every outdoor project across Bedford, Halifax, and the HRM.</p>
+    </section>
+
+    <section id="services-grid-wrap" aria-label="All services">
+      <div class="services-grid" role="list">
+        <a href="sod-installation.html" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M6 36c0-10 8-18 18-18s18 8 18 18"/><path pathLength="1" d="M14 36c0-5.5 4.5-10 10-10s10 4.5 10 10"/><line pathLength="1" x1="24" y1="8" x2="24" y2="14"/><line pathLength="1" x1="14" y1="10" x2="17" y2="15"/><line pathLength="1" x1="34" y1="10" x2="31" y2="15"/></svg>
+          <h3 class="svc-name">Sod Installation</h3>
+          <p class="svc-desc">Achieve a lush, green lawn instantly. We prepare the ground with grading, soil conditioning, and leveling to ensure strong root growth and long-lasting results.</p>
+          <span class="svc-link">Learn more <span class="arrow">→</span></span>
+        </a>
+        <a href="complete-landscape-install.html" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect pathLength="1" x="6" y="28" width="36" height="12" rx="2"/><path pathLength="1" d="M12 28v-6a12 12 0 0 1 24 0v6"/><line pathLength="1" x1="24" y1="16" x2="24" y2="22"/><circle pathLength="1" cx="24" cy="13" r="3"/></svg>
+          <h3 class="svc-name">Complete Landscape Install</h3>
+          <p class="svc-desc">Our design and construction team collaborates with you to plan and build full-property landscapes for new homes across the HRM.</p>
+          <span class="svc-link">Learn more <span class="arrow">→</span></span>
+        </a>
+        <a href="retaining-walls.html" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect pathLength="1" x="6" y="32" width="36" height="8" rx="1"/><rect pathLength="1" x="10" y="24" width="28" height="8" rx="1"/><rect pathLength="1" x="14" y="16" width="20" height="8" rx="1"/></svg>
+          <h3 class="svc-name">Retaining Walls</h3>
+          <p class="svc-desc">Strength, style, and stability. We design and install structural and decorative retaining walls that add function and beauty to your property.</p>
+          <span class="svc-link">Learn more <span class="arrow">→</span></span>
+        </a>
+        <a href="paver-patio-walkways.html" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect pathLength="1" x="6" y="6" width="16" height="16" rx="1"/><rect pathLength="1" x="26" y="6" width="16" height="16" rx="1"/><rect pathLength="1" x="6" y="26" width="16" height="16" rx="1"/><rect pathLength="1" x="26" y="26" width="16" height="16" rx="1"/></svg>
+          <h3 class="svc-name">Paver Patio & Walkways</h3>
+          <p class="svc-desc">Beautifully crafted paver patios, walkways, and driveways. Durable, stylish hardscapes that enhance curb appeal and property value.</p>
+          <span class="svc-link">Learn more <span class="arrow">→</span></span>
+        </a>
+        <a href="concrete-services.html" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect pathLength="1" x="6" y="16" width="36" height="16" rx="1"/><line pathLength="1" x1="13" y1="21" x2="13" y2="27"/><line pathLength="1" x1="20" y1="21" x2="20" y2="27"/><line pathLength="1" x1="27" y1="21" x2="27" y2="27"/><line pathLength="1" x1="34" y1="21" x2="34" y2="27"/></svg>
+          <h3 class="svc-name">Concrete</h3>
+          <p class="svc-desc">Poured concrete driveways, patios, walkways, and steps — plus stamped, exposed-aggregate, and decorative finishes built for our climate.</p>
+          <span class="svc-link">Learn more <span class="arrow">→</span></span>
+        </a>
+        <a href="snow-ice-management.html" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line pathLength="1" x1="24" y1="6" x2="24" y2="42"/><line pathLength="1" x1="6" y1="24" x2="42" y2="24"/><line pathLength="1" x1="11" y1="11" x2="37" y2="37"/><line pathLength="1" x1="37" y1="11" x2="11" y2="37"/><circle pathLength="1" cx="24" cy="24" r="4"/></svg>
+          <h3 class="svc-name">Snow & Ice Management</h3>
+          <p class="svc-desc">Keep your property safe all winter. Reliable residential and commercial snow clearing for driveways, walkways, parking lots, and entrances.</p>
+          <span class="svc-link">Learn more <span class="arrow">→</span></span>
+        </a>
+        <a href="carpentry.html" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line pathLength="1" x1="6" y1="12" x2="42" y2="12"/><line pathLength="1" x1="6" y1="24" x2="42" y2="24"/><line pathLength="1" x1="12" y1="8" x2="12" y2="40"/><line pathLength="1" x1="24" y1="8" x2="24" y2="40"/><line pathLength="1" x1="36" y1="8" x2="36" y2="40"/></svg>
+          <h3 class="svc-name">Carpentry</h3>
+          <p class="svc-desc">Custom fencing (chain-link, PVC, composite, and wood), plus decks, gazebos, and pergolas — built to last and enhance your yard.</p>
+          <span class="svc-link">Learn more <span class="arrow">→</span></span>
+        </a>
+        <a href="index.html#quote" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M8 32c4-6 10-6 16-6s12 0 16 6"/><path pathLength="1" d="M6 32h36v6H6z"/><path pathLength="1" d="M16 24c0-3 2-5 8-5s8 2 8 5"/></svg>
+          <h3 class="svc-name">Mulching</h3>
+          <p class="svc-desc">Give garden beds a fresh, finished look while retaining moisture, regulating soil temperature, suppressing weeds, and enriching your soil.</p>
+          <span class="svc-link">Request a quote <span class="arrow">→</span></span>
+        </a>
+        <a href="index.html#quote" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M8 30h32"/><path pathLength="1" d="M8 30c0-4 3-8 8-8M40 30c0-4-3-8-8-8"/><path pathLength="1" d="M20 22V8h8v14"/></svg>
+          <h3 class="svc-name">Edging & Trimming</h3>
+          <p class="svc-desc">Cutting a defined line along the lawn's edge to create clean separation between the lawn and other landscape features like flower beds.</p>
+          <span class="svc-link">Request a quote <span class="arrow">→</span></span>
+        </a>
+        <a href="index.html#quote" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect pathLength="1" x="10" y="16" width="28" height="20" rx="2"/><path pathLength="1" d="M16 16v-4a8 8 0 0 1 16 0v4"/><path pathLength="1" d="M20 26l3 3 6-6"/></svg>
+          <h3 class="svc-name">Paver Sealing</h3>
+          <p class="svc-desc">Protect your interlocking pavers for years to come. Professional sealing preserves the beauty and strength of patios, walkways, and driveways.</p>
+          <span class="svc-link">Request a quote <span class="arrow">→</span></span>
+        </a>
+        <a href="index.html#quote" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M14 20l4 18h12l4-18"/><path pathLength="1" d="M10 20h28"/><path pathLength="1" d="M18 20l2-8h8l2 8"/></svg>
+          <h3 class="svc-name">Seasonal Cleanups</h3>
+          <p class="svc-desc">Spring and fall cleanups: leaf removal, garden bed cleanup, debris hauling, pruning, edging, and lawn care preparation.</p>
+          <span class="svc-link">Request a quote <span class="arrow">→</span></span>
+        </a>
+        <a href="index.html#quote" class="svc-card reveal" role="listitem">
+          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M28 8l8 4v6l-14 6"/><path pathLength="1" d="M22 24l-8 4v12"/><path pathLength="1" d="M10 40h12"/><circle pathLength="1" cx="30" cy="30" r="1"/><circle pathLength="1" cx="34" cy="34" r="1"/><circle pathLength="1" cx="26" cy="34" r="1"/></svg>
+          <h3 class="svc-name">Pressure Washing</h3>
+          <p class="svc-desc">Remove dirt, grime, salt, mildew, and stains from driveways, walkways, patios, siding, decks, and fences — restoring like-new condition.</p>
+          <span class="svc-link">Request a quote <span class="arrow">→</span></span>
+        </a>
+      </div>
+    </section>
+
+    <section id="cta-banner">
+      <div class="cta-banner-inner reveal">
+        <div class="cta-banner-text">
+          <h2 class="cta-banner-title">Not sure where to start?</h2>
+          <p class="cta-banner-sub">Tell us about your property and goals. We'll recommend the right services and provide a free, no-obligation estimate.</p>
+        </div>
+        <a href="index.html#quote" class="cta-banner-btn">
+          Book a Service
+          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PARTNERS / SUPPLIERS BELT
+    ============================================================ -->
+    <div id="site-partners"></div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    const revealObserver=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const sibs=[...entry.target.parentElement.querySelectorAll('.reveal:not(.visible)')];
+          const idx=sibs.indexOf(entry.target);
+          setTimeout(()=>entry.target.classList.add('visible'),Math.min(idx*50,400));
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+  </script>
+  <script src="layout.js" defer></script>
+</body>
+</html>

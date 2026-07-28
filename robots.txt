@@ -1,0 +1,5 @@
+# robots.txt for Universal Landscaping
+User-agent: *
+Allow: /
+
+Sitemap: https://universallandscaping.ca/sitemap.xml
