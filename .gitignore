@@ -1,3 +1,23 @@
-# Local Netlify folder
+# Netlify CLI local state (site link / cache)
 .netlify
+
+# ------------------------------------------------------------------
+# Media assets are NOT version-controlled — this repo tracks CODE ONLY
+# (HTML / CSS / JS / config). Photos and videos live on disk and in
+# Google Drive, and reach the live site via `netlify deploy` (which
+# uploads from disk, not from git). The drone video also exceeds
+# GitHub's 100 MB limit, so it could never be committed anyway.
+# ------------------------------------------------------------------
+*.png
+*.PNG
+*.jpg
+*.JPG
+*.jpeg
+*.JPEG
+*.webp
+*.WEBP
+*.gif
+*.ico
 *.mp4
+*.mov
+*.webm
