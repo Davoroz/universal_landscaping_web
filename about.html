@@ -245,7 +245,7 @@
     .awards-inner .eyebrow{display:block;margin-bottom:14px}
     .awards-title{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,4vw,40px);letter-spacing:-0.02em;color:var(--cream);margin-bottom:12px}
     .awards-sub{font-size:16px;color:var(--sand);max-width:56ch;margin:0 auto 52px;line-height:1.6}
-    .awards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .awards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
     .award-card{background:#FFFFFF;border:1px solid rgba(var(--border-rgb),0.08);border-radius:18px;padding:32px 24px 26px;display:flex;flex-direction:column;align-items:center;transition:transform .3s var(--ease-spring),box-shadow .3s ease}
     .award-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.18)}
     .award-badge{height:150px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
@@ -253,7 +253,7 @@
     .award-card:hover .award-badge img{transform:scale(1.05)}
     .award-name{font-family:var(--font-display);font-weight:700;font-size:15px;color:#1A1F14;line-height:1.3;margin-bottom:4px}
     .award-source{font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#6E6A57}
-    @media (max-width:760px){.awards-grid{grid-template-columns:1fr}}
+    @media (max-width:920px){.awards-grid{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:520px){.awards-grid{grid-template-columns:1fr;gap:18px}#awards{padding:64px 24px}.award-badge{height:130px}.award-badge img{max-height:130px}}
   </style>
 </head>
@@ -288,8 +288,8 @@
     <section id="awards" aria-labelledby="awards-title">
       <div class="awards-inner">
         <span class="eyebrow reveal">Recognition</span>
-        <h2 class="awards-title reveal" id="awards-title">Award-winning service,<br>three years running.</h2>
-        <p class="awards-sub reveal">Our commitment to quality hasn't gone unnoticed. We're proud to be recognized as a top-rated landscaping company by ThreeBest Rated® — three years running.</p>
+        <h2 class="awards-title reveal" id="awards-title">Awards &amp; certifications.</h2>
+        <p class="awards-sub reveal">Our commitment to quality hasn't gone unnoticed — three years of top ratings from ThreeBest Rated®, and an A+ accredited-business rating with the Better Business Bureau.</p>
 
         <div class="awards-grid">
           <div class="award-card reveal">
@@ -314,6 +314,17 @@
             </div>
             <div class="award-name">Business Excellence Award</div>
             <div class="award-source">ThreeBest Rated® · 2025</div>
+          </div>
+
+          <!-- BBB Accredited Business — certification card -->
+          <div class="award-card reveal">
+            <div class="award-badge">
+              <a class="bbb-seal-link" target="_blank" rel="noopener" href="https://www.bbb.org/ca/ns/halifax/profile/landscape-contractors/universal-landscaping-inc-0087-83657?utm_campaign=bbb_seal&utm_content=Universal%20Landscaping%20Inc.&utm_medium=website&utm_source=seal_click_83657" aria-label="Universal Landscaping Inc. BBB Accredited Business profile — A+ Rating">
+                <img src="https://m.bbb.org/terminuscontent/dist/img/dynamic-seal/ab-seal-vertical-black.svg?tx=w_96" alt="Better Business Bureau Accredited Business seal — A+ Rating" loading="lazy" />
+              </a>
+            </div>
+            <div class="award-name">BBB Accredited Business</div>
+            <div class="award-source">Better Business Bureau · A+ Rating</div>
           </div>
         </div>
       </div>
