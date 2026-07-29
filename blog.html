@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog — Universal Landscaping</title>
-  <meta name="description" content="Landscaping tips, project stories, and seasonal advice from Universal Landscaping in Halifax, NS." />
+  <meta name="description" content="Landscaping tips, project stories, seasonal advice, and company news from Universal Landscaping in Halifax, NS." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -15,25 +15,29 @@
     html { scroll-behavior: smooth; font-size: 16px; }
     body { background: var(--soil); color: var(--cream); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
     a { color: inherit; }
-    main { padding-top: 324px; }
-    @media (max-width: 768px) { main { padding-top: 226px; } }
-    .legal { max-width: 840px; margin: 0 auto; padding: 0 24px 110px; }
-    .legal .eyebrow { text-transform: uppercase; letter-spacing: 0.14em; font-size: 13px; font-weight: 600; color: var(--sand); }
-    .legal h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(32px,5vw,48px); color: var(--moss); letter-spacing: -0.02em; margin: 14px 0 12px; line-height: 1.08; }
-    .legal .lead { font-size: 18px; color: var(--sand); line-height: 1.6; margin-bottom: 20px; }
-    .legal .updated { color: var(--sand); font-size: 14px; margin-bottom: 30px; }
-    .legal h2 { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--moss); margin: 40px 0 12px; }
-    .legal p, .legal li { color: var(--cream); line-height: 1.75; font-size: 16px; }
-    .legal p { margin-bottom: 14px; }
-    .legal ul { padding-left: 22px; margin: 6px 0 18px; }
-    .legal li { margin-bottom: 8px; }
-    .legal a.link { color: var(--moss); text-decoration: underline; }
-    .cards { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; margin: 24px 0 10px; }
-    @media (max-width:640px) { .cards { grid-template-columns: 1fr; } }
-    .card { background: var(--stone); border: 1px solid rgba(var(--border-rgb),0.08); border-radius: 14px; padding: 24px; }
-    .card h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--cream); margin-bottom: 8px; }
-    .card p { font-size: 14px; color: var(--sand); margin: 0; }
-    .cta-row { margin-top: 28px; display: flex; gap: 14px; flex-wrap: wrap; }
+    main { padding-top: 300px; }
+    @media (max-width: 768px) { main { padding-top: 210px; } }
+    .blog { max-width: 900px; margin: 0 auto; padding: 0 24px 110px; }
+    .blog .eyebrow { text-transform: uppercase; letter-spacing: 0.14em; font-size: 13px; font-weight: 600; color: var(--sand); }
+    .blog h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(32px,5vw,48px); color: var(--moss); letter-spacing: -0.02em; margin: 14px 0 12px; line-height: 1.08; }
+    .blog .lead { font-size: 18px; color: var(--sand); line-height: 1.6; margin-bottom: 36px; max-width: 60ch; }
+
+    .posts { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    @media (max-width: 720px) { .posts { grid-template-columns: 1fr; } }
+    .post-card { display: flex; flex-direction: column; background: var(--stone); border: 1px solid rgba(var(--border-rgb),0.08); border-radius: 18px; padding: 28px; transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease; }
+    .post-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+    .post-card .tag { align-self: flex-start; text-transform: uppercase; letter-spacing: 0.12em; font-size: 11px; font-weight: 600; color: var(--soil); background: var(--lime); padding: 4px 11px; border-radius: 100px; margin-bottom: 16px; }
+    .post-card h2 { font-family: var(--font-display); font-weight: 700; font-size: 21px; color: var(--cream); line-height: 1.25; margin-bottom: 10px; }
+    .post-card p { font-size: 15px; color: var(--sand); line-height: 1.6; margin-bottom: 18px; flex-grow: 1; }
+    .post-card .meta { font-size: 13px; color: var(--sand); margin-bottom: 14px; }
+    .post-card .read { font-weight: 700; font-size: 14px; color: var(--moss); }
+    .post-card:hover .read { text-decoration: underline; }
+
+    .more { background: var(--stone); border: 1px dashed rgba(var(--border-rgb),0.18); border-radius: 18px; padding: 28px; margin-top: 22px; text-align: center; }
+    .more h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--cream); margin-bottom: 6px; }
+    .more p { font-size: 15px; color: var(--sand); margin: 0; }
+
+    .cta-row { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; }
     .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: 100px; text-decoration: none; }
     .btn-primary { background: var(--lime); color: var(--soil); }
     .btn-ghost { border: 1.5px solid var(--moss); color: var(--moss); }
@@ -42,16 +46,32 @@
 <body>
   <div id="site-header"></div>
   <main>
-    <section class="legal">
-<div class="eyebrow">Blog</div>
+    <section class="blog">
+      <div class="eyebrow">Blog</div>
       <h1>News &amp; tips</h1>
       <p class="lead">Project stories, seasonal advice, and tips to help you get the most out of your outdoor space in Nova Scotia.</p>
 
-      <div class="cards">
-        <div class="card"><h3>Coming soon</h3><p>We're getting our blog ready. Check back soon for our first posts.</p></div>
-        <div class="card"><h3>Spring &amp; fall prep</h3><p>How to get your yard, patio, and driveway ready for each season.</p></div>
-        <div class="card"><h3>Hardscaping guides</h3><p>Pavers vs. concrete vs. gravel — choosing the right surface for your project.</p></div>
-        <div class="card"><h3>Behind the build</h3><p>A look at how we design and install complete landscapes across the HRM.</p></div>
+      <div class="posts">
+        <a class="post-card" href="blog-bbb-accreditation.html">
+          <span class="tag">Company News</span>
+          <h2>We're now BBB Accredited — and here's why that matters for you</h2>
+          <p>We've earned a BBB Accredited Business A+ rating. Here's what accreditation means for reputation, verified reviews, and fair dispute resolution.</p>
+          <div class="meta">July 29, 2026 · 4 min read</div>
+          <span class="read">Read article →</span>
+        </a>
+
+        <a class="post-card" href="blog-new-website.html">
+          <span class="tag">Company News</span>
+          <h2>Welcome to our new website — and our new blog</h2>
+          <p>A brand-new website, an AI estimator, and a fresh blog. Here's a tour of what's new and what you'll find here in the seasons ahead.</p>
+          <div class="meta">July 28, 2026 · 3 min read</div>
+          <span class="read">Read article →</span>
+        </a>
+      </div>
+
+      <div class="more">
+        <h3>More on the way</h3>
+        <p>Seasonal prep, hardscaping guides, and behind-the-build project stories are coming soon. Stay tuned. 🍁</p>
       </div>
 
       <div class="cta-row">

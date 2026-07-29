@@ -123,6 +123,16 @@
   status = 301
 
 [[redirects]]
+  from = "/blog-new-website.html"
+  to = "/blog-new-website"
+  status = 301
+
+[[redirects]]
+  from = "/blog-bbb-accreditation.html"
+  to = "/blog-bbb-accreditation"
+  status = 301
+
+[[redirects]]
   from = "/careers.html"
   to = "/careers"
   status = 301

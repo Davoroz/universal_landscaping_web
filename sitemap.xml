@@ -80,8 +80,20 @@
   </url>
   <url>
     <loc>https://universallandscaping.ca/blog</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://universallandscaping.ca/blog-bbb-accreditation</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://universallandscaping.ca/blog-new-website</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>

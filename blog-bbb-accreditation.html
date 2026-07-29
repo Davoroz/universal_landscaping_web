@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>We're Now BBB Accredited (A+) — Universal Landscaping</title>
+  <meta name="description" content="Universal Landscaping is now a BBB Accredited Business with an A+ rating. Here's what BBB accreditation means — and why it matters for our customers across the HRM." />
+  <meta property="og:title" content="We're Now BBB Accredited (A+) — Universal Landscaping" />
+  <meta property="og:description" content="What BBB accreditation means for reputation, trust, verified reviews, and dispute resolution — and why we pursued it." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="theme.css" />
+  <link rel="stylesheet" href="layout.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: var(--soil); color: var(--cream); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    main { padding-top: 300px; }
+    @media (max-width: 768px) { main { padding-top: 210px; } }
+    .post { max-width: 760px; margin: 0 auto; padding: 0 24px 110px; }
+    .post-back { display: inline-block; color: var(--moss); font-size: 14px; font-weight: 600; margin-bottom: 22px; text-decoration: none; }
+    .post-back:hover { text-decoration: underline; }
+    .post-cat { display: inline-block; text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px; font-weight: 600; color: var(--soil); background: var(--lime); padding: 5px 12px; border-radius: 100px; }
+    .post-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px,5vw,46px); color: var(--moss); letter-spacing: -0.02em; line-height: 1.08; margin: 16px 0 12px; }
+    .post-meta { color: var(--sand); font-size: 14px; margin-bottom: 30px; }
+    .post-lead { font-size: 19px; line-height: 1.6; color: var(--cream); margin-bottom: 26px; }
+    .post-body h2 { font-family: var(--font-display); font-weight: 700; font-size: 24px; color: var(--moss); margin: 38px 0 12px; }
+    .post-body p { color: var(--cream); line-height: 1.8; font-size: 17px; margin-bottom: 16px; }
+    .post-body ul { padding-left: 4px; margin: 6px 0 20px; list-style: none; }
+    .post-body li { color: var(--cream); line-height: 1.7; font-size: 17px; margin-bottom: 12px; padding-left: 30px; position: relative; }
+    .post-body li::before { content: "✓"; position: absolute; left: 0; color: var(--moss); font-weight: 700; }
+    .post-body a.link { color: var(--moss); text-decoration: underline; }
+
+    /* ---- Featured BBB seal card ---- */
+    .seal-card {
+      display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: center;
+      background: linear-gradient(135deg, rgba(var(--moss-rgb),0.10), rgba(var(--lime-rgb),0.06));
+      border: 1px solid rgba(var(--moss-rgb),0.22);
+      border-radius: 20px; padding: 30px 32px; margin: 32px 0 8px;
+    }
+    .seal-card img { width: 100%; max-width: 260px; height: auto; border-radius: 8px; display: block; }
+    .seal-card .seal-kicker { text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px; font-weight: 600; color: var(--moss); margin-bottom: 6px; }
+    .seal-card h3 { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--cream); line-height: 1.2; margin-bottom: 8px; }
+    .seal-card p { font-size: 15px; color: var(--sand); line-height: 1.6; margin-bottom: 14px; }
+    .seal-card .seal-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: var(--soil); background: var(--lime); padding: 10px 20px; border-radius: 100px; text-decoration: none; transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s; }
+    .seal-card .seal-link:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(var(--lime-rgb),0.3); }
+    .seal-caption { text-align: center; font-size: 13px; color: var(--sand); margin: 10px 0 0; }
+    @media (max-width: 620px) {
+      .seal-card { grid-template-columns: 1fr; text-align: center; gap: 20px; padding: 26px 22px; }
+      .seal-card img { margin: 0 auto; }
+    }
+
+    .standards { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px 24px; background: var(--stone); border: 1px solid rgba(var(--border-rgb),0.08); border-radius: 16px; padding: 26px 28px; margin: 20px 0 10px; }
+    @media (max-width: 560px) { .standards { grid-template-columns: 1fr; } }
+    .standards div { color: var(--cream); font-size: 15px; line-height: 1.5; padding-left: 26px; position: relative; }
+    .standards div::before { content: "✓"; position: absolute; left: 0; color: var(--moss); font-weight: 700; }
+    .standards strong { color: var(--cream); }
+
+    .post-cta { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: 100px; text-decoration: none; }
+    .btn-primary { background: var(--lime); color: var(--soil); }
+    .btn-ghost { border: 1.5px solid var(--moss); color: var(--moss); }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <article class="post">
+      <a class="post-back" href="blog.html">← All articles</a>
+      <div><span class="post-cat">Company News</span></div>
+      <h1 class="post-title">We're now BBB Accredited — and here's why that matters for you</h1>
+      <div class="post-meta">By Universal Landscaping · July 29, 2026 · 4 min read</div>
+
+      <p class="post-lead">We're proud to share that Universal Landscaping is now a <strong>BBB Accredited Business with an A+ rating</strong>, accredited by BBB Serving the Atlantic Provinces. It's a milestone we're genuinely excited about — and one that's really about you, our customers.</p>
+
+      <div class="post-body">
+        <!-- Featured seal card -->
+        <div class="seal-card">
+          <a target="_blank" rel="noopener" href="https://www.bbb.org/ca/ns/halifax/profile/landscape-contractors/universal-landscaping-inc-0087-83657?utm_source=seal" aria-label="View Universal Landscaping's BBB Business Profile (opens in new tab)">
+            <img src="https://seal.bbb.org/seals/0087-83657/lg/seal-with-rating.png" width="474" height="200" alt="Universal Landscaping Inc. is BBB Accredited with an A+ rating. View BBB Business Profile (opens in new tab)." />
+          </a>
+          <div>
+            <div class="seal-kicker">Officially Accredited</div>
+            <h3>Universal Landscaping Inc. — BBB Accredited, A+ Rating</h3>
+            <p>An independent seal of marketplace trust from the Better Business Bureau. Tap the seal or the button to see our live BBB Business Profile.</p>
+            <a class="seal-link" target="_blank" rel="noopener" href="https://www.bbb.org/ca/ns/halifax/profile/landscape-contractors/universal-landscaping-inc-0087-83657?utm_source=seal">View our BBB profile →</a>
+          </div>
+        </div>
+        <p class="seal-caption">Look for this seal — it links directly to our verified BBB Business Profile.</p>
+
+        <h2>What BBB accreditation actually means</h2>
+        <p>Not every business is a BBB Accredited Business. Accreditation isn't automatic and it isn't just a badge you buy — it's a commitment. To earn and keep it, a business has to meet the BBB's <strong>Standards for Trust</strong>, and accreditation can be revoked if those standards aren't upheld. More than 400,000 businesses across North America hold to these standards.</p>
+
+        <p>Here are the eight standards every BBB Accredited Business commits to:</p>
+        <div class="standards">
+          <div><strong>Build Trust</strong> — maintain a positive track record in the marketplace.</div>
+          <div><strong>Advertise Honestly</strong> — adhere to established advertising standards.</div>
+          <div><strong>Tell the Truth</strong> — represent products and services honestly.</div>
+          <div><strong>Be Transparent</strong> — openly disclose policies and guarantees.</div>
+          <div><strong>Honour Promises</strong> — abide by all agreements and representations.</div>
+          <div><strong>Be Responsive</strong> — address concerns quickly and professionally.</div>
+          <div><strong>Safeguard Privacy</strong> — protect customer information.</div>
+          <div><strong>Embody Integrity</strong> — approach every dealing with integrity.</div>
+        </div>
+
+        <h2>Why it matters for our customers</h2>
+        <p>Inviting a contractor onto your property is an act of trust. You're handing over your home, your budget, and your time. Accreditation is one more way to earn that trust before we've even met — here's how it works in your favour:</p>
+
+        <ul>
+          <li><strong>An independent reputation you can verify.</strong> Anyone can call themselves reliable. BBB accreditation means a neutral third party has reviewed our business, and consumers can check our profile on BBB.org to make an informed decision before hiring us.</li>
+          <li><strong>Reviews and complaints that are real.</strong> BBB validates the identity of every person who leaves a review or complaint and confirms they actually dealt with the business. What you read on our profile comes from genuine customers, not anonymous strangers.</li>
+          <li><strong>A fair path if something ever goes wrong.</strong> In the rare case of a disagreement, the BBB offers unbiased mediation and arbitration to help settle disputes — a fair, low-cost alternative to expensive litigation for everyone involved.</li>
+          <li><strong>Accountability, in writing.</strong> By committing to the Standards for Trust, we've publicly promised to respond to concerns quickly and professionally. If we ever fall short, there's an independent body that holds us to it.</li>
+        </ul>
+
+        <h2>It's a natural fit for how we already work</h2>
+        <p>Honestly, the standards read like the values we were built on. We've always believed in honest estimates, no full payment upfront, a five-year workmanship warranty on eligible hardscape installations, and treating every property like it's our own and every client like a neighbour. BBB accreditation simply puts an independent stamp on the way we've operated since day one.</p>
+
+        <p>Thank you for trusting us with your outdoor spaces. It's a responsibility we don't take lightly — and now there's an A+ to prove it.</p>
+      </div>
+
+      <div class="post-cta">
+        <a class="btn btn-primary" href="index.html#quote">Get a free quote</a>
+        <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.bbb.org/ca/ns/halifax/profile/landscape-contractors/universal-landscaping-inc-0087-83657?utm_source=seal">View our BBB profile</a>
+      </div>
+    </article>
+  </main>
+  <div id="site-partners"></div>
+  <div id="site-footer"></div>
+  <script src="layout.js" defer></script>
+</body>
+</html>
