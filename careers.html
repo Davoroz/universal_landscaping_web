@@ -37,6 +37,29 @@
     .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: 100px; text-decoration: none; }
     .btn-primary { background: var(--lime); color: var(--soil); }
     .btn-ghost { border: 1.5px solid var(--moss); color: var(--moss); }
+
+    /* ---- Job application form ---- */
+    .apply-form { margin-top: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sand); margin-bottom: 8px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; background: rgba(var(--border-rgb),0.04); border: 1px solid rgba(var(--border-rgb),0.1);
+      border-radius: 4px; color: var(--cream); font-family: var(--font-body); font-size: 15px; padding: 13px 16px;
+      outline: none; transition: border-color 0.25s, box-shadow 0.25s; -webkit-appearance: none;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(var(--sand-rgb),0.4); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--moss); box-shadow: 0 0 0 3px rgba(var(--moss-rgb),0.2); }
+    .form-group select { cursor: pointer; }
+    .form-group select option { background: var(--stone); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group input[type="file"] { padding: 12px 14px; border: 1px dashed rgba(var(--border-rgb),0.28); background: rgba(var(--border-rgb),0.03); cursor: pointer; font-size: 14px; color: var(--sand); }
+    .form-group input[type="file"]::file-selector-button { font-family: var(--font-body); font-weight: 600; font-size: 13px; color: #fff; background: var(--moss); border: none; padding: 8px 16px; border-radius: 100px; margin-right: 14px; cursor: pointer; transition: filter 0.2s; }
+    .form-group input[type="file"]::file-selector-button:hover { filter: brightness(1.08); }
+    .field-hint { color: var(--sand); font-weight: 400; text-transform: none; letter-spacing: 0; }
+    .btn-submit { display: inline-flex; align-items: center; gap: 10px; background: var(--lime); color: var(--soil); font-weight: 700; font-size: 15px; padding: 16px 36px; border-radius: 100px; border: none; cursor: pointer; margin-top: 8px; transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s; font-family: var(--font-body); }
+    .btn-submit:hover { transform: scale(1.03); box-shadow: 0 8px 28px rgba(var(--lime-rgb),0.3); }
   </style>
 </head>
 <body>
@@ -63,12 +86,91 @@
         <div class="card"><h3>Snow &amp; Ice Crew</h3><p>Seasonal winter operations across the HRM.</p></div>
       </div>
 
-      <h2>How to apply</h2>
-      <p>Send us a quick note about yourself and your experience through our <a class="link" href="index.html#quote">contact form</a>, or call <a class="link" href="tel:9024418755">902 441 8755</a>. Tell us which role you're interested in and we'll be in touch.</p>
+      <h2 id="apply">Apply now</h2>
+      <p>Fill out the short application below — attach your resume if you have one. Prefer to talk? Call us at <a class="link" href="tel:9024418755">902 441 8755</a>. We review every application and will be in touch if there's a good fit.</p>
 
-      <div class="cta-row">
-        <a class="btn btn-primary" href="index.html#quote">Apply now</a>
-      </div>
+      <form class="apply-form" name="job-application" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you-application.html" novalidate>
+        <!-- Netlify Form: submissions are captured automatically and emailed to you -->
+        <input type="hidden" name="form-name" value="job-application" />
+        <input type="hidden" name="subject" value="👷 New Job Application — Universal Landscaping Website" />
+        <!-- Honeypot field: hidden from users, catches spam bots -->
+        <p style="display:none;"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first_name" required />
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last_name" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="position">Position You're Applying For</label>
+            <select id="position" name="position" required>
+              <option value="" disabled selected>Select a role…</option>
+              <option>Landscape Labourer</option>
+              <option>Hardscape Installer</option>
+              <option>Carpenter</option>
+              <option>Snow &amp; Ice Crew</option>
+              <option>General / Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="experience">Years of Experience</label>
+            <select id="experience" name="experience">
+              <option value="" disabled selected>Select…</option>
+              <option>Less than 1 year</option>
+              <option>1–3 years</option>
+              <option>3–5 years</option>
+              <option>5+ years</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="licence">Valid Driver's Licence?</label>
+            <select id="licence" name="drivers_licence">
+              <option value="" disabled selected>Select…</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="eligible">Eligible to Work in Canada?</label>
+            <select id="eligible" name="work_eligible">
+              <option value="" disabled selected>Select…</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="availability">Earliest Availability</label>
+          <input type="text" id="availability" name="availability" placeholder="e.g. Immediately, or a specific start date" />
+        </div>
+        <div class="form-group">
+          <label for="about">Tell Us About Yourself</label>
+          <textarea id="about" name="about" placeholder="Your experience, the skills you bring, and why you'd like to join the crew."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="resume">Resume <span class="field-hint">(optional — PDF or Word document)</span></label>
+          <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" />
+        </div>
+        <button type="submit" class="btn-submit">Submit Application</button>
+      </form>
     </section>
   </main>
   <div id="site-partners"></div>

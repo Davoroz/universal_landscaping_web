@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application Received — Universal Landscaping</title>
+  <meta name="description" content="Thanks for applying to Universal Landscaping. We've received your application and will be in touch if there's a good fit." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="theme.css" />
+  <link rel="stylesheet" href="layout.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: var(--soil); color: var(--cream); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    main { padding-top: 324px; }
+    @media (max-width: 768px) { main { padding-top: 226px; } }
+    .ty { max-width: 720px; margin: 0 auto; padding: 0 24px 120px; text-align: center; }
+    .ty-icon { width: 76px; height: 76px; border-radius: 50%; background: var(--lime); color: var(--soil); display: flex; align-items: center; justify-content: center; font-size: 38px; margin: 0 auto 26px; }
+    .ty .eyebrow { text-transform: uppercase; letter-spacing: 0.14em; font-size: 13px; font-weight: 600; color: var(--sand); }
+    .ty h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px,5vw,46px); color: var(--moss); letter-spacing: -0.02em; margin: 12px 0 16px; line-height: 1.1; }
+    .ty p { font-size: 17px; color: var(--cream); line-height: 1.7; margin-bottom: 14px; }
+    .ty .muted { color: var(--sand); font-size: 15px; }
+    .ty-steps { text-align: left; background: var(--stone); border: 1px solid rgba(var(--border-rgb),0.08); border-radius: 16px; padding: 26px 28px; margin: 32px 0; }
+    .ty-steps li { color: var(--cream); line-height: 1.7; margin-bottom: 10px; list-style: none; padding-left: 28px; position: relative; }
+    .ty-steps li:last-child { margin-bottom: 0; }
+    .ty-steps li::before { content: "✓"; position: absolute; left: 0; color: var(--moss); font-weight: 700; }
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: 100px; text-decoration: none; }
+    .btn-primary { background: var(--lime); color: var(--soil); }
+    .btn-ghost { border: 1.5px solid var(--moss); color: var(--moss); }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="ty">
+      <div class="ty-icon" aria-hidden="true">✓</div>
+      <div class="eyebrow">Careers</div>
+      <h1>Application received!</h1>
+      <p>Thanks for your interest in joining Universal Landscaping. Your application is in — we read every one.</p>
+
+      <ul class="ty-steps">
+        <li><strong>We review your application</strong> against the roles our crew is currently hiring for.</li>
+        <li><strong>If there's a good fit</strong>, a member of our team will reach out by phone or email to set up a chat.</li>
+        <li><strong>Questions in the meantime?</strong> Call us any time at <a href="tel:9024418755" style="color:var(--moss);text-decoration:underline;">902 441 8755</a>.</li>
+      </ul>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="index.html">Back to home</a>
+        <a class="btn btn-ghost" href="services.html">See what we do</a>
+      </div>
+    </section>
+  </main>
+  <div id="site-partners"></div>
+  <div id="site-footer"></div>
+  <script src="layout.js" defer></script>
+</body>
+</html>
